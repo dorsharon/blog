@@ -15,14 +15,17 @@
     "@astrojs/react": "^3.3.1",
     "@astrojs/rss": "^4.0.5",
     "@astrojs/sitemap": "^3.1.4",
+    "@fontsource-variable/raleway": "^5.0.19",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "astro": "^4.7.0",
+    "astro-icon": "^1.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "typescript": "^5.4.5"
   },
   "devDependencies": {
+    "@iconify-json/mdi": "^1.1.66",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0"
   }
