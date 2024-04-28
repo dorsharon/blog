@@ -2,23 +2,22 @@
 import LottieAnimation from "astro-integration-lottie/Lottie.astro";
 import { Image } from "astro:assets";
 import AvatarImage from "../../public/avatar.jpeg";
+import BlogPostsList from "./BlogPostsList.astro";
 ---
 
-<div class="wrapper">
-  <div class="introduction">
-    <Image
-      class="avatar"
-      src={AvatarImage}
-      alt="avatar"
-      width={250}
-      height={250}
-    />
+<div class="introduction">
+  <Image
+    class="avatar"
+    src={AvatarImage}
+    alt="avatar"
+    width={250}
+    height={250}
+  />
 
-    <div>
-      <h1>Hi there!</h1>
-      <h3>I'm Dor Sharon</h3>
-      <h4>I'm a full stack developer</h4>
-    </div>
+  <div>
+    <h1>Hi there!</h1>
+    <h3>I'm Dor Sharon</h3>
+    <h4>I'm a full stack developer</h4>
   </div>
 </div>
 
@@ -37,19 +36,47 @@ import AvatarImage from "../../public/avatar.jpeg";
   </div>
 </div>
 
-<style>
-  .wrapper {
-    display: flex;
-    align-items: center;
-  }
+<div>
+  <div class="lottie">
+    <LottieAnimation src="lottie/laptop.json" autoplay="visible" />
+  </div>
 
+  <p>These are the technologies I like to work with:</p>
+  <ul>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+    <li>React</li>
+    <li>Node.js</li>
+    <li>Express</li>
+    <li>MongoDB</li>
+    <li>PostgreSQL</li>
+    <li>GraphQL</li>
+    <li>RESTful APIs</li>
+    <li>Git</li>
+    <li>CI/CD</li>
+    <li>Testing</li>
+    <li>Agile</li>
+  </ul>
+</div>
+
+<BlogPostsList />
+
+<style>
   .avatar {
     border-radius: 8px;
   }
 
   .introduction {
     display: flex;
+    align-items: center;
     gap: 1em;
+    width: 100%;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      text-align: center;
+    }
   }
 
   .description {
