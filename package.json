@@ -1,10 +1,9 @@
 {
-  "name": "fast-flare",
+  "name": "blog",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -15,18 +14,21 @@
     "@astrojs/react": "^3.3.1",
     "@astrojs/rss": "^4.0.5",
     "@astrojs/sitemap": "^3.1.4",
+    "@floating-ui/react": "^0.26.13",
     "@fontsource-variable/raleway": "^5.0.19",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "astro": "^4.7.0",
     "astro-icon": "^1.1.0",
     "astro-integration-lottie": "^0.2.3",
+    "framer-motion": "^11.1.7",
     "lottie-web": "^5.12.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "typescript": "^5.4.5"
   },
   "devDependencies": {
+    "@iconify-json/logos": "^1.1.42",
     "@iconify-json/mdi": "^1.1.66",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0"
