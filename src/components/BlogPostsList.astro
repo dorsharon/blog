@@ -15,7 +15,7 @@ const posts = (await getCollection("blog")).sort(
 				<Image
 					width={720}
 					height={360}
-					src={data.image}
+					src={data.image ?? ""}
 					alt={data.title}
 				/>
 				<h4 class="title">{data.title}</h4>
