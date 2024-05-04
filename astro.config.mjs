@@ -8,5 +8,6 @@ import lottie from "astro-integration-lottie";
 // https://astro.build/config
 export default defineConfig({
   site: "https://dorsharon.github.io",
+  base: 'blog',
   integrations: [mdx(), sitemap(), react(), icon(), lottie()],
 });

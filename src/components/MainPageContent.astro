@@ -1,7 +1,7 @@
 ---
 import LottieAnimation from "astro-integration-lottie/Lottie.astro";
 import { Image } from "astro:assets";
-import AvatarImage from "../../public/avatar.jpeg";
+import AvatarImage from "../assets/avatar.jpeg";
 import BlogPostsList from "./BlogPostsList.astro";
 import SkillIcon from "./SkillIcon.astro";
 import RotatingText from "./RotatingText";
@@ -93,6 +93,8 @@ import RotatingText from "./RotatingText";
 	</div>
 </div>
 
+<hr />
+
 <BlogPostsList />
 
 <style>
@@ -140,5 +142,10 @@ import RotatingText from "./RotatingText";
 		width: 100%;
 		max-width: 400px;
 		flex-grow: 1;
+	}
+
+	hr {
+		margin-top: 2em;
+		margin-bottom: 2em;
 	}
 </style>
