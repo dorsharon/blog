@@ -1,39 +1,38 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 
-type Props = CollectionEntry<"blog">["data"];
+type Props = CollectionEntry<"blog">["data"] & { readingTime: string };
 
-const { title, subtitle, publishDate, image } = Astro.props;
+const { title, subtitle, publishDate, image, readingTime } = Astro.props;
 ---
 
-<BaseLayout>
-	<article>
-		<div class="wrapper">
-			{
-				image && (
-					<div class="image-wrapper">
-						<Image width={800} height={450} src={image} alt="" />
-					</div>
-				)
-			}
+<article>
+	<div class="wrapper">
+		{
+			image && (
+				<div class="image-wrapper">
+					<Image width={800} height={450} src={image} alt="" />
+				</div>
+			)
+		}
 
-			<div class="title">
-				<h2>{title}</h2>
+		<div class="title">
+			<h2>{title}</h2>
 
-				<h5>{subtitle}</h5>
+			<h5>{subtitle}</h5>
 
-				<FormattedDate date={publishDate} />
-			</div>
+			<FormattedDate date={publishDate} />
 
-			<hr />
-
-			<slot />
+			<h6>{readingTime}</h6>
 		</div>
-	</article>
-</BaseLayout>
+
+		<hr />
+
+		<slot />
+	</div>
+</article>
 
 <style>
 	.wrapper {

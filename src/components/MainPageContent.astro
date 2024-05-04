@@ -5,6 +5,8 @@ import AvatarImage from "../assets/avatar.jpeg";
 import BlogPostsList from "./BlogPostsList.astro";
 import SkillIcon from "./SkillIcon.astro";
 import RotatingText from "./RotatingText";
+
+const { BASE_URL } = import.meta.env;
 ---
 
 <div class="introduction">
@@ -48,13 +50,19 @@ import RotatingText from "./RotatingText";
 	</p>
 
 	<div class="lottie">
-		<LottieAnimation src="lottie/developer.json" autoplay="visible" />
+		<LottieAnimation
+			src=`${BASE_URL}/lottie/developer.json`
+			autoplay="visible"
+		/>
 	</div>
 </div>
 
 <div class="skills">
 	<div class="lottie">
-		<LottieAnimation src="lottie/laptop.json" autoplay="visible" />
+		<LottieAnimation
+			src=`${BASE_URL}/lottie/laptop.json`
+			autoplay="visible"
+		/>
 	</div>
 
 	<div>
@@ -108,16 +116,28 @@ import RotatingText from "./RotatingText";
 		align-items: center;
 		gap: 1em;
 		width: 100%;
+	}
 
+	.introduction {
 		@media (max-width: 768px) {
 			flex-direction: column;
 			text-align: center;
 		}
 	}
 
+	.skills {
+		@media (max-width: 768px) {
+			flex-direction: column-reverse;
+		}
+	}
+
 	.rotating-text-wrapper {
 		display: flex;
 		gap: 0.5em;
+
+		@media (max-width: 768px) {
+			flex-direction: column;
+		}
 	}
 
 	.skills-grid {
