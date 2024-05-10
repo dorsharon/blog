@@ -15,14 +15,37 @@ const posts = (await getCollection("blog")).sort(
 		posts.map(({ slug, data }) => (
 			<a href={`${BASE_URL}/posts/${slug}/`}>
 				<Image
-					width={720}
-					height={360}
 					src={data.image}
 					alt={data.title}
+					format="avif"
+					width={400}
 				/>
-				<h4 class="title">{data.title}</h4>
-				<FormattedDate date={data.publishDate} />
+
+				<div class="post-info">
+					<h4 class="title">{data.title}</h4>
+					<h5 class="title">{data.subtitle}</h5>
+					<FormattedDate date={data.publishDate} />
+				</div>
 			</a>
 		))
 	}
 </section>
+
+<style>
+	section a {
+		width: 100%;
+		border: 1px solid #cccccc;
+		display: flex;
+		border-radius: 8px;
+		text-decoration: none;
+
+		img {
+			border-bottom-left-radius: 8px;
+			border-top-left-radius: 8px;
+		}
+
+		.post-info {
+			padding: 1em;
+		}
+	}
+</style>

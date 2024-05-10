@@ -1,65 +1,49 @@
 ---
-import HeaderLink from "./HeaderLink.astro";
 import SocialLinks from "./SocialLinks.astro";
 ---
 
 <header>
-  <nav>
-    <a class="logo" href="/">
-      <h2>dor</h2>
-      <h2>sharon</h2>
-    </a>
+	<nav>
+		<a class="logo" href="/">
+			<h2>dor</h2>
+			<h2>sharon</h2>
+		</a>
 
-    <SocialLinks />
-  </nav>
+		<SocialLinks />
+	</nav>
 </header>
 <style>
-  header {
-    margin: 0;
-    padding: 0 1em;
-  }
+	header {
+		margin: 0;
+		padding: 1em 1em 0 1em;
+	}
 
-  .logo {
-    display: flex;
-    align-items: center;
+	.logo {
+		display: flex;
+		align-items: center;
 
-    h2 {
-      margin: 0;
-      font-size: 1.5em;
-      font-weight: 400;
+		h2 {
+			margin: 0;
+			font-size: 1.5em;
+			font-weight: 400;
 
-      &:first-of-type {
-        color: var(--text-primary);
-      }
+			&:first-of-type {
+				color: var(--text-primary);
+			}
 
-      &:not(:first-of-type) {
-        color: var(--text-secondary);
-      }
-    }
-  }
+			&:not(:first-of-type) {
+				color: var(--text-secondary);
+			}
+		}
+	}
 
-  nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  nav a {
-    padding: 1em 0.5em;
-    color: var(--black);
-    border-bottom: 4px solid transparent;
-    text-decoration: none;
-  }
-  nav a.active {
-    text-decoration: none;
-    border-bottom-color: var(--accent);
-  }
-  .social-links,
-  .social-links a {
-    display: flex;
-  }
-  @media (max-width: 720px) {
-    .social-links {
-      display: none;
-    }
-  }
+	nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		a {
+			text-decoration: none;
+		}
+	}
 </style>
