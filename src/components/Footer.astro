@@ -1,20 +1,13 @@
 ---
-import SocialLinks from "./SocialLinks.astro";
-const today = new Date();
+
+import {profileConfig} from "../config";
+
 ---
 
-<footer>
-  &copy; {today.getFullYear()} Dor Sharon.
-
-  <SocialLinks />
-</footer>
-
-<style>
-  footer {
-    padding: 2em 1em 1em 1em;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-  }
-</style>
+<div class="card-base max-w-[var(--page-width)] min-h-[4.5rem] rounded-b-none mx-auto flex items-center px-6">
+    <div class="transition text-50 text-sm">
+        © 2024 {profileConfig.name}. All Rights Reserved.
+        <br>
+        Powered by <a class="link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/saicaca/fuwari">Fuwari</a>
+    </div>
+</div>
