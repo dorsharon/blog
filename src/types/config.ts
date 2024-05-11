@@ -1,56 +1,55 @@
 export type SiteConfig = {
-  title: string
-  subtitle: string
+	title: string;
+	subtitle: string;
 
-  lang: string
+	lang: string;
 
-  themeColor: {
-    hue: number
-    fixed: boolean
-  }
-  banner: {
-    enable: boolean
-    src: string
-  }
+	themeColor: {
+		hue: number;
+		fixed: boolean;
+	};
+	banner: {
+		enable: boolean;
+		src: string;
+	};
 
-  favicon: Favicon[]
-}
+	favicon: Favicon[];
+};
 
 export type Favicon = {
-  src: string,
-  theme?: 'light' | 'dark'
-  sizes?: string
-}
+	src: string;
+	theme?: "light" | "dark";
+	sizes?: string;
+};
 
 export enum LinkPreset {
-  Home = 0,
-  Archive = 1,
-  About = 2,
+	Home = 0,
+	Archive = 1,
+	About = 2,
 }
 
 export type NavBarLink = {
-  name: string
-  url: string
-  external?: boolean
-}
+	name: string;
+	url: string;
+};
 
 export type NavBarConfig = {
-  links: (NavBarLink | LinkPreset)[]
-}
+	links: (NavBarLink | LinkPreset)[];
+};
 
 export type ProfileConfig = {
-  avatar?: string
-  name: string
-  bio?: string
-  links: {
-    name: string
-    url: string
-    icon: string
-  }[]
-}
+	avatar?: string;
+	name: string;
+	bio?: string;
+	links: {
+		name: string;
+		url: string;
+		icon: string;
+	}[];
+};
 
 export type LicenseConfig = {
-  enable: boolean
-  name: string
-  url: string
-}
+	enable: boolean;
+	name: string;
+	url: string;
+};
