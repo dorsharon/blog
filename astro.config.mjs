@@ -16,87 +16,71 @@ import svelte from "@astrojs/svelte";
 import swup from "@swup/astro";
 import sitemap from "@astrojs/sitemap";
 import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
-
-const oklchToHex = (str) => {
-  const DEFAULT_HUE = 250
-  const regex = /-?\d+(\.\d+)?/g
-  const matches = str.string.match(regex)
-  const lch = [matches[0], matches[1], DEFAULT_HUE]
+import react from "@astrojs/react";
+const oklchToHex = str => {
+  const DEFAULT_HUE = 250;
+  const regex = /-?\d+(\.\d+)?/g;
+  const matches = str.string.match(regex);
+  const lch = [matches[0], matches[1], DEFAULT_HUE];
   return new Color("oklch", lch).to("srgb").toString({
-    format: "hex",
-  })
-}
+    format: "hex"
+  });
+};
+
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://fuwari.vercel.app/",
   base: "/",
   trailingSlash: "always",
-  integrations: [
-    tailwind(),
-    swup({
-      theme: false,
-      animationClass: 'transition-',
-      containers: ['main'],
-      smoothScrolling: true,
-      cache: true,
-      preload: true,
-      accessibility: true,
-      globalInstance: true,
-    }),
-    icon({
-      include: {
-        "material-symbols": ["*"],
-        "fa6-brands": ["*"],
-        "fa6-regular": ["*"],
-        "fa6-solid": ["*"],
-      },
-    }),
-    Compress({
-      Image: false,
-    }),
-    svelte(),
-    sitemap(),
-  ],
+  integrations: [tailwind(), swup({
+    theme: false,
+    animationClass: 'transition-',
+    containers: ['main'],
+    smoothScrolling: true,
+    cache: true,
+    preload: true,
+    accessibility: true,
+    globalInstance: true
+  }), icon({
+    include: {
+      "material-symbols": ["*"],
+      "fa6-brands": ["*"],
+      "fa6-regular": ["*"],
+      "fa6-solid": ["*"]
+    }
+  }), Compress({
+    Image: false
+  }), svelte(), sitemap(), react()],
   markdown: {
     remarkPlugins: [remarkMath, remarkReadingTime, remarkDirective, parseDirectiveNode],
-    rehypePlugins: [
-      rehypeKatex,
-      rehypeSlug,
-      [rehypeComponents, {
-        components: {
-          github: GithubCardComponent,
-          note: (x, y) => AdmonitionComponent(x, y, "note"),
-          tip: (x, y) => AdmonitionComponent(x, y, "tip"),
-          important: (x, y) => AdmonitionComponent(x, y, "important"),
-          caution: (x, y) => AdmonitionComponent(x, y, "caution"),
-          warning: (x, y) => AdmonitionComponent(x, y, "warning"),
+    rehypePlugins: [rehypeKatex, rehypeSlug, [rehypeComponents, {
+      components: {
+        github: GithubCardComponent,
+        note: (x, y) => AdmonitionComponent(x, y, "note"),
+        tip: (x, y) => AdmonitionComponent(x, y, "tip"),
+        important: (x, y) => AdmonitionComponent(x, y, "important"),
+        caution: (x, y) => AdmonitionComponent(x, y, "caution"),
+        warning: (x, y) => AdmonitionComponent(x, y, "warning")
+      }
+    }], [rehypeAutolinkHeadings, {
+      behavior: "append",
+      properties: {
+        className: ["anchor"]
+      },
+      content: {
+        type: "element",
+        tagName: "span",
+        properties: {
+          className: ["anchor-icon"],
+          'data-pagefind-ignore': true
         },
-      }],
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: "append",
-          properties: {
-            className: ["anchor"],
-          },
-          content: {
-            type: "element",
-            tagName: "span",
-            properties: {
-              className: ["anchor-icon"],
-              'data-pagefind-ignore': true,
-            },
-            children: [
-              {
-                type: "text",
-                value: "#",
-              },
-            ],
-          },
-        },
-      ],
-    ],
+        children: [{
+          type: "text",
+          value: "#"
+        }]
+      }
+    }]]
   },
   vite: {
     build: {
@@ -114,10 +98,10 @@ export default defineConfig({
       preprocessorOptions: {
         stylus: {
           define: {
-            oklchToHex: oklchToHex,
-          },
-        },
-      },
-    },
-  },
-})
+            oklchToHex: oklchToHex
+          }
+        }
+      }
+    }
+  }
+});

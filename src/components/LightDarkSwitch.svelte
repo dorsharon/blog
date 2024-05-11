@@ -1,17 +1,17 @@
 <script lang="ts">
 
-import Icon from "@iconify/svelte"
-import {i18n} from '@i18n/translation'
-import I18nKey from '@i18n/i18nKey'
-import {setTheme, getStoredTheme} from '../utils/setting-utils.ts'
-import {onMount} from "svelte";
-import {AUTO_MODE, DARK_MODE, LIGHT_MODE} from "@constants/constants.ts";
+    import Icon from "@iconify/svelte";
+    import { i18n } from "@i18n/translation";
+    import I18nKey from "@i18n/i18nKey";
+    import { getTheme, setTheme } from "../utils/setting-utils.ts";
+    import { onMount } from "svelte";
+    import { AUTO_MODE, DARK_MODE, LIGHT_MODE } from "@constants/constants.ts";
 
-const seq = [LIGHT_MODE, DARK_MODE, AUTO_MODE]
+    const seq = [LIGHT_MODE, DARK_MODE, AUTO_MODE]
 let mode = AUTO_MODE
 
 onMount(() => {
-    mode = getStoredTheme()
+    mode = getTheme()
 })
 
 function switchScheme(newMode: string) {

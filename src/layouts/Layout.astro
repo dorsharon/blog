@@ -221,12 +221,7 @@ const siteLang = siteConfig.lang.replace("_", "-");
 		SizeObserverPlugin,
 		ClickScrollPlugin,
 	} from "overlayscrollbars";
-	import {
-		getHue,
-		getStoredTheme,
-		setHue,
-		setTheme,
-	} from "../utils/setting-utils";
+	import { getHue, getTheme, setHue, setTheme } from "../utils/setting-utils";
 
 	// function setClickOutsideToClose(panel: string, ignores: string[]) {
 	// 	document.addEventListener("click", (event) => {
@@ -256,7 +251,7 @@ const siteLang = siteConfig.lang.replace("_", "-");
 	// ]);
 
 	function loadTheme() {
-		const theme = getStoredTheme();
+		const theme = getTheme();
 		setTheme(theme);
 	}
 

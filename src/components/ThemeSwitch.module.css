@@ -1,0 +1,4 @@
+.current-setting {
+    background: var(--btn-plain-bg-hover);
+    color: var(--primary);
+}
