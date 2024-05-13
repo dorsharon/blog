@@ -1,11 +1,11 @@
-import { getCollection } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 
-export async function getSortedPosts() {
+export const getSortedPosts = async () => {
 	const allBlogPosts = await getCollection("posts");
 
 	const sortedPosts = allBlogPosts.sort((a, b) => {
-		const dateA = new Date(a.data.published);
-		const dateB = new Date(b.data.published);
+		const dateA = new Date(a.data.publishDate);
+		const dateB = new Date(b.data.publishDate);
 		return dateA > dateB ? -1 : 1;
 	});
 
@@ -19,17 +19,15 @@ export async function getSortedPosts() {
 	}
 
 	return sortedPosts;
-}
+};
 
 export type Tag = {
 	name: string;
 	count: number;
 };
 
-export async function getTagList(): Promise<Tag[]> {
-	const allBlogPosts = await getCollection("posts", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
+export const getTagsList = async (): Promise<Tag[]> => {
+	const allBlogPosts = await getCollection("posts");
 
 	const countMap: { [key: string]: number } = {};
 	allBlogPosts.map((post) => {
@@ -45,36 +43,30 @@ export async function getTagList(): Promise<Tag[]> {
 	});
 
 	return keys.map((key) => ({ name: key, count: countMap[key] }));
-}
-
-export type Category = {
-	name: string;
-	count: number;
 };
 
-export async function getCategoryList(): Promise<Category[]> {
-	const allBlogPosts = await getCollection("posts", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
-	const count: { [key: string]: number } = {};
-	allBlogPosts.map((post) => {
-		if (!post.data.category) {
-			const ucKey = i18n(I18nKey.uncategorized);
-			count[ucKey] = count[ucKey] ? count[ucKey] + 1 : 1;
-			return;
+export const groupPostsByYear = (
+	posts: CollectionEntry<"posts">[],
+): { year: number; posts: CollectionEntry<"posts">[] }[] => {
+	const groupedPosts = posts.reduce((result, post) => {
+		const year = post.data.publishDate.getFullYear();
+
+		if (!result[year]) {
+			result[year] = [];
 		}
-		count[post.data.category] = count[post.data.category]
-			? count[post.data.category] + 1
-			: 1;
-	});
 
-	const lst = Object.keys(count).sort((a, b) => {
-		return a.toLowerCase().localeCompare(b.toLowerCase());
-	});
+		result[year].push(post);
+		return result;
+	}, {});
 
-	const ret: Category[] = [];
-	for (const c of lst) {
-		ret.push({ name: c, count: count[c] });
-	}
-	return ret;
-}
+	// convert the object to an array
+	const groupedPostsArray = Object.keys(groupedPosts).map((key) => ({
+		year: key,
+		posts: groupedPosts[key],
+	}));
+
+	// sort years by latest first
+	groupedPostsArray.sort((a, b) => b.year - a.year);
+
+	return groupedPostsArray;
+};

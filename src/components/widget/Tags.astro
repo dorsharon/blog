@@ -1,32 +1,73 @@
 ---
-
 import WidgetLayout from "./WidgetLayout.astro";
 import ButtonTag from "../control/ButtonTag.astro";
-import {getTagList} from "../../utils/content-utils";
-import {i18n} from "../../i18n/translation";
-import I18nKey from "../../i18n/i18nKey";
-import {url} from "../../utils/url-utils";
+import { getTagsList } from "../../utils/content-utils";
+import { url } from "../../utils/url-utils";
+import { Icon } from "astro-icon/components";
 
-const tags = await getTagList();
+const tags = await getTagsList();
 
 const COLLAPSED_HEIGHT = "7.5rem";
 
 const isCollapsed = tags.length >= 20;
 
 interface Props {
-    class?: string;
-    style?: string;
+	class?: string;
+	style?: string;
 }
-const className = Astro.props.class
-const style = Astro.props.style
-
+const className = Astro.props.class;
+const style = Astro.props.style;
 ---
-<WidgetLayout name={i18n(I18nKey.tags)} id="tags" isCollapsed={isCollapsed} collapsedHeight={COLLAPSED_HEIGHT} class={className} style={style}>
-    <div class="flex gap-2 flex-wrap">
-        {tags.map(t => (
-            <ButtonTag href={url(`/archive/tag/${t.name}/`)} label={`View all posts with the ${t.name} tag`}>
-                {t.name}
-            </ButtonTag>
-        ))}
-    </div>
+
+<div class={"pb-4 card-base"} style={style}>
+	<div
+		class="font-bold transition text-lg text-neutral-900 dark:text-neutral-100 relative ml-8 mt-4 mb-2
+        before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+        before:absolute before:left-[-16px] before:top-[5.5px]"
+	>
+		{name}
+	</div>
+	<div
+		id={id}
+		class:list={[
+			"collapse-wrapper px-4 overflow-hidden",
+			{ collapsed: isCollapsed },
+		]}
+	>
+		<slot />
+	</div>
+	{
+		isCollapsed && (
+			<div class="expand-btn px-4 -mb-2">
+				<button class="btn-plain w-full h-9 rounded-lg">
+					<div class="text-[var(--primary)] flex items-center justify-center gap-2 -translate-x-2">
+						<Icon name="material-symbols:more-horiz" size={28} />{" "}
+						{i18n(I18nKey.more)}
+					</div>
+				</button>
+			</div>
+		)
+	}
+</div>
+
+<WidgetLayout
+	name={"Tags"}
+	id="tags"
+	isCollapsed={isCollapsed}
+	collapsedHeight={COLLAPSED_HEIGHT}
+	class={className}
+	style={style}
+>
+	<div class="flex gap-2 flex-wrap">
+		{
+			tags.map((t) => (
+				<ButtonTag
+					href={url(`/archive/tag/${t.name}/`)}
+					label={`View all posts with the ${t.name} tag`}
+				>
+					{t.name}
+				</ButtonTag>
+			))
+		}
+	</div>
 </WidgetLayout>
