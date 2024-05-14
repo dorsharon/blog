@@ -1,0 +1,101 @@
+---
+
+---
+
+<script>
+	import "overlayscrollbars/overlayscrollbars.css";
+	import { OverlayScrollbars } from "overlayscrollbars";
+	import { getHue, getTheme, setHue, setTheme } from "../utils/setting-utils";
+
+	// function setClickOutsideToClose(panel: string, ignores: string[]) {
+	// 	document.addEventListener("click", (event) => {
+	// 		let panelDom = document.getElementById(panel);
+	// 		let tDom = event.target;
+	// 		for (let ig of ignores) {
+	// 			let ie = document.getElementById(ig);
+	// 			if (ie == tDom || ie?.contains(tDom)) {
+	// 				return;
+	// 			}
+	// 		}
+	// 		panelDom.classList.add("float-panel-closed");
+	// 	});
+	// }
+	// setClickOutsideToClose("display-setting", [
+	// 	"display-setting",
+	// 	"display-settings-switch",
+	// ]);
+	// setClickOutsideToClose("nav-menu-panel", [
+	// 	"nav-menu-panel",
+	// 	"nav-menu-switch",
+	// ]);
+	// setClickOutsideToClose("search-panel", [
+	// 	"search-panel",
+	// 	"search-bar",
+	// 	"search-switch",
+	// ]);
+
+	function loadTheme() {
+		const theme = getTheme();
+		setTheme(theme);
+	}
+
+	function loadHue() {
+		setHue(getHue());
+	}
+
+	function initCustomScrollbar() {
+		OverlayScrollbars(
+			// docs say that a initialization to the body element would affect native functionality like window.scrollTo
+			// but just leave it here for now
+			{
+				target: document.querySelector("body"),
+			},
+			{
+				scrollbars: {
+					theme: "scrollbar-base scrollbar-auto py-1",
+					autoHide: "move",
+					autoHideDelay: 500,
+					autoHideSuspend: false,
+				},
+			},
+		);
+		document.querySelectorAll("pre").forEach((ele) => {
+			OverlayScrollbars(ele, {
+				scrollbars: {
+					theme: "scrollbar-base scrollbar-dark px-2",
+					autoHide: "leave",
+					autoHideDelay: 500,
+					autoHideSuspend: false,
+				},
+			});
+		});
+	}
+
+	function init() {
+		loadTheme();
+		loadHue();
+		initCustomScrollbar();
+	}
+
+	/* Load settings when entering the site */
+	init();
+
+	/* Load settings before swapping */
+	/* astro:after-swap event happened before swap animation */
+	document.addEventListener("astro:after-swap", init);
+
+	const setup = () => {
+		// Remove the delay for the first time page load
+		window.swup.hooks.on("link:click", () => {
+			document.documentElement.style.setProperty(
+				"--content-delay",
+				"0ms",
+			);
+		});
+	};
+	if (window.swup.hooks) {
+		setup();
+	} else {
+		document.addEventListener("swup:enable", setup);
+	}
+</script>

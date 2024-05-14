@@ -4,7 +4,6 @@ import icon from "astro-icon";
 import { defineConfig } from "astro/config";
 import Color from "colorjs.io";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import remarkMath from "remark-math";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.mjs";
 import { AdmonitionComponent } from "./src/plugins/rehype-component-admonition.mjs";
@@ -28,9 +27,8 @@ const oklchToHex = (str) => {
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://fuwari.vercel.app/",
-	base: "/",
-	trailingSlash: "always",
+	site: "https://dorsharon.github.io",
+	base: "/blog",
 	integrations: [
 		tailwind(),
 		swup({
@@ -60,7 +58,6 @@ export default defineConfig({
 	],
 	markdown: {
 		remarkPlugins: [
-			remarkMath,
 			remarkReadingTime,
 			remarkDirective,
 			parseDirectiveNode,
