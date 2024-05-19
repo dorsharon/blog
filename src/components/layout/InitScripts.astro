@@ -5,7 +5,7 @@
 <script>
 	import "overlayscrollbars/overlayscrollbars.css";
 	import { OverlayScrollbars } from "overlayscrollbars";
-	import { getHue, getTheme, setHue, setTheme } from "../utils/setting-utils";
+	import { getHue, getTheme, setHue, setTheme } from "@utils/setting-utils";
 
 	// function setClickOutsideToClose(panel: string, ignores: string[]) {
 	// 	document.addEventListener("click", (event) => {
@@ -93,7 +93,7 @@
 			);
 		});
 	};
-	if (window.swup.hooks) {
+	if (window?.swup?.hooks) {
 		setup();
 	} else {
 		document.addEventListener("swup:enable", setup);

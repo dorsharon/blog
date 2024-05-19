@@ -2,9 +2,6 @@
 	"extends": "astro/tsconfigs/strict",
 	"compilerOptions": {
 		"baseUrl": ".",
-		"strictNullChecks": true,
-		"verbatimModuleSyntax": true,
-		"allowJs": true,
 		"plugins": [
 			{
 				"name": "@astrojs/ts-plugin"

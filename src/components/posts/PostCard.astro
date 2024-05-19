@@ -1,10 +1,10 @@
 ---
 import path from "path";
 import PostMetadata from "./PostMetadata.astro";
-import ImageWrapper from "../common/ImageWrapper.astro";
 import { Icon } from "astro-icon/components";
 import { getDir, getPostUrlBySlug } from "../../utils/url-utils";
 import { type CollectionEntry } from "astro:content";
+import { Image } from 'astro:assets';
 
 interface Props {
 	post: CollectionEntry<'posts'>
@@ -97,7 +97,7 @@ const { remarkPluginFrontmatter } = await post.render();
 					/>
 				</div>
 
-				<ImageWrapper
+				<Image
 					src={image}
 					basePath={path.join("content/posts/", getDir(post.id))}
 					alt="Cover Image of the Post"

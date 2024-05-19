@@ -11,15 +11,10 @@ const COLLAPSED_HEIGHT = "7.5rem";
 
 const isCollapsed = tags.length >= 20;
 
-interface Props {
-	class?: string;
-	style?: string;
-}
-const className = Astro.props.class;
-const style = Astro.props.style;
+
 ---
 
-<div class={"pb-4 card-base"} style={style}>
+<div class={"pb-4 card-base"}  style="animation-delay: 200ms">
 	<div
 		class="font-bold transition text-lg text-neutral-900 dark:text-neutral-100 relative ml-8 mt-4 mb-2
         before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
@@ -28,7 +23,6 @@ const style = Astro.props.style;
 		{name}
 	</div>
 	<div
-		id={id}
 		class:list={[
 			"collapse-wrapper px-4 overflow-hidden",
 			{ collapsed: isCollapsed },
@@ -55,8 +49,7 @@ const style = Astro.props.style;
 	id="tags"
 	isCollapsed={isCollapsed}
 	collapsedHeight={COLLAPSED_HEIGHT}
-	class={className}
-	style={style}
+	class="onload-animation" style="animation-delay: 200ms"
 >
 	<div class="flex gap-2 flex-wrap">
 		{

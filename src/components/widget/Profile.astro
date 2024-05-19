@@ -1,8 +1,9 @@
 ---
-import ImageWrapper from "../common/ImageWrapper.astro";
+import { Image } from 'astro:assets';
 import {Icon} from "astro-icon/components";
 import {profileConfig} from "../../config";
 import {url} from "../../utils/url-utils";
+import avatarImage from '../../assets/avatar.jpeg'
 
 const config = profileConfig;
 ---
@@ -16,7 +17,8 @@ const config = profileConfig;
                   class="transition opacity-0 group-hover:opacity-100 text-white text-5xl">
             </Icon>
         </div>
-        <ImageWrapper src={config.avatar} alt="Profile Image of the Author" class="mx-auto lg:w-full h-full lg:mt-0 "></ImageWrapper>
+
+        <Image src={avatarImage} alt="Profile Image" class="mx-auto lg:w-full h-full lg:mt-0 "></Image>
     </a>
     <div class="font-bold text-xl text-center mb-1 dark:text-neutral-50 transition">{config.name}</div>
     <div class="h-1 w-5 bg-[var(--primary)] mx-auto rounded-full mb-2 transition"></div>
