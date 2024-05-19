@@ -1,8 +1,9 @@
 ---
 title: 'A tale of one opinion vs a sea of others'
 subtitle: 'Why diversity of opinions is a blessing and a curse at the same time'
-publishDate: 'May 02, 2024'
+publishDate: 2024-05-19
 image: '../../assets/blog-images/diversity-of-opinions.jpg'
+tags: []
 ---
 
 The previous company I worked for was a small startup where the entire full stack dev team was basically just me and the VP of R&D (sounds like a recipe for backlog starvation).\

@@ -1,17 +1,14 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
 import BaseLayout from "@components/layout/BaseLayout.astro";
-import ImageWrapper from "../../components/misc/ImageWrapper.astro";
+import ImageWrapper from "../../components/common/ImageWrapper.astro";
 import { Icon } from "astro-icon/components";
 import PostMetadata from "../../components/posts/PostMeta.astro";
 import { getDir, getPostUrlBySlug } from "@utils/url-utils";
-import { licenseConfig } from "src/config";
-import Markdown from "@components/misc/Markdown.astro";
+import Markdown from "../../components/common/Markdown.astro";
 import path from "path";
-import { profileConfig } from "../../config";
-import { formatDateToYYYYMMDD } from "../../utils/date-utils";
+import { formatDate } from "../../utils/date-utils";
 import type { GetStaticPaths } from "astro";
-import type { InferGetStaticPropsType } from "astro";
 
 export const getStaticPaths = (async () => {
 	const posts = await getCollection("posts");
@@ -22,7 +19,10 @@ export const getStaticPaths = (async () => {
 	}));
 }) satisfies GetStaticPaths;
 
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+interface Props {
+	post: CollectionEntry<'posts'>;
+
+}
 
 const { post } = Astro.props;
 const { Content } = await post.render();
@@ -40,7 +40,7 @@ const jsonLd = {
 		name: "Dor Sharon",
 		url: Astro.site,
 	},
-	datePublished: formatDateToYYYYMMDD(post.data.publishDate),
+	datePublished: formatDate(post.data.publishDate),
 	// TODO include cover image here
 };
 ---
@@ -93,10 +93,8 @@ const jsonLd = {
 			<!-- metadata -->
 			<div class="onload-animation">
 				<PostMetadata
-					class="mb-5"
-					published={post.data.published}
+					publishDate={post.data.publishDate}
 					tags={post.data.tags}
-					category={post.data.category}
 				/>
 				{
 					!post.data.image && (

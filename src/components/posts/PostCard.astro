@@ -1,42 +1,33 @@
 ---
 import path from "path";
-import PostMetadata from "./PostMeta.astro";
-import ImageWrapper from "../misc/ImageWrapper.astro";
+import PostMetadata from "./PostMetadata.astro";
+import ImageWrapper from "../common/ImageWrapper.astro";
 import { Icon } from "astro-icon/components";
-import { getDir } from "../../utils/url-utils";
+import { getDir, getPostUrlBySlug } from "../../utils/url-utils";
+import { type CollectionEntry } from "astro:content";
 
 interface Props {
-	class: string;
-	entry: any;
-	title: string;
-	url: string;
-	published: Date;
-	tags: string[];
-	category: string;
-	image: string;
-	description: string;
-	words: number;
-	draft: boolean;
-	style: string;
+	post: CollectionEntry<'posts'>
+	style: any
 }
+
 const {
-	entry,
-	title,
-	url,
-	published,
-	tags,
-	category,
-	image,
-	description,
-	words,
-	style,
+	post, style
 } = Astro.props;
 
-const hasCover = image !== undefined && image !== null && image !== "";
+const {
+	title,
+	subtitle,
+	image,
+	publishDate,
+	tags,
+} = post.data;
 
+const hasCover = image !== undefined && image !== null && image !== "";
+const url = getPostUrlBySlug(post.slug);
 const coverWidth = "28%";
 
-const { remarkPluginFrontmatter } = await entry.render();
+const { remarkPluginFrontmatter } = await post.render();
 ---
 
 <div
@@ -68,15 +59,13 @@ const { remarkPluginFrontmatter } = await entry.render();
 		</a>
 
 		<PostMetadata
-			published={published}
+			publishDate={publishDate}
 			tags={tags}
-			category={category}
 			hideTagsForMobile={true}
-			class:list={{ "mb-4": description, "mb-6": !description }}
 		/>
 
 		<div class="transition text-75 mb-3.5">
-			{description}
+			{subtitle}
 		</div>
 
 		<div
@@ -110,7 +99,7 @@ const { remarkPluginFrontmatter } = await entry.render();
 
 				<ImageWrapper
 					src={image}
-					basePath={path.join("content/posts/", getDir(entry.id))}
+					basePath={path.join("content/posts/", getDir(post.id))}
 					alt="Cover Image of the Post"
 					class="w-full h-full"
 				/>

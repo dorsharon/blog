@@ -1,16 +1,14 @@
 ---
-import {formatDateToYYYYMMDD} from "../../utils/date-utils";
+import {formatDate} from "../../utils/date-utils";
 import { Icon } from 'astro-icon/components';
 import {url} from "../../utils/url-utils";
 
 interface Props {
-    class: string;
-    published: Date;
+    publishDate: Date;
     tags: string[];
-    category: string;
 }
-const {published, tags, category } = Astro.props;
-const className = Astro.props.class;
+
+const {publishDate, tags } = Astro.props;
 ---
 
 <div class={"flex flex-wrap text-neutral-500 dark:text-neutral-400 items-center gap-4 gap-x-4 gap-y-2"}>
@@ -20,7 +18,7 @@ const className = Astro.props.class;
         >
             <Icon name="material-symbols:calendar-today-outline-rounded" class="text-xl"></Icon>
         </div>
-        <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(published)}</span>
+        <span class="text-50 text-sm font-medium">{formatDate(publishDate)}</span>
     </div>
 
 
