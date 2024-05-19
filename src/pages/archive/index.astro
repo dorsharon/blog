@@ -1,8 +1,8 @@
 ---
-import MainGridLayout from "@layouts/MainGridLayout.astro";
-import PostsTimeline from "@components/PostsTimeline.astro";
+import BaseLayout from "@components/layout/BaseLayout.astro";
+import PostsTimeline from "../../components/archive/PostsTimeline.astro";
 ---
 
-<MainGridLayout title={"Archive"}>
+<BaseLayout title={"Archive"}>
 	<PostsTimeline />
-</MainGridLayout>
+</BaseLayout>

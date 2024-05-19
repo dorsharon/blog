@@ -5,15 +5,15 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import ConfigCarrier from "@components/ConfigCarrier.astro";
 import { siteConfig } from "@/config";
-import Head from "../components/main-layout/Head.astro";
-import InitScripts from "../components/main-layout/InitScripts.astro";
+import Head from "./Head.astro";
+import InitScripts from "./InitScripts.astro";
+import MainGrid from "./MainGrid.astro";
 
 interface Props {
 	title: string;
-	description?: string;
 }
 
-let { title, description } = Astro.props;
+let { title } = Astro.props;
 
 const anim = {
 	old: {
@@ -39,9 +39,9 @@ const myFade = {
 
 let pageTitle;
 if (title) {
-	pageTitle = `${title} - ${siteConfig.title}`;
+	pageTitle = `Dor Sharon | ${title}`;
 } else {
-	pageTitle = `${siteConfig.title} - ${siteConfig.subtitle}`;
+	pageTitle = `Dor Sharon`;
 }
 ---
 
@@ -56,7 +56,9 @@ if (title) {
 		<ConfigCarrier />
 
 		<GlobalStyles>
-			<slot />
+			<MainGrid>
+				<slot />
+			</MainGrid>
 		</GlobalStyles>
 
 		<style is:global>

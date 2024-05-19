@@ -1,6 +1,6 @@
 ---
 import WidgetLayout from "./WidgetLayout.astro";
-import ButtonTag from "../control/ButtonTag.astro";
+import ButtonTag from "../common/ButtonTag.astro";
 import { getTagsList } from "../../utils/content-utils";
 import { url } from "../../utils/url-utils";
 import { Icon } from "astro-icon/components";
@@ -42,7 +42,7 @@ const style = Astro.props.style;
 				<button class="btn-plain w-full h-9 rounded-lg">
 					<div class="text-[var(--primary)] flex items-center justify-center gap-2 -translate-x-2">
 						<Icon name="material-symbols:more-horiz" size={28} />{" "}
-						{i18n(I18nKey.more)}
+						More
 					</div>
 				</button>
 			</div>

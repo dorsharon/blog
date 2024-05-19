@@ -1,12 +1,12 @@
 ---
-import { getSortedPosts, groupPostsByYear } from "../utils/content-utils";
-import {getPostUrlBySlug} from "../utils/url-utils";
+import { getSortedPosts, groupPostsByYear } from "../../utils/content-utils";
+import {getPostUrlBySlug} from "../../utils/url-utils";
 
 interface Props {
     keyword: string;
     tags: string[];
-    categories: string[];
 }
+
 const { tags, } = Astro.props;
 
 let posts = await getSortedPosts()

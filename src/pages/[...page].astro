@@ -1,24 +1,29 @@
 ---
-import MainGridLayout from "../layouts/MainGridLayout.astro";
-import PostCard from "../components/PostCard.astro";
-import Pagination from "../components/control/Pagination.astro";
-import {getSortedPosts} from "../utils/content-utils";
-import {getPostUrlBySlug} from "../utils/url-utils";
-import {PAGE_SIZE} from "../constants/constants";
-import PostPage from "../components/PostPage.astro";
+import BaseLayout from "@components/layout/BaseLayout.astro";
+import Pagination from "@components/common/Pagination.astro";
+import { getSortedPosts } from "../utils/content-utils";
+import { PAGE_SIZE } from "../constants/constants";
+import PostsList from "@components/posts/PostsList.astro";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 
-export async function getStaticPaths({ paginate }) {
-    const allBlogPosts = await getSortedPosts();
-    return paginate(allBlogPosts, { pageSize: PAGE_SIZE });
-}
+export const getStaticPaths = (async ({ paginate }) => {
+	const allBlogPosts = await getSortedPosts();
+	return paginate(allBlogPosts, { pageSize: PAGE_SIZE });
+}) satisfies GetStaticPaths;
 
-const {page} = Astro.props;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { page } = Astro.props;
 
 const len = page.data.length;
-
 ---
 
-<MainGridLayout>
-    <PostPage page={page}></PostPage>
-    <Pagination class="mx-auto onload-animation" page={page} style=`animation-delay: calc(var(--content-delay) + ${(len)*50}ms)`></Pagination>
-</MainGridLayout>
+<BaseLayout>
+	<PostsList page={page} />
+
+	<Pagination
+		class="mx-auto onload-animation"
+		page={page}
+		style=`animation-delay: calc(var(--content-delay) + ${(len)*50}ms)`
+	/>
+</BaseLayout>
