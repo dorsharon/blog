@@ -1,0 +1,69 @@
+---
+import WidgetLayout from "../../widget/WidgetLayout.astro";
+import ButtonTag from "../../common/ButtonTag.astro";
+import { getTagsList } from "../../../utils/content-utils";
+import { url } from "../../../utils/url-utils";
+import { Icon } from "astro-icon/components";
+import {
+	button,
+	buttonContent,
+	collapsed,
+	collapseWrapper,
+	expandButton,
+	header,
+	tagsCard,
+	tagsWrapper
+} from "./Tags.css";
+
+const tags = await getTagsList();
+
+const COLLAPSED_HEIGHT = "7.5rem";
+
+const isCollapsed = tags.length >= 20;
+---
+
+<div class={tagsCard} style="animation-delay: 200ms">
+	<div class={header}>
+		{name}
+	</div>
+
+	<div class:list={[
+		collapseWrapper,
+		{ [collapsed]: isCollapsed },
+	]}>
+		<slot />
+	</div>
+	{
+		isCollapsed && (
+			<div class={expandButton}>
+				<button class={button}>
+					<div class={buttonContent}>
+						<Icon name="material-symbols:more-horiz" size={28} />{" "}
+						More
+					</div>
+				</button>
+			</div>
+		)
+	}
+</div>
+
+<WidgetLayout
+	name={"Tags"}
+	id="tags"
+	isCollapsed={isCollapsed}
+	collapsedHeight={COLLAPSED_HEIGHT}
+	class="onload-animation" style="animation-delay: 200ms"
+>
+	<div class={tagsWrapper}>
+		{
+			tags.map((t) => (
+				<ButtonTag
+					href={url(`/archive/tag/${t.name}/`)}
+					label={`View all posts with the ${t.name} tag`}
+				>
+					{t.name}
+				</ButtonTag>
+			))
+		}
+	</div>
+</WidgetLayout>

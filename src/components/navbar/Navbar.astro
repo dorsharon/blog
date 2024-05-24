@@ -1,11 +1,22 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { NavBarLink} from "../types/config";
-import { siteConfig} from "../config";
-import NavMenuPanel from "./widget/NavMenuPanel.astro";
-import Search from "./Search.svelte";
-import {url} from "../utils/url-utils";
-import ThemeSwitch from "./ThemeSwitch";
+import { NavBarLink} from "../../types/config";
+import { siteConfig} from "../../config";
+import NavMenuPanel from "../widget/NavMenuPanel.astro";
+import Search from "../Search.svelte";
+import {url} from "../../utils/url-utils";
+import ThemeSwitch from "../ThemeSwitch";
+import {
+    arrowIcon,
+    button,
+    card,
+    homeIcon,
+    homeLink,
+    linksWrapper, menuButton,
+    navLink,
+    searchIcon,
+    searchWrapper, settingsButton
+} from "./Navbar.css";
 
 
 const links :NavBarLink[]= [
@@ -14,55 +25,46 @@ const links :NavBarLink[]= [
 ]
 
 ---
-<div class={
-    "card-base sticky top-0 overflow-visible max-w-[var(--page-width)] h-[4.5rem] rounded-t-none mx-auto flex items-center justify-between px-4"}>
-    <a href={url('/')} class="btn-plain h-[3.25rem] px-5 font-bold rounded-lg active:scale-95">
-        <div class="flex flex-row text-[var(--primary)] items-center text-md">
-            <Icon name="material-symbols:home-outline-rounded" size={"1.75rem"} class="mb-1 mr-2" />
+<div class={card}>
+    <a href={url('/')} class={button}>
+        <div class={homeLink}>
+            <Icon name="material-symbols:home-outline-rounded" size={"1.75rem"} class={homeIcon} />
             {siteConfig.title}
         </div>
     </a>
 
-    <div class="hidden md:flex">
-        {links.map(({name, url}) =>
-            <a aria-label={name} href={url}
-               class="btn-plain h-11 font-bold px-5 rounded-lg active:scale-95"
-            >
+    <div class={linksWrapper}>
+        {links.map(({ name, url }) =>
+            <a aria-label={name} href={url} class={navLink}>
                 <div class="flex items-center">
                     {name}
                 </div>
-            </a>)}
+            </a>
+        )}
     </div>
 
-    <div class="flex">
-        <!--<SearchPanel client:load>-->
+    <div class={searchWrapper}>
         <Search client:load>
-            <Icon slot="search-icon" name="material-symbols:search" size={"1.25rem"} class="absolute pointer-events-none ml-3 transition my-auto text-black/30 dark:text-white/30"></Icon>
-            <!--<Icon slot="arrow-icon" name="material-symbols:chevron-right-rounded" size={"1.25rem"} class="transition my-auto text-[var(&#45;&#45;primary)]"></Icon>-->
-            <Icon slot="arrow-icon" name="fa6-solid:chevron-right" size={"0.75rem"} class="transition translate-x-0.5 my-auto text-[var(--primary)]"></Icon>
+            <Icon slot="search-icon" name="material-symbols:search" size={"1.25rem"} class={searchIcon} />
+            <Icon slot="arrow-icon" name="fa6-solid:chevron-right" size={"0.75rem"} class={arrowIcon} />
             <Icon slot="search-switch" name="material-symbols:search" size={"1.25rem"}></Icon>
         </Search>
 
         {!siteConfig.themeColor.fixed && (
-            <button aria-label="Display Settings" class="btn-plain h-11 w-11 rounded-lg active:scale-90" id="display-settings-switch">
+            <button aria-label="Display Settings" class={settingsButton} id="display-settings-switch">
                 <Icon name="material-symbols:palette-outline" size={"1.25rem"}></Icon>
             </button>
         )}
 
         <ThemeSwitch client:load></ThemeSwitch>
 
-        <button aria-label="Menu" name="Nav Menu" class="btn-plain w-11 h-11 rounded-lg active:scale-90 md:hidden" id="nav-menu-switch">
+        <button aria-label="Menu" name="Nav Menu" class={menuButton} id="nav-menu-switch">
             <Icon name="material-symbols:menu-rounded" size={"1.25rem"}></Icon>
         </button>
     </div>
 
     <NavMenuPanel links={links}></NavMenuPanel>
-
-
 </div>
-
-<style lang="stylus">
-</style>
 
 <script>
 

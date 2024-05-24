@@ -1,0 +1,32 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from "astro-icon/components";
+import { profileConfig } from "../../../config";
+import { url } from "../../../utils/url-utils";
+import avatarImage from '../../../assets/avatar.jpeg';
+import { bio, icon, link, linkButton, links, name, overlay, separator } from "./Profile.css";
+
+const config = profileConfig;
+---
+<div >
+    <a aria-label="Go to About Page" href={url('/about/')} class={link}>
+        <div class={overlay}>
+            <Icon name="fa6-regular:address-card" class={icon} />
+        </div>
+        <Image src={avatarImage} alt="Profile Image" class={avatarImage} />
+    </a>
+
+    <div class={name}>{config.name}</div>
+
+    <div class={separator}></div>
+
+    <div class={bio}>{config.bio}</div>
+
+    <div class={links}>
+        {config.links.map(item => (
+            <a rel="me" aria-label={item.name} href={item.url} target="_blank" class={linkButton}>
+                <Icon name={item.icon} size="1.5rem" />
+            </a>
+        ))}
+    </div>
+</div>

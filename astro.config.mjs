@@ -14,6 +14,7 @@ import swup from "@swup/astro";
 import sitemap from "@astrojs/sitemap";
 import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
 import react from "@astrojs/react";
+import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 
 const oklchToHex = (str) => {
 	const DEFAULT_HUE = 250;
@@ -103,6 +104,7 @@ export default defineConfig({
 		],
 	},
 	vite: {
+		plugins: [vanillaExtractPlugin()],
 		build: {
 			rollupOptions: {
 				onwarn(warning, warn) {
