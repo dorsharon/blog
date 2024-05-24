@@ -1,8 +1,8 @@
 import { Icon } from "astro-icon/components";
 import { AUTO_MODE, DARK_MODE, LIGHT_MODE } from "@constants/constants.ts";
 import { useTheme } from "@/hooks/useTheme.ts";
-import styles from "./ThemeSwitch.module.css";
 import { useRef } from "react";
+import { button, card, currentSetting, floatPanelClosed, panelBase, themeButton } from "./ThemeSwitch.css.ts";
 
 const themes = [LIGHT_MODE, DARK_MODE, AUTO_MODE];
 
@@ -27,13 +27,13 @@ export default function ThemeSwitch() {
 
 	const showPanel = () => {
 		if (panelRef.current) {
-			panelRef.current.classList.remove("float-panel-closed");
+			panelRef.current.classList.remove(floatPanelClosed);
 		}
 	};
 
 	const hidePanel = () => {
 		if (panelRef.current) {
-			panelRef.current.classList.add("float-panel-closed");
+			panelRef.current.classList.add(floatPanelClosed);
 		}
 	};
 
@@ -58,7 +58,7 @@ export default function ThemeSwitch() {
 			<button
 				aria-label="Light/Dark Mode"
 				role="menuitem"
-				className="relative btn-plain h-11 w-11 rounded-lg active:scale-90"
+				className={button}
 				id="scheme-switch"
 				onClick={toggleTheme}
 				onMouseEnter={showPanel}
@@ -70,13 +70,14 @@ export default function ThemeSwitch() {
 
 			<div
 				id="light-dark-panel"
-				className="hidden lg:block absolute transition float-panel-closed top-11 -right-2 pt-5"
+				className={`${panelBase} ${floatPanelClosed}`}
 				ref={panelRef}
 			>
-				<div className="card-base float-panel p-2">
+				<div className={card}>
 					{themes.map((theme) => (
 						<button
-							className={`flex transition whitespace-nowrap items-center justify-start w-full btn-plain h-9 rounded-lg px-3 font-medium active:scale-95 mb-0.5 ${theme === currentTheme ? styles.currentSetting : ""}`}
+							key={theme}
+							className={`${themeButton} ${theme === currentTheme ? currentSetting : ""}`}
 							onClick={() => switchTheme(theme)}
 						>
 							<Icon name={getThemeIcon(theme)}></Icon>

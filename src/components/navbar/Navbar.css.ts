@@ -1,4 +1,3 @@
-// styles.css.ts
 import { style } from "@vanilla-extract/css";
 
 export const card = style({
@@ -21,13 +20,13 @@ export const button = style({
     alignItems: 'center',
     justifyContent: 'center',
     fontWeight: 'bold',
-    height: '3.25rem', // h-[3.25rem]
-    paddingLeft: '1.25rem', // px-5
-    paddingRight: '1.25rem', // px-5
-    borderRadius: '0.5rem', // rounded-lg
+    height: '3.25rem',
+    paddingLeft: '1.25rem',
+    paddingRight: '1.25rem',
+    borderRadius: '0.5rem',
     transition: 'transform 0.2s',
     ':active': {
-        transform: 'scale(0.95)', // active:scale-95
+        transform: 'scale(0.95)',
     },
 });
 
@@ -36,18 +35,18 @@ export const homeLink = style({
     flexDirection: 'row',
     color: 'var(--primary)',
     alignItems: 'center',
-    fontSize: '1rem', // text-md
+    fontSize: '1rem',
 });
 
 export const homeIcon = style({
-    marginBottom: '0.25rem', // mb-1
-    marginRight: '0.5rem', // mr-2
+    marginBottom: '0.25rem',
+    marginRight: '0.5rem',
 });
 
 export const linksWrapper = style({
     display: 'none',
     '@media (min-width: 768px)': {
-        display: 'flex', // md:flex
+        display: 'flex',
     },
 });
 
@@ -55,13 +54,13 @@ export const navLink = style({
     display: 'inline-flex',
     alignItems: 'center',
     fontWeight: 'bold',
-    height: '2.75rem', // h-11
-    paddingLeft: '1.25rem', // px-5
-    paddingRight: '1.25rem', // px-5
-    borderRadius: '0.5rem', // rounded-lg
+    height: '2.75rem',
+    paddingLeft: '1.25rem',
+    paddingRight: '1.25rem',
+    borderRadius: '0.5rem',
     transition: 'transform 0.2s',
     ':active': {
-        transform: 'scale(0.95)', // active:scale-95
+        transform: 'scale(0.95)',
     },
 });
 
@@ -72,17 +71,17 @@ export const searchWrapper = style({
 export const searchIcon = style({
     position: 'absolute',
     pointerEvents: 'none',
-    marginLeft: '0.75rem', // ml-3
+    marginLeft: '0.75rem',
     transition: 'color 0.2s',
-    color: 'rgba(0, 0, 0, 0.3)', // text-black/30
+    color: 'rgba(0, 0, 0, 0.3)',
     '@media (prefers-color-scheme: dark)': {
-        color: 'rgba(255, 255, 255, 0.3)', // dark:text-white/30
+        color: 'rgba(255, 255, 255, 0.3)',
     },
 });
 
 export const arrowIcon = style({
     transition: 'transform 0.2s',
-    transform: 'translateX(0.125rem)', // translate-x-0.5
+    transform: 'translateX(0.125rem)',
     margin: 'auto 0',
     color: 'var(--primary)',
 });
@@ -91,12 +90,12 @@ export const settingsButton = style({
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '2.75rem', // h-11
-    width: '2.75rem', // w-11
-    borderRadius: '0.5rem', // rounded-lg
+    height: '2.75rem',
+    width: '2.75rem',
+    borderRadius: '0.5rem',
     transition: 'transform 0.2s',
     ':active': {
-        transform: 'scale(0.9)', // active:scale-90
+        transform: 'scale(0.9)',
     },
 });
 
@@ -104,14 +103,14 @@ export const menuButton = style({
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '2.75rem', // h-11
-    width: '2.75rem', // w-11
-    borderRadius: '0.5rem', // rounded-lg
+    height: '2.75rem',
+    width: '2.75rem',
+    borderRadius: '0.5rem',
     transition: 'transform 0.2s',
     ':active': {
-        transform: 'scale(0.9)', // active:scale-90
+        transform: 'scale(0.9)',
     },
     '@media (min-width: 768px)': {
-        display: 'none', // md:hidden
+        display: 'none',
     },
 });

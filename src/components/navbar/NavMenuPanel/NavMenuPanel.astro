@@ -1,0 +1,31 @@
+---
+import { NavBarLink } from "../../../types/config";
+import { floatPanel, floatPanelClosed, link, linkText } from "./NavMenuPanel.css";
+
+interface Props {
+	links: NavBarLink[];
+}
+
+const links = Astro.props.links;
+---
+
+<div
+	id="nav-menu-panel"
+	class={[
+		floatPanel,
+		floatPanelClosed,
+	]}
+>
+	{
+		links.map(({ name, url }) => (
+			<a
+				href={url}
+				class={link}
+			>
+				<div class={linkText}>
+					{name}
+				</div>
+			</a>
+		))
+	}
+</div>
