@@ -1,15 +1,15 @@
 ---
 import Profile from "./Profile/Profile.astro";
 import Tags from "./Tags/Tags.astro";
-import { onloadAnimation, profileWrapper, sidebar, tagsWrapper } from "./SideBar.css";
-
+import { profileWrapper, sidebar, tagsWrapper } from "./SideBar.css";
+import { onLoadAnimation } from "../../styles/common-styles.css";
 ---
 
-<div id="sidebar" class={sidebar}>
+<div id="sidebar" class={`${sidebar} ${onLoadAnimation}`}>
 	<div class={profileWrapper}>
 		<Profile />
 	</div>
 	<div class={tagsWrapper}>
-		<Tags class={onloadAnimation} />
+		<Tags />
 	</div>
 </div>

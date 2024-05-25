@@ -14,6 +14,7 @@ import {
 	tagsCard,
 	tagsWrapper
 } from "./Tags.css";
+import { onLoadAnimation } from "../../../styles/common-styles.css";
 
 const tags = await getTagsList();
 
@@ -22,7 +23,7 @@ const COLLAPSED_HEIGHT = "7.5rem";
 const isCollapsed = tags.length >= 20;
 ---
 
-<div class={tagsCard} style="animation-delay: 200ms">
+<div class={`${tagsCard} ${onLoadAnimation}`} style="animation-delay: 200ms">
 	<div class={header}>
 		Tags
 	</div>
