@@ -3,8 +3,6 @@ import GlobalStyles from "@components/GlobalStyles.astro";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import ConfigCarrier from "@components/ConfigCarrier.astro";
-import { siteConfig } from "@/config";
 import Head from "./Head.astro";
 import InitScripts from "./InitScripts.astro";
 import MainGrid from "./MainGrid.astro";
@@ -53,13 +51,11 @@ if (title) {
 	<Head />
 
 	<body class="min-h-screen transition">
-		<ConfigCarrier />
-
-		<GlobalStyles>
+		<GlobalStyles/>
 			<MainGrid>
 				<slot />
 			</MainGrid>
-		</GlobalStyles>
+		<!--</GlobalStyles>-->
 
 		<style is:global>
 			@tailwind components;
@@ -67,6 +63,8 @@ if (title) {
 
 			:root {
 				--page-width: 75rem;
+				--text-primary: #ffffffe6;
+				--text-secondary: #ffffff80;
 			}
 		</style>
 

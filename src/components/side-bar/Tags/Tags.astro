@@ -1,5 +1,5 @@
 ---
-import WidgetLayout from "../../widget/WidgetLayout.astro";
+import WidgetLayout from "./WidgetLayout/WidgetLayout.astro";
 import ButtonTag from "../../common/ButtonTag.astro";
 import { getTagsList } from "../../../utils/content-utils";
 import { url } from "../../../utils/url-utils";
@@ -24,7 +24,7 @@ const isCollapsed = tags.length >= 20;
 
 <div class={tagsCard} style="animation-delay: 200ms">
 	<div class={header}>
-		{name}
+		Tags
 	</div>
 
 	<div class:list={[

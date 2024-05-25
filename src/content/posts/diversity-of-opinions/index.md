@@ -2,7 +2,6 @@
 title: 'A tale of one opinion vs a sea of others'
 subtitle: 'Why diversity of opinions is a blessing and a curse at the same time'
 publishDate: 2024-05-19
-image: '../../assets/blog-images/diversity-of-opinions.jpg'
 tags: []
 ---
 

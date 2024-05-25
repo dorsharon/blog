@@ -1,29 +1,44 @@
 import { Icon } from "astro-icon/components";
-import { AUTO_MODE, DARK_MODE, LIGHT_MODE } from "@constants/constants.ts";
-import { useTheme } from "@/hooks/useTheme.ts";
+import { AUTO_MODE, DARK_MODE, LIGHT_MODE, THEME_STORAGE_KEY } from "@constants/constants.ts";
 import { useRef } from "react";
 import { button, card, currentSetting, floatPanelClosed, panelBase, themeButton } from "./ThemeSwitch.css.ts";
 
 const themes = [LIGHT_MODE, DARK_MODE, AUTO_MODE];
 
 export default function ThemeSwitch() {
-	const [currentTheme, setCurrentTheme] = useTheme();
-
 	const panelRef = useRef<HTMLDivElement>(null);
 
-	function switchTheme(newTheme: string) {
-		setCurrentTheme(newTheme);
-	}
+	const setTheme = (theme: string): void => {
+		window.localStorage.setItem(THEME_STORAGE_KEY, theme);
 
-	function toggleTheme() {
-		let i = 0;
+		switch (theme) {
+			case LIGHT_MODE:
+				document.documentElement.classList.remove("dark");
+				break;
+			case DARK_MODE:
+				document.documentElement.classList.add("dark");
+				break;
+			case AUTO_MODE:
+				if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+					document.documentElement.classList.add("dark");
+				} else {
+					document.documentElement.classList.remove("dark");
+				}
+				break;
+		}
+	};
+
+	const toggleTheme = () => {
+		let i=0;
+		const currentTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+
 		for (; i < themes.length; i++) {
 			if (themes[i] === currentTheme) {
 				break;
 			}
 		}
-		switchTheme(themes[(i + 1) % themes.length]);
-	}
+		setTheme(themes[(i + 1) % themes.length]);
+	};
 
 	const showPanel = () => {
 		if (panelRef.current) {
@@ -37,8 +52,10 @@ export default function ThemeSwitch() {
 		}
 	};
 
-	const getThemeIcon = (theme: string) => {
-		switch (theme) {
+	const getThemeIcon = () => {
+		const currentTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+
+		switch (currentTheme) {
 			case LIGHT_MODE:
 				return "material-symbols:wb-sunny-outline-rounded";
 			case DARK_MODE:
@@ -63,9 +80,7 @@ export default function ThemeSwitch() {
 				onClick={toggleTheme}
 				onMouseEnter={showPanel}
 			>
-				<div className="absolute">
-					<Icon name={getThemeIcon(currentTheme)}></Icon>
-				</div>
+					<Icon name={getThemeIcon()}></Icon>
 			</button>
 
 			<div
@@ -77,10 +92,10 @@ export default function ThemeSwitch() {
 					{themes.map((theme) => (
 						<button
 							key={theme}
-							className={`${themeButton} ${theme === currentTheme ? currentSetting : ""}`}
-							onClick={() => switchTheme(theme)}
+							className={`${themeButton} ${theme === window.localStorage.getItem(THEME_STORAGE_KEY) ? currentSetting : ""}`}
+							onClick={() => setTheme(theme)}
 						>
-							<Icon name={getThemeIcon(theme)}></Icon>
+							<Icon name={getThemeIcon()}></Icon>
 							{theme}
 						</button>
 					))}

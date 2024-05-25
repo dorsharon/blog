@@ -1,5 +1,14 @@
 ---
 import { Icon } from "astro-icon/components";
+import {
+	card,
+	collapsedWrapper,
+	expandButton,
+	expandButtonContent,
+	expandButtonWrapper,
+	title
+} from "./WidgetLayout.css";
+
 interface Props {
 	id: string;
 	name?: string;
@@ -16,20 +25,17 @@ const className = Astro.props.class;
 <widget-layout
 	data-id={id}
 	data-is-collapsed={isCollapsed}
-	class={"pb-4 card-base " + className}
+	class={`${card} ${className}`}
 	style={style}
 >
-	<div
-		class="font-bold transition text-lg text-neutral-900 dark:text-neutral-100 relative ml-8 mt-4 mb-2
-        before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
-        before:absolute before:left-[-16px] before:top-[5.5px]"
-	>
+	<div class={title}>
 		{name}
 	</div>
+
 	<div
 		id={id}
 		class:list={[
-			"collapse-wrapper px-4 overflow-hidden",
+			collapsedWrapper,
 			{ collapsed: isCollapsed },
 		]}
 	>
@@ -37,9 +43,9 @@ const className = Astro.props.class;
 	</div>
 	{
 		isCollapsed && (
-			<div class="expand-btn px-4 -mb-2">
-				<button class="btn-plain w-full h-9 rounded-lg">
-					<div class="text-[var(--primary)] flex items-center justify-center gap-2 -translate-x-2">
+			<div class={expandButtonWrapper}>
+				<button class={expandButton}>
+					<div class={expandButtonContent}>
 						<Icon name="material-symbols:more-horiz" size={28} />{" "}
 						More
 					</div>
@@ -50,12 +56,14 @@ const className = Astro.props.class;
 </widget-layout>
 
 <style define:vars={{ collapsedHeight }}>
-	.collapsed {
-		height: var(--collapsedHeight);
-	}
+    .collapsed {
+        height: var(--collapsedHeight);
+    }
 </style>
 
 <script>
+	import { hidden } from "./WidgetLayout.css";
+
 	class WidgetLayout extends HTMLElement {
 		constructor() {
 			super();
@@ -71,7 +79,7 @@ const className = Astro.props.class;
 			const wrapper = this.querySelector(`#${id}`);
 			btn.addEventListener("click", () => {
 				wrapper.classList.remove("collapsed");
-				btn.classList.add("hidden");
+				btn.classList.add(hidden);
 			});
 		}
 	}

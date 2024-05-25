@@ -1,120 +1,69 @@
 ---
-import { Icon } from 'astro-icon/components';
-import { NavBarLink} from "../../types/config";
-import { siteConfig} from "../../config";
-import NavMenuPanel from "./NavMenuPanel/NavMenuPanel.astro";
+import { Icon } from "astro-icon/components";
+import { NavBarLink } from "../../types/config";
+import { siteConfig } from "../../config";
 import Search from "./Search.svelte";
-import {url} from "../../utils/url-utils";
+import { url } from "../../utils/url-utils";
 import ThemeSwitch from "./ThemeSwitch/ThemeSwitch";
 import {
-    arrowIcon,
-    button,
-    card,
-    homeIcon,
-    homeLink,
-    linksWrapper, menuButton,
-    navLink,
-    searchIcon,
-    searchWrapper, settingsButton
+	arrowIcon,
+	button,
+	card,
+	homeIcon,
+	homeLink,
+	linksWrapper,
+	navLink,
+	searchIcon,
+	searchWrapper
 } from "./Navbar.css";
+import NavMenu from "./NavMenu/NavMenu";
 
-
-const links :NavBarLink[]= [
-    {name: "Archive", url: "/archive"},
-    {name: "About", url: "/about"},
-]
-
+const links: NavBarLink[] = [
+	{ name: "Archive", url: "/archive" },
+	{ name: "About", url: "/about" }
+];
 ---
 <div class={card}>
-    <a href={url('/')} class={button}>
-        <div class={homeLink}>
-            <Icon name="material-symbols:home-outline-rounded" size={"1.75rem"} class={homeIcon} />
-            {siteConfig.title}
-        </div>
-    </a>
+	<a href={url("/")} class={button}>
+		<div class={homeLink}>
+			<Icon name="material-symbols:home-outline-rounded" size={"1.75rem"} class={homeIcon} />
+			{siteConfig.title}
+		</div>
+	</a>
 
-    <div class={linksWrapper}>
-        {links.map(({ name, url }) =>
-            <a aria-label={name} href={url} class={navLink}>
-                <div class="flex items-center">
-                    {name}
-                </div>
-            </a>
-        )}
-    </div>
+	<div class={linksWrapper}>
+		{links.map(({ name, url }) =>
+			<a aria-label={name} href={url} class={navLink}>
+				<div class="flex items-center">
+					{name}
+				</div>
+			</a>
+		)}
+	</div>
 
-    <div class={searchWrapper}>
-        <Search client:load>
-            <Icon slot="search-icon" name="material-symbols:search" size={"1.25rem"} class={searchIcon} />
-            <Icon slot="arrow-icon" name="fa6-solid:chevron-right" size={"0.75rem"} class={arrowIcon} />
-            <Icon slot="search-switch" name="material-symbols:search" size={"1.25rem"}></Icon>
-        </Search>
+	<div class={searchWrapper}>
+		<Search client:load>
+			<Icon slot="search-icon" name="material-symbols:search" size={"1.25rem"} class={searchIcon} />
+			<Icon slot="arrow-icon" name="fa6-solid:chevron-right" size={"0.75rem"} class={arrowIcon} />
+			<Icon slot="search-switch" name="material-symbols:search" size={"1.25rem"}></Icon>
+		</Search>
 
-        {!siteConfig.themeColor.fixed && (
-            <button aria-label="Display Settings" class={settingsButton} id="display-settings-switch">
-                <Icon name="material-symbols:palette-outline" size={"1.25rem"}></Icon>
-            </button>
-        )}
+		<ThemeSwitch client:only="react"></ThemeSwitch>
 
-        <ThemeSwitch client:load></ThemeSwitch>
-
-        <button aria-label="Menu" name="Nav Menu" class={menuButton} id="nav-menu-switch">
-            <Icon name="material-symbols:menu-rounded" size={"1.25rem"}></Icon>
-        </button>
-    </div>
-
-    <NavMenuPanel links={links}></NavMenuPanel>
+		<NavMenu client:load links={links} />
+	</div>
 </div>
 
-<script>
+<script is:inline define:vars={{ scriptUrl: url("/pagefind/pagefind.js") }}>
+	async function loadPagefind() {
+		const pagefind = await import(scriptUrl);
+		await pagefind.options({
+			"excerptLength": 20
+		});
+		pagefind.init();
+		window.pagefind = pagefind;
+		pagefind.search("");     // speed up the first search
+	}
 
-function switchTheme() {
-    if (localStorage.theme === 'dark') {
-        document.documentElement.classList.remove('dark');
-        localStorage.theme = 'light';
-    } else {
-        document.documentElement.classList.add('dark');
-        localStorage.theme = 'dark';
-    }
-}
-
-function loadButtonScript() {
-    let switchBtn = document.getElementById("scheme-switch");
-    switchBtn.addEventListener("click", function () {
-        switchTheme()
-    });
-
-    let settingBtn = document.getElementById("display-settings-switch");
-    if (settingBtn) {
-        settingBtn.addEventListener("click", function () {
-            let settingPanel = document.getElementById("display-setting");
-            settingPanel.classList.toggle("float-panel-closed");
-        });
-    }
-
-    let menuBtn = document.getElementById("nav-menu-switch");
-    menuBtn.addEventListener("click", function () {
-        let menuPanel = document.getElementById("nav-menu-panel");
-        menuPanel.classList.toggle("float-panel-closed");
-    });
-}
-
-loadButtonScript();
-
-document.addEventListener('astro:after-swap', () => {
-    loadButtonScript();
-}, { once: false });
+	loadPagefind();
 </script>
-
-{import.meta.env.PROD && <script is:inline define:vars={{scriptUrl: url('/pagefind/pagefind.js')}}>
-async function loadPagefind() {
-    const pagefind = await import(scriptUrl)
-    await pagefind.options({
-        'excerptLength': 20
-    })
-    pagefind.init()
-    window.pagefind = pagefind
-    pagefind.search('')     // speed up the first search
-}
-loadPagefind()
-</script>}

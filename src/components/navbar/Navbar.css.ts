@@ -13,6 +13,7 @@ export const card = style({
     justifyContent: 'space-between',
     paddingLeft: '1rem',
     paddingRight: '1rem',
+    backgroundColor: 'var(--card-bg)'
 });
 
 export const button = style({
@@ -51,6 +52,7 @@ export const linksWrapper = style({
 });
 
 export const navLink = style({
+    color: 'var(--text-primary)',
     display: 'inline-flex',
     alignItems: 'center',
     fontWeight: 'bold',
@@ -86,31 +88,4 @@ export const arrowIcon = style({
     color: 'var(--primary)',
 });
 
-export const settingsButton = style({
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '2.75rem',
-    width: '2.75rem',
-    borderRadius: '0.5rem',
-    transition: 'transform 0.2s',
-    ':active': {
-        transform: 'scale(0.9)',
-    },
-});
 
-export const menuButton = style({
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '2.75rem',
-    width: '2.75rem',
-    borderRadius: '0.5rem',
-    transition: 'transform 0.2s',
-    ':active': {
-        transform: 'scale(0.9)',
-    },
-    '@media (min-width: 768px)': {
-        display: 'none',
-    },
-});

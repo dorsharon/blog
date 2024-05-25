@@ -69,6 +69,7 @@
     "eslint-plugin-astro": "^1.2.0",
     "eslint-plugin-react": "^7.34.1",
     "globals": "^15.2.0",
+    "prettier": "^3.2.5",
     "stylus": "^0.63.0",
     "typescript-eslint": "^7.8.0"
   }
