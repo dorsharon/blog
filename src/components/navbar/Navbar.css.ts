@@ -1,10 +1,13 @@
 import { style } from "@vanilla-extract/css";
+import { theme } from "../../styles/themes.css.ts";
+import { pageWidth } from "../../styles/variables.css.ts";
 
 export const card = style({
+    backgroundColor: theme.background.card,
     position: 'sticky',
     top: '0',
     overflow: 'visible',
-    maxWidth: 'var(--page-width)',
+    maxWidth: pageWidth,
     height: '4.5rem',
     borderRadius: '0 0 0.75rem 0.75rem',
     margin: '0 auto',
@@ -13,7 +16,6 @@ export const card = style({
     justifyContent: 'space-between',
     paddingLeft: '1rem',
     paddingRight: '1rem',
-    backgroundColor: 'var(--card-bg)'
 });
 
 export const button = style({

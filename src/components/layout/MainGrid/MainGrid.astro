@@ -1,0 +1,27 @@
+---
+import Navbar from "@components/navbar/Navbar.astro";
+import SideBar from "@components/side-bar/SideBar.astro";
+import Footer from "../Footer.astro";
+import { card, container, contentWrapper, footer, header } from "./MainGrid.css";
+import { onLoadAnimation } from "../../../styles/common-styles.css";
+---
+
+<div class={container}>
+	<header class={`${header} ${onLoadAnimation}`}>
+		<div class={card}></div>
+
+		<Navbar />
+	</header>
+
+	<SideBar />
+
+	<div class={`${contentWrapper} ${onLoadAnimation}`}>
+		<main id="swup" class="transition-fade">
+			<slot />
+		</main>
+	</div>
+
+	<footer class={`${footer} ${onLoadAnimation}`}>
+		<Footer />
+	</footer>
+</div>

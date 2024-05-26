@@ -14,12 +14,12 @@ export const button = style({
 		transform: "scale(0.9)"
 	},
 
-	selectors: {
-		"& svg": {
-			fill: "var(--text-primary)"
-
-		}
-	}
+	// selectors: {
+	// 	"svg": {
+	// 		fill: "var(--text-primary)"
+	//
+	// 	}
+	// }
 });
 
 export const themeIcon = style({});

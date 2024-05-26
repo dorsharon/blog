@@ -13,7 +13,6 @@
 			"@constants/*": ["src/constants/*"],
 			"@utils/*": ["src/utils/*"],
 			"@layouts/*": ["src/layouts/*"],
-			"@/*": ["src/*"]
 		},
 		"jsx": "react-jsx",
 		"jsxImportSource": "react"

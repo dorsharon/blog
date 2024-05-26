@@ -1,17 +1,15 @@
 import { style } from "@vanilla-extract/css";
+import { theme } from "../../../styles/themes.css.ts";
 
 
 export const link = style({
     display: 'block',
     position: 'relative',
-    margin: '1rem auto',
-    '@media (min-width: 1024px)': {
-        margin: '0.75rem 0.75rem 0.75rem auto',
-    },
-    maxWidth: '240px',
+    margin: '0.75rem',
     overflow: 'hidden',
     borderRadius: '0.75rem',
     transition: 'transform 0.2s',
+
     ':active': {
         transform: 'scale(0.95)',
     },
@@ -63,17 +61,14 @@ export const name = style({
     fontSize: '1.25rem',
     textAlign: 'center',
     marginBottom: '0.25rem',
-    color: 'var(--neutral-900)',
+    color: theme.text.primary,
     transition: 'color 0.2s',
-    '@media (prefers-color-scheme: dark)': {
-        color: 'var(--neutral-50)',
-    },
 });
 
 export const separator = style({
     height: '0.25rem',
     width: '1.25rem',
-    backgroundColor: 'var(--primary)',
+    backgroundColor: theme.color.primary,
     margin: '0 auto',
     borderRadius: '0.25rem',
     marginBottom: '0.5rem',
@@ -82,7 +77,7 @@ export const separator = style({
 
 export const bio = style({
     textAlign: 'center',
-    color: 'var(--neutral-400)',
+    color: theme.text.secondary,
     marginBottom: '0.625rem',
     transition: 'color 0.2s',
 });
@@ -96,13 +91,20 @@ export const links = style({
 });
 
 export const linkButton = style({
+    color: theme.text.primary,
+    backgroundColor: theme.background.button,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     height: '2.5rem',
     width: '2.5rem',
     borderRadius: '0.5rem',
-    transition: 'transform 0.2s',
+    transition: 'backgroundColor transform 0.2s',
+
+    ':hover':{
+        backgroundColor: theme.background.hover,
+    },
+
     ':active': {
         transform: 'scale(0.9)',  
     },
