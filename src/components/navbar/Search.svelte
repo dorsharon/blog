@@ -1,17 +1,18 @@
 <script lang="ts">
-import { onMount } from 'svelte'
-import {url} from "@utils/url-utils.ts"
-let keywordDesktop = ''
+    import { onMount } from "svelte";
+    import { getUrl } from "@utils/url-utils.ts";
+
+    let keywordDesktop = ''
 let keywordMobile = ''
 let result = []
 const fakeResult = [{
-    url: url('/'),
+    url: getUrl('/'),
     meta: {
         title: 'This Is a Fake Search Result'
     },
     excerpt: 'Because the search cannot work in the <mark>dev</mark> environment.'
 }, {
-    url: url('/'),
+    url: getUrl('/'),
     meta: {
         title: 'If You Want to Test the Search'
     },

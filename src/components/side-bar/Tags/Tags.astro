@@ -2,7 +2,7 @@
 import WidgetLayout from "./WidgetLayout/WidgetLayout.astro";
 import ButtonTag from "../../common/ButtonTag.astro";
 import { getTagsList } from "../../../utils/content-utils";
-import { url } from "../../../utils/url-utils";
+import { getUrl } from "../../../utils/url-utils";
 import { Icon } from "astro-icon/components";
 import {
 	button,
@@ -10,56 +10,25 @@ import {
 	collapsed,
 	collapseWrapper,
 	expandButton,
-	header,
+	title,
 	tagsCard,
 	tagsWrapper
 } from "./Tags.css";
 import { onLoadAnimation } from "../../../styles/common-styles.css";
 
 const tags = await getTagsList();
-
-const COLLAPSED_HEIGHT = "7.5rem";
-
-const isCollapsed = tags.length >= 20;
 ---
 
 <div class={`${tagsCard} ${onLoadAnimation}`} style="animation-delay: 200ms">
-	<div class={header}>
+	<div class={title}>
 		Tags
 	</div>
 
-	<div class:list={[
-		collapseWrapper,
-		{ [collapsed]: isCollapsed },
-	]}>
-		<slot />
-	</div>
-	{
-		isCollapsed && (
-			<div class={expandButton}>
-				<button class={button}>
-					<div class={buttonContent}>
-						<Icon name="material-symbols:more-horiz" size={28} />{" "}
-						More
-					</div>
-				</button>
-			</div>
-		)
-	}
-</div>
-
-<WidgetLayout
-	name={"Tags"}
-	id="tags"
-	isCollapsed={isCollapsed}
-	collapsedHeight={COLLAPSED_HEIGHT}
-	class="onload-animation" style="animation-delay: 200ms"
->
 	<div class={tagsWrapper}>
 		{
 			tags.map((t) => (
 				<ButtonTag
-					href={url(`/archive/tag/${t.name}/`)}
+					href={getUrl(`/archive/tag/${t.name}/`)}
 					label={`View all posts with the ${t.name} tag`}
 				>
 					{t.name}
@@ -67,4 +36,6 @@ const isCollapsed = tags.length >= 20;
 			))
 		}
 	</div>
-</WidgetLayout>
+</div>
+
+

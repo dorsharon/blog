@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { theme } from "../../../styles/themes.css";
-import { pageWidth } from "../../../styles/variables.css.ts";
+import { cardBorderRadius, pageWidth } from "../../../styles/variables.css.ts";
 
 export const container = style({
 	maxWidth: pageWidth,
@@ -56,5 +56,12 @@ export const contentWrapper = style({
 export const footer = style({
 	gridRow: 3,
 	gridColumn: "span 2",
-	marginTop: "1rem"
+	marginTop: "1rem",
+	color: theme.text.secondary,
+	backgroundColor: theme.background.card,
+	borderRadius: `${cardBorderRadius} ${cardBorderRadius} 0 0`,
+	height: "3rem",
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
 });

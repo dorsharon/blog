@@ -11,7 +11,7 @@ function joinUrl(...parts: string[]): string {
 
 export function getPostUrlBySlug(slug: string): string | null {
 	if (!slug) return null;
-	return url(`/posts/${slug}/`);
+	return getUrl(`/posts/${slug}/`);
 }
 
 export function getDir(path: string): string {
@@ -22,6 +22,6 @@ export function getDir(path: string): string {
 	return path.substring(0, lastSlashIndex + 1);
 }
 
-export function url(path: string) {
+export function getUrl(path: string) {
 	return joinUrl("", import.meta.env.BASE_URL, path);
 }

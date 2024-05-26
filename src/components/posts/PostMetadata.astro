@@ -1,7 +1,7 @@
 ---
 import {formatDate} from "../../utils/date-utils";
 import { Icon } from 'astro-icon/components';
-import {url} from "../../utils/url-utils";
+import {getUrl} from "../../utils/url-utils";
 
 interface Props {
     publishDate: Date;
@@ -33,8 +33,8 @@ const {publishDate, tags } = Astro.props;
             {(tags && tags.length > 0) && tags.map(tag => <div
                     class="with-divider"
             >
-                <a href={url(`/archive/tag/${tag}/`)} aria-label=`View all posts with the ${tag} tag`
-                   class="link-lg transition text-50 text-sm font-medium
+                <a href={getUrl(`/archive/tag/${tag}/`)} aria-label=`View all posts with the ${tag} tag`
+				   class="link-lg transition text-50 text-sm font-medium
                                 hover:text-[var(--primary)] dark:hover:text-[var(--primary)] whitespace-nowrap">
                     {tag}
                 </a>

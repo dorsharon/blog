@@ -68,7 +68,7 @@ export const navLink = style({
     },
 });
 
-export const searchWrapper = style({
+export const rightElementsWrapper = style({
     display: 'flex',
 });
 

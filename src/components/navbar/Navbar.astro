@@ -3,7 +3,7 @@ import { Icon } from "astro-icon/components";
 import { NavBarLink } from "../../types/config";
 import { siteConfig } from "../../config";
 import Search from "./Search.svelte";
-import { url } from "../../utils/url-utils";
+import { getUrl } from "../../utils/url-utils";
 import ThemeSwitch from "./ThemeSwitch/ThemeSwitch";
 import {
 	arrowIcon,
@@ -14,7 +14,7 @@ import {
 	linksWrapper,
 	navLink,
 	searchIcon,
-	searchWrapper
+	rightElementsWrapper
 } from "./Navbar.css";
 import NavMenu from "./NavMenu/NavMenu";
 
@@ -24,7 +24,7 @@ const links: NavBarLink[] = [
 ];
 ---
 <div class={card}>
-	<a href={url("/")} class={button}>
+	<a href={getUrl("/")} class={button}>
 		<div class={homeLink}>
 			<Icon name="material-symbols:home-outline-rounded" size={"1.75rem"} class={homeIcon} />
 			{siteConfig.title}
@@ -33,7 +33,7 @@ const links: NavBarLink[] = [
 
 	<div class={linksWrapper}>
 		{links.map(({ name, url }) =>
-			<a aria-label={name} href={url} class={navLink}>
+			<a aria-label={name} href={getUrl(url)} class={navLink}>
 				<div class="flex items-center">
 					{name}
 				</div>
@@ -41,20 +41,20 @@ const links: NavBarLink[] = [
 		)}
 	</div>
 
-	<div class={searchWrapper}>
+	<div class={rightElementsWrapper}>
 		<Search client:load>
 			<Icon slot="search-icon" name="material-symbols:search" size={"1.25rem"} class={searchIcon} />
 			<Icon slot="arrow-icon" name="fa6-solid:chevron-right" size={"0.75rem"} class={arrowIcon} />
 			<Icon slot="search-switch" name="material-symbols:search" size={"1.25rem"}></Icon>
 		</Search>
 
-		<ThemeSwitch client:only="react"></ThemeSwitch>
+		<ThemeSwitch client:only="react"/>
 
 		<NavMenu client:load links={links} />
 	</div>
 </div>
 
-<script is:inline define:vars={{ scriptUrl: url("/pagefind/pagefind.js") }}>
+<script is:inline define:vars={{ scriptUrl: getUrl("/pagefind/pagefind.js") }}>
 	async function loadPagefind() {
 		const pagefind = await import(scriptUrl);
 		await pagefind.options({

@@ -1,7 +1,16 @@
 import { Icon } from "astro-icon/components";
 import { AUTO_MODE, DARK_MODE, LIGHT_MODE, THEME_STORAGE_KEY } from "@constants/constants.ts";
-import { useRef } from "react";
-import { button, card, currentSetting, floatPanelClosed, panelBase, themeButton } from "./ThemeSwitch.css.ts";
+import React, { useRef } from "react";
+import {
+	card,
+	currentSetting,
+	floatPanelClosed,
+	panelBase,
+	themeButton,
+	themeButtonWrapper,
+	themeOption
+} from "./ThemeSwitch.css.ts";
+import { darkThemeClass } from "../../../styles/themes.css.ts";
 
 const themes = [LIGHT_MODE, DARK_MODE, AUTO_MODE];
 
@@ -13,16 +22,16 @@ export default function ThemeSwitch() {
 
 		switch (theme) {
 			case LIGHT_MODE:
-				document.documentElement.classList.remove("dark");
+				document.documentElement.classList.remove(darkThemeClass);
 				break;
 			case DARK_MODE:
-				document.documentElement.classList.add("dark");
+				document.documentElement.classList.add(darkThemeClass);
 				break;
 			case AUTO_MODE:
 				if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-					document.documentElement.classList.add("dark");
+					document.documentElement.classList.add(darkThemeClass);
 				} else {
-					document.documentElement.classList.remove("dark");
+					document.documentElement.classList.remove(darkThemeClass);
 				}
 				break;
 		}
@@ -67,7 +76,7 @@ export default function ThemeSwitch() {
 
 	return (
 		<div
-			className="relative z-50"
+			className={themeButtonWrapper}
 			role="menu"
 			tabIndex={-1}
 			onMouseLeave={hidePanel}
@@ -75,7 +84,7 @@ export default function ThemeSwitch() {
 			<button
 				aria-label="Light/Dark Mode"
 				role="menuitem"
-				className={button}
+				className={themeButton}
 				id="scheme-switch"
 				onClick={toggleTheme}
 				onMouseEnter={showPanel}
@@ -92,7 +101,7 @@ export default function ThemeSwitch() {
 					{themes.map((theme) => (
 						<button
 							key={theme}
-							className={`${themeButton} ${theme === window.localStorage.getItem(THEME_STORAGE_KEY) ? currentSetting : ""}`}
+							className={`${themeOption} ${theme === window.localStorage.getItem(THEME_STORAGE_KEY) ? currentSetting : ""}`}
 							onClick={() => setTheme(theme)}
 						>
 							<Icon name={getThemeIcon()}></Icon>

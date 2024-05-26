@@ -1,28 +1,30 @@
 import { style } from "@vanilla-extract/css";
+import { theme } from "../../../styles/themes.css.ts";
+import { cardBorderRadius } from "../../../styles/variables.css.ts";
 
 export const tagsCard = style({
 	paddingBottom: '1rem', 
 	animationDelay: '200ms',
+	backgroundColor: theme.background.card,
+	borderRadius: cardBorderRadius,
 });
 
-export const header = style({
+export const title = style({
 	fontWeight: 'bold',
 	transition: 'all 0.2s',
 	fontSize: '1.125rem',
-	color: 'var(--neutral-900)',
-	'@media (prefers-color-scheme: dark)': {
-		color: 'var(--neutral-100)',
-	},
+	color: theme.text.primary,
 	position: 'relative',
 	marginLeft: '2rem',
 	marginTop: '1rem',
 	marginBottom: '0.5rem',
+
 	'::before': {
 		content: '""',
 		width: '0.25rem',
 		height: '1rem',
 		borderRadius: '0.25rem',
-		backgroundColor: 'var(--primary)',
+		backgroundColor: theme.color.primary,
 		position: 'absolute',
 		left: '-1rem',
 		top: '0.344rem',
@@ -64,4 +66,5 @@ export const tagsWrapper = style({
 	display: 'flex',
 	gap: '0.5rem',
 	flexWrap: 'wrap',
+	paddingInline: '1rem',
 });

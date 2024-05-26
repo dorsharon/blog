@@ -1,6 +1,10 @@
 import { style } from "@vanilla-extract/css";
 
-export const button = style({
+export const themeButtonWrapper = style({
+	position: "relative",
+});
+
+export const themeButton = style({
 	position: "relative",
 	display: "inline-flex",
 	alignItems: "center",
@@ -50,7 +54,7 @@ export const card = style({
 	boxShadow: "0 0.25rem 0.5rem rgba(0, 0, 0, 0.1)"
 });
 
-export const themeButton = style({
+export const themeOption = style({
 	display: "flex",
 	alignItems: "center",
 	justifyContent: "start",
