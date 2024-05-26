@@ -10,32 +10,12 @@ import {
 	themeButtonWrapper,
 	themeOption
 } from "./ThemeSwitch.css.ts";
-import { darkThemeClass } from "../../../styles/themes.css.ts";
+import { setTheme } from "@utils/setting-utils.ts";
 
 const themes = [LIGHT_MODE, DARK_MODE, AUTO_MODE];
 
 export default function ThemeSwitch() {
 	const panelRef = useRef<HTMLDivElement>(null);
-
-	const setTheme = (theme: string): void => {
-		window.localStorage.setItem(THEME_STORAGE_KEY, theme);
-
-		switch (theme) {
-			case LIGHT_MODE:
-				document.documentElement.classList.remove(darkThemeClass);
-				break;
-			case DARK_MODE:
-				document.documentElement.classList.add(darkThemeClass);
-				break;
-			case AUTO_MODE:
-				if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-					document.documentElement.classList.add(darkThemeClass);
-				} else {
-					document.documentElement.classList.remove(darkThemeClass);
-				}
-				break;
-		}
-	};
 
 	const toggleTheme = () => {
 		let i=0;

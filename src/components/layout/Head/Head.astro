@@ -1,0 +1,36 @@
+---
+import { DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE } from "../../../constants/constants";
+---
+
+<head>
+	<title>Dor Sharon</title>
+
+	<meta charset="UTF-8" />
+	<meta name="description" content={"Dor Sharon"} />
+	<meta name="viewport" content="width=device-width" />
+	<meta name="generator" content={Astro.generator} />
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+
+	<!-- Set the theme before the page is rendered to avoid a flash -->
+	<script
+		define:vars={{
+			DEFAULT_THEME: DEFAULT_THEME,
+			LIGHT_MODE: LIGHT_MODE,
+			DARK_MODE: DARK_MODE,
+			AUTO_MODE: AUTO_MODE
+		}}
+	>
+		import { getTheme, setTheme } from "../../../utils/setting-utils";
+
+		const theme = getTheme();
+		setTheme(theme);
+	</script>
+
+	<link
+		rel="alternate"
+		type="application/rss+xml"
+		title={"Dor Sharon"}
+		href={`${Astro.site}rss.xml`}
+	/>
+</head>
