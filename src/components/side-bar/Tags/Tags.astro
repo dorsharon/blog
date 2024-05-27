@@ -1,15 +1,8 @@
 ---
-import WidgetLayout from "./WidgetLayout/WidgetLayout.astro";
-import ButtonTag from "../../common/ButtonTag.astro";
 import { getTagsList } from "../../../utils/content-utils";
 import { getUrl } from "../../../utils/url-utils";
-import { Icon } from "astro-icon/components";
 import {
-	button,
-	buttonContent,
-	collapsed,
-	collapseWrapper,
-	expandButton,
+	tagButton,
 	title,
 	tagsCard,
 	tagsWrapper
@@ -26,13 +19,12 @@ const tags = await getTagsList();
 
 	<div class={tagsWrapper}>
 		{
-			tags.map((t) => (
-				<ButtonTag
-					href={getUrl(`/archive/tag/${t.name}/`)}
-					label={`View all posts with the ${t.name} tag`}
-				>
-					{t.name}
-				</ButtonTag>
+			tags.map(({ name }) => (
+				<a href={getUrl(`/archive/tag/${name}/`)}
+				   aria-label={`View all posts with the ${name} tag`}
+				   class={tagButton}>
+					{name}
+				</a>
 			))
 		}
 	</div>

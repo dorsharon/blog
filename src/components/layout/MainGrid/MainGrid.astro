@@ -1,27 +1,28 @@
 ---
 import Navbar from "@components/navbar/Navbar.astro";
 import SideBar from "@components/side-bar/SideBar.astro";
-import Footer from "../Footer/Footer.astro";
-import { card, container, contentWrapper, footer, header } from "./MainGrid.css";
+import { card, grid, content, footer, header, sidebar } from "./MainGrid.css";
 import { onLoadAnimation } from "../../../styles/common-styles.css";
 ---
 
-<div class={container}>
+<div class={grid}>
 	<header class={`${header} ${onLoadAnimation}`}>
 		<div class={card}></div>
 
 		<Navbar />
 	</header>
 
-	<SideBar />
+	<div class={`${sidebar} ${onLoadAnimation}`}>
+		<SideBar />
+	</div>
 
-	<div class={`${contentWrapper} ${onLoadAnimation}`}>
+	<div class={`${content} ${onLoadAnimation}`}>
 		<main id="swup" class="transition-fade">
 			<slot />
 		</main>
 	</div>
 
 	<footer class={`${footer} ${onLoadAnimation}`}>
-		© 2024 Dor Sharon.
+		© {new Date().getFullYear()} Dor Sharon.
 	</footer>
 </div>

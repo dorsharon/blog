@@ -2,32 +2,52 @@ import { style } from "@vanilla-extract/css";
 import { theme } from "../../../styles/themes.css";
 import { cardBorderRadius, pageWidth } from "../../../styles/variables.css.ts";
 
-export const container = style({
+export const grid = style({
 	maxWidth: pageWidth,
 	minHeight: "100vh",
 	display: "grid",
 	gridTemplateColumns: "17.5rem auto",
 	gridTemplateRows: "auto auto 1fr auto",
+	gridTemplateAreas: `
+		"header header"
+		"sidebar content"
+		"footer footer"`,
 	margin: "0 auto",
 	gap: "1rem",
 	position: "relative",
 	padding: "0 1rem",
 
 	"@media": {
-		"(min-width: 768px)": {
-			padding: "0 1rem"
+		"(max-width: 768px)": {
+			padding: "0"
 		},
-		"(min-width: 1024px)": {
-			gridTemplateRows: "auto 1fr auto"
+		"(max-width: 1024px)": {
+			gridTemplateColumns: "1fr",
+			gridTemplateRows: "auto 1fr auto",
+			gridTemplateAreas: `
+				"header"
+				"content"
+				"sidebar"
+				"footer"`
 		}
 	}
 });
 
 export const header = style({
-	gridColumn: "span 2",
-	gridRow: "1",
+	gridArea: "header",
 	zIndex: 50,
 	position: "relative"
+});
+
+export const sidebar = style({
+	width: "100%",
+	gridArea: "sidebar",
+
+	"@media": {
+		"(min-width: 1024px)": {
+			maxWidth: "17.5rem"
+		}
+	}
 });
 
 export const card = style({
@@ -40,22 +60,19 @@ export const card = style({
 	transition: "background-color 0.3s"
 });
 
-export const contentWrapper = style({
-	gridRowStart: 2,
-	gridRowEnd: 3,
-	gridColumn: "span 2",
+export const content = style({
+	gridArea: "content",
 	overflow: "hidden",
 
 	"@media": {
 		"(min-width: 1024px)": {
 			gridColumn: "span 1"
 		}
-	},
+	}
 });
 
 export const footer = style({
-	gridRow: 3,
-	gridColumn: "span 2",
+	gridArea: "footer",
 	marginTop: "1rem",
 	color: theme.text.secondary,
 	backgroundColor: theme.background.card,
@@ -63,5 +80,5 @@ export const footer = style({
 	height: "3rem",
 	display: "flex",
 	alignItems: "center",
-	justifyContent: "center",
+	justifyContent: "center"
 });

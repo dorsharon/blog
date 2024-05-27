@@ -4,11 +4,11 @@ import { Icon } from "astro-icon/components";
 import { profileConfig } from "../../../config";
 import { getUrl } from "../../../utils/url-utils";
 import avatarImage from '../../../assets/avatar.jpeg';
-import { bio, icon, link, linkButton, links, name, overlay, separator } from "./Profile.css";
+import { bio, icon, link, linkButton, links, name, overlay, separator, wrapper } from "./Profile.css";
 
 const config = profileConfig;
 ---
-<div >
+<div class={wrapper}>
     <a aria-label="Go to About Page" href={getUrl('/about/')} class={link}>
         <div class={overlay}>
             <Icon name="fa6-regular:address-card" class={icon} />
