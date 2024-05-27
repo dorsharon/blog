@@ -1,0 +1,101 @@
+---
+import path from "path";
+import PostMetadata from "../PostMetadata/PostMetadata.astro";
+import { Icon } from "astro-icon/components";
+import { getDir, getPostUrlBySlug } from "../../../utils/url-utils";
+import { type CollectionEntry } from "astro:content";
+import { Image } from 'astro:assets';
+import {
+	contentWrapper,
+	coverImageIcon, coverImageOverlay,
+	coverImageWrapper, divider, postLinkButton, postLinkIcon,
+	readingTime,
+	subtitleWrapper,
+	titleLink,
+	wrapper
+} from "./PostCard.css";
+
+interface Props {
+	post: CollectionEntry<'posts'>
+	style: any
+}
+
+const {
+	post, style
+} = Astro.props;
+
+const {
+	title,
+	subtitle,
+	image,
+	publishDate,
+	tags,
+} = post.data;
+
+const hasCover = image !== undefined && image !== null && image !== "";
+const url = getPostUrlBySlug(post.slug);
+const coverWidth = "28%";
+
+const { remarkPluginFrontmatter } = await post.render();
+---
+
+<div class={wrapper} style={style}>
+	<div class={contentWrapper}>
+		<a href={url} class={titleLink}>
+			{title}
+		</a>
+
+		<PostMetadata
+			publishDate={publishDate}
+			tags={tags}
+			hideTagsForMobile={true}
+		/>
+
+		<div class={subtitleWrapper}>
+			{subtitle}
+		</div>
+
+		<div class={readingTime}>
+			<div>
+				{remarkPluginFrontmatter.minutes} minutes read
+			</div>
+		</div>
+	</div>
+
+	{hasCover && (
+		<a href={url} aria-label={title} class={coverImageWrapper}>
+			<div class={coverImageOverlay} />
+
+			<div class={coverImageIcon} />
+
+			<Icon
+				name="material-symbols:chevron-right-rounded"
+				class={coverImageIcon}
+			/>
+
+			<Image
+				src={image}
+				basePath={path.join("content/posts/", getDir(post.id))}
+				alt="Cover Image of the Post"
+				class={coverImageIcon}
+			/>
+		</a>
+	)}
+
+	{!hasCover && (
+		<a
+			href={url}
+			aria-label={title}
+			class={postLinkButton}
+		>
+			<Icon
+				name="material-symbols:chevron-right-rounded"
+				class={postLinkIcon}
+			/>
+		</a>
+	)}
+</div>
+
+<div class={divider}></div>
+
+<style define:vars={{ coverWidth }}></style>

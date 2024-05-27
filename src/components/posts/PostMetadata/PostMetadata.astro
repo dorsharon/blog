@@ -1,0 +1,56 @@
+---
+import { formatDate } from "../../../utils/date-utils";
+import { Icon } from "astro-icon/components";
+import { getUrl } from "../../../utils/url-utils";
+import {
+	dateText,
+	dateWrapper,
+	icon, noTagsText,
+	tagContainer,
+	tagLink,
+	tagList,
+	withDivider,
+	wrapper
+} from "./PostMetadata.css";
+
+interface Props {
+	publishDate: Date;
+	tags: string[];
+}
+
+const { publishDate, tags } = Astro.props;
+---
+
+<div class={wrapper}>
+	<div class={dateWrapper}>
+		<div class={icon}>
+			<Icon name="material-symbols:calendar-today-outline-rounded" class="text-xl"></Icon>
+		</div>
+
+		<span class={dateText}>{formatDate(publishDate)}</span>
+	</div>
+
+	<div class={tagContainer}>
+		<div class={icon}>
+			<Icon name="material-symbols:tag-rounded" class="text-xl"></Icon>
+		</div>
+
+		<div class={tagList}>
+			{(tags && tags.length > 0) && tags.map(tag => (
+				<div class={withDivider}>
+					<a
+						href={getUrl(`/archive/tag/${tag}/`)}
+						aria-label={`View all posts with the ${tag} tag`}
+						class={tagLink}
+					>
+						{tag}
+					</a>
+				</div>
+			))}
+
+			{!(tags && tags.length > 0) && (
+				<div class={noTagsText}>No tags</div>
+			)}
+		</div>
+	</div>
+</div>
