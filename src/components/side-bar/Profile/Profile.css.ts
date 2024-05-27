@@ -52,15 +52,6 @@ export const icon = style({
 	}
 });
 
-export const avatarImage = style({
-	margin: "0 auto",
-	"@media (min-width: 1024px)": {
-		width: "100%",
-		marginTop: "0"
-	},
-	height: "100%"
-});
-
 export const name = style({
 	fontWeight: "bold",
 	fontSize: "1.25rem",
