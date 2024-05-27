@@ -120,50 +120,6 @@ const jsonLd = {
 			</Markdown>
 		</div>
 	</div>
-
-	<div
-		class="flex flex-col md:flex-row justify-between mb-4 gap-4 overflow-hidden w-full"
-	>
-		<a
-			href={getPostUrlBySlug(post.data.nextSlug)}
-			class="w-full font-bold overflow-hidden active:scale-95"
-		>
-			{
-				post.data.nextSlug && (
-					<div class="btn-card rounded-2xl w-full h-[3.75rem] max-w-full px-4 flex items-center justify-start gap-4">
-						<Icon
-							name="material-symbols:chevron-left-rounded"
-							size={32}
-							class="text-[var(--primary)]"
-						/>
-						<div class="overflow-hidden transition overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_3rem)] text-black/75 dark:text-white/75">
-							{post.data.nextTitle}
-						</div>
-					</div>
-				)
-			}
-		</a>
-
-		<a
-			href={getPostUrlBySlug(post.data.prevSlug)}
-			class="w-full font-bold overflow-hidden active:scale-95"
-		>
-			{
-				post.data.prevSlug && (
-					<div class="btn-card rounded-2xl w-full h-[3.75rem] max-w-full px-4 flex items-center justify-end gap-4">
-						<div class="overflow-hidden transition overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_3rem)] text-black/75 dark:text-white/75">
-							{post.data.prevTitle}
-						</div>
-						<Icon
-							name="material-symbols:chevron-right-rounded"
-							size={32}
-							class="text-[var(--primary)]"
-						/>
-					</div>
-				)
-			}
-		</a>
-	</div>
 </BaseLayout>
 
 <style is:global>

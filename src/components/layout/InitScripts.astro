@@ -5,7 +5,7 @@
 <script>
 	import "overlayscrollbars/overlayscrollbars.css";
 	import { OverlayScrollbars } from "overlayscrollbars";
-	import { getHue, getTheme, setHue, setTheme } from "@utils/setting-utils";
+	import { getTheme, setTheme } from "@utils/setting-utils";
 
 	// function setClickOutsideToClose(panel: string, ignores: string[]) {
 	// 	document.addEventListener("click", (event) => {
@@ -39,10 +39,6 @@
 		setTheme(theme);
 	}
 
-	function loadHue() {
-		setHue(getHue());
-	}
-
 	function initCustomScrollbar() {
 		OverlayScrollbars(
 			// docs say that a initialization to the body element would affect native functionality like window.scrollTo
@@ -73,7 +69,6 @@
 
 	function init() {
 		loadTheme();
-		loadHue();
 		initCustomScrollbar();
 	}
 
