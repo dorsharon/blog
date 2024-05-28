@@ -27,12 +27,10 @@ const {
 const {
 	title,
 	subtitle,
-	image,
 	publishDate,
 	tags
 } = post.data;
 
-const hasCover = image !== undefined && image !== null && image !== "";
 const url = getPostUrlBySlug(post.slug);
 
 const { remarkPluginFrontmatter } = await post.render();
@@ -47,7 +45,6 @@ const { remarkPluginFrontmatter } = await post.render();
 		<PostMetadata
 			publishDate={publishDate}
 			tags={tags}
-			hideTagsForMobile={true}
 		/>
 
 		<div class={subtitleWrapper}>
@@ -61,36 +58,20 @@ const { remarkPluginFrontmatter } = await post.render();
 		</div>
 	</div>
 
-	{hasCover && (
-		<a href={url} aria-label={title} class={coverImageWrapper}>
-			<div class={coverImageOverlay} />
+	<a href={url} aria-label={title} class={coverImageWrapper}>
+		<div class={coverImageOverlay} />
 
-			<div class={coverImageIcon} />
+		<div class={coverImageIcon} />
 
-			<Icon
-				name="material-symbols:chevron-right-rounded"
-				class={coverImageIcon}
-			/>
+		<Icon
+			name="material-symbols:chevron-right-rounded"
+			class={coverImageIcon}
+		/>
 
-			<Image
-				src={image}
-				basePath={path.join("content/posts/", getDir(post.id))}
-				alt="Cover Image of the Post"
-				class={coverImageIcon}
-			/>
-		</a>
-	)}
-
-	{!hasCover && (
-		<a
-			href={url}
-			aria-label={title}
-			class={postLinkButton}
-		>
-			<Icon
-				name="material-symbols:chevron-right-rounded"
-				class={postLinkIcon}
-			/>
-		</a>
-	)}
+		<Image
+			src={path.join("content/posts/", getDir(post.id), 'cover.jpeg')}
+			alt="Cover Image of the Post"
+			class={coverImageIcon}
+		/>
+	</a>
 </div>

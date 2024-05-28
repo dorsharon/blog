@@ -68,7 +68,7 @@ const { remarkPluginFrontmatter } = await post.render();
 		{
 			post.data.image && (
 				<Image
-					src={path.join("content/posts/", getDir(post.id), "index.jpg")}
+					src={path.join("content/posts/", getDir(post.id), "cover.jpeg")}
 					class={`${coverImage} ${onLoadAnimation}`}
 				/>
 			)

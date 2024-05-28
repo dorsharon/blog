@@ -10,7 +10,7 @@ export const getStaticPaths = (async () => {
 	const allTags = posts.reduce((acc, post) => {
 		post.data.tags.forEach((tag) => acc.add(tag));
 		return acc;
-	}, new Set());
+	}, new Set<string>());
 
 	const allTagsArray = Array.from(allTags);
 

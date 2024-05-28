@@ -44,16 +44,16 @@
 			// docs say that a initialization to the body element would affect native functionality like window.scrollTo
 			// but just leave it here for now
 			{
-				target: document.querySelector("body"),
+				target: document.querySelector("body") as HTMLElement
 			},
 			{
 				scrollbars: {
 					theme: "scrollbar-base scrollbar-auto py-1",
 					autoHide: "move",
 					autoHideDelay: 500,
-					autoHideSuspend: false,
-				},
-			},
+					autoHideSuspend: false
+				}
+			}
 		);
 		document.querySelectorAll("pre").forEach((ele) => {
 			OverlayScrollbars(ele, {
@@ -61,8 +61,8 @@
 					theme: "scrollbar-base scrollbar-dark px-2",
 					autoHide: "leave",
 					autoHideDelay: 500,
-					autoHideSuspend: false,
-				},
+					autoHideSuspend: false
+				}
 			});
 		});
 	}
@@ -79,18 +79,18 @@
 	/* astro:after-swap event happened before swap animation */
 	document.addEventListener("astro:after-swap", init);
 
-	const setup = () => {
-		// Remove the delay for the first time page load
-		window.swup.hooks.on("link:click", () => {
-			document.documentElement.style.setProperty(
-				"--content-delay",
-				"0ms",
-			);
-		});
-	};
-	if (window?.swup?.hooks) {
-		setup();
-	} else {
-		document.addEventListener("swup:enable", setup);
-	}
+	// const setup = () => {
+	// 	// Remove the delay for the first time page load
+	// 	window.swup.hooks.on("link:click", () => {
+	// 		document.documentElement.style.setProperty(
+	// 			"--content-delay",
+	// 			"0ms",
+	// 		);
+	// 	});
+	// };
+	// if (window?.swup?.hooks) {
+	// 	setup();
+	// } else {
+	// 	document.addEventListener("swup:enable", setup);
+	// }
 </script>
