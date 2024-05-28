@@ -59,3 +59,7 @@ export const linkButton = style({
 		transform: "scale(0.85)"
 	}
 });
+
+export const arrowIcon = style({
+	fontSize: "1.75rem"
+});

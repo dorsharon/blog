@@ -8,11 +8,15 @@ export const menuButton = style({
 	width: "2.75rem",
 	borderRadius: "0.5rem",
 	transition: "transform 0.2s",
+
 	":active": {
 		transform: "scale(0.9)"
 	},
-	"@media (min-width: 768px)": {
-		display: "none"
+
+	"@media": {
+		"(min-width: 768px)": {
+			display: "none"
+		}
 	}
 });
 
@@ -43,12 +47,12 @@ export const link = style({
 	color: "var(--black-75)",
 	backgroundColor: "var(--btn-plain-bg)",
 	transition: "background-color 0.3s, color 0.3s",
-	"@hover": {
-		"&:hover": {
-			backgroundColor: "var(--btn-plain-bg-hover)",
-			color: "var(--primary)"
-		}
+
+	":hover": {
+		backgroundColor: "var(--btn-plain-bg-hover)",
+		color: "var(--primary)"
 	},
+
 	":active": {
 		backgroundColor: "var(--btn-plain-bg-active)",
 		color: "var(--primary)"

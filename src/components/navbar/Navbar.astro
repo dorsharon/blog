@@ -1,7 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
-import { NavBarLink } from "../../types/config";
-import { siteConfig } from "../../config";
+import type { NavBarLink } from "../../types/config";
 import Search from "./Search.svelte";
 import { getUrl } from "../../utils/url-utils";
 import ThemeSwitch from "./ThemeSwitch/ThemeSwitch";
@@ -14,7 +13,7 @@ import {
 	linksWrapper,
 	navLink,
 	searchIcon,
-	rightElementsWrapper
+	rightElementsWrapper, switchIcon
 } from "./Navbar.css";
 import NavMenu from "./NavMenu/NavMenu";
 
@@ -26,7 +25,7 @@ const links: NavBarLink[] = [
 <div class={card}>
 	<a href={getUrl("/")} class={button}>
 		<div class={homeLink}>
-			<Icon name="material-symbols:home-outline-rounded" size={"1.75rem"} class={homeIcon} />
+			<Icon name="material-symbols:home-outline-rounded" class={homeIcon} />
 			Dor Sharon
 		</div>
 	</a>
@@ -41,9 +40,9 @@ const links: NavBarLink[] = [
 
 	<div class={rightElementsWrapper}>
 		<Search client:load>
-			<Icon slot="search-icon" name="material-symbols:search" size={"1.25rem"} class={searchIcon} />
-			<Icon slot="arrow-icon" name="fa6-solid:chevron-right" size={"0.75rem"} class={arrowIcon} />
-			<Icon slot="search-switch" name="material-symbols:search" size={"1.25rem"}></Icon>
+			<Icon slot="search-icon" name="material-symbols:search" class={searchIcon} />
+			<Icon slot="arrow-icon" name="fa6-solid:chevron-right" class={arrowIcon} />
+			<Icon slot="search-switch" name="material-symbols:search" class={switchIcon} />
 		</Search>
 
 		<ThemeSwitch client:only="react" />
@@ -57,11 +56,11 @@ const links: NavBarLink[] = [
 		const pagefind = await import(scriptUrl);
 		await pagefind.options({
 			"excerptLength": 20
-		});
+			});
 		pagefind.init();
 		window.pagefind = pagefind;
 		pagefind.search("");     // speed up the first search
-	}
+		}
 
-	loadPagefind();
+		loadPagefind();
 </script>

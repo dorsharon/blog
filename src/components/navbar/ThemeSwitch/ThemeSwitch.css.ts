@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
 export const themeButtonWrapper = style({
-	position: "relative",
+	position: "relative"
 });
 
 export const themeButton = style({
@@ -16,7 +16,7 @@ export const themeButton = style({
 
 	":active": {
 		transform: "scale(0.9)"
-	},
+	}
 
 	// selectors: {
 	// 	"svg": {
@@ -31,14 +31,17 @@ export const themeIcon = style({});
 export const panelBase = style({
 	position: "absolute",
 	display: "none",
-	"@media (min-width: 1024px)": {
-		display: "block"
-	},
 	transition: "transform 0.2s, opacity 0.2s",
 	top: "2.75rem",
 	right: "-0.5rem",
 	paddingTop: "1.25rem",
-	zIndex: 50
+	zIndex: 50,
+
+	"@media": {
+		"(min-width: 1024px)": {
+			display: "block"
+		}
+	},
 });
 
 export const floatPanelClosed = style({

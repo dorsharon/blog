@@ -40,6 +40,18 @@ export const overlay = style({
 	}
 });
 
+export const avatar = style({
+	margin: "0 auto",
+	height: "100%",
+
+	"@media": {
+		"(min-width: 1024px)": {
+			width: "100%",
+			marginTop: "0"
+		}
+	},
+});
+
 export const icon = style({
 	transition: "opacity 0.2s",
 	opacity: 0,
@@ -104,4 +116,8 @@ export const linkButton = style({
 	":active": {
 		transform: "scale(0.9)"
 	}
+});
+
+export const linkIcon = style({
+	fontSize: "1.25rem"
 });

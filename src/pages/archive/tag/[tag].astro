@@ -2,8 +2,9 @@
 import { getSortedPosts } from "@utils/content-utils";
 import BaseLayout from "../../../components/layout/BaseLayout/BaseLayout.astro";
 import PostsTimeline from "../../../components/archive/PostsTimeline.astro";
+import { type GetStaticPaths } from "astro";
 
-export async function getStaticPaths() {
+export const getStaticPaths = (async () => {
 	let posts = await getSortedPosts();
 
 	const allTags = posts.reduce((acc, post) => {
@@ -16,11 +17,11 @@ export async function getStaticPaths() {
 	return allTagsArray.map((tag) => {
 		return {
 			params: {
-				tag: tag,
-			},
+				tag: tag
+			}
 		};
 	});
-}
+}) satisfies GetStaticPaths;
 
 const { tag } = Astro.params;
 ---

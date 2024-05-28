@@ -4,7 +4,7 @@ import { Icon } from "astro-icon/components";
 import { profileConfig } from "../../../config";
 import { getUrl } from "../../../utils/url-utils";
 import avatarImage from '../../../assets/avatar.jpeg';
-import { bio, icon, link, linkButton, links, name, overlay, separator, wrapper } from "./Profile.css";
+import { avatar, bio, icon, link, linkButton, linkIcon, links, name, overlay, separator, wrapper } from "./Profile.css";
 
 const config = profileConfig;
 ---
@@ -14,7 +14,7 @@ const config = profileConfig;
             <Icon name="fa6-regular:address-card" class={icon} />
         </div>
 
-        <Image src={avatarImage} alt="Profile Image" class={avatarImage} />
+        <Image src={avatarImage} alt="Profile Image" class={avatar} />
     </a>
 
     <div class={name}>{config.name}</div>
@@ -26,7 +26,7 @@ const config = profileConfig;
     <div class={links}>
         {config.links.map(item => (
             <a rel="me" aria-label={item.name} href={item.url} target="_blank" class={linkButton}>
-                <Icon name={item.icon} size="1.5rem" />
+                <Icon class={linkIcon} name={item.icon} />
             </a>
         ))}
     </div>

@@ -43,11 +43,13 @@ export const homeLink = style({
 
 export const homeIcon = style({
 	marginBottom: "0.25rem",
-	marginRight: "0.5rem"
+	marginRight: "0.5rem",
+	fontSize: "1.75rem"
 });
 
 export const linksWrapper = style({
 	display: "none",
+
 	"@media": {
 		"(min-width: 768px)": {
 			display: "flex"
@@ -84,17 +86,19 @@ export const searchIcon = style({
 	pointerEvents: "none",
 	marginLeft: "0.75rem",
 	transition: "color 0.2s",
-	color: "rgba(0, 0, 0, 0.3)",
-	"@media (prefers-color-scheme: dark)": {
-		color: "rgba(255, 255, 255, 0.3)"
-	}
+	color: theme.text.secondary,
+	fontSize: "1.25rem"
 });
 
 export const arrowIcon = style({
 	transition: "transform 0.2s",
 	transform: "translateX(0.125rem)",
 	margin: "auto 0",
-	color: "var(--primary)"
+	color: theme.color.primary,
+	fontSize: "0.75rem"
 });
 
+export const switchIcon = style({
+	fontSize: "1.25rem"
+});
 
