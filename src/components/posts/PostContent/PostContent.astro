@@ -1,0 +1,81 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import PostMetadata from "../PostMetadata/PostMetadata.astro";
+import { getDir } from "@utils/url-utils";
+import Markdown from "../../common/Markdown.astro";
+import path from "path";
+import {
+	coverImage,
+	card,
+	readingTimeIcon,
+	readingTimeWrapper,
+	title,
+	titleWrapper,
+	markdownContent, border, wrapper, metadata, subtitle
+} from "./PostContent.css";
+import { onLoadAnimation } from "../../../styles/common-styles.css";
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const { remarkPluginFrontmatter } = await post.render();
+---
+<div class={wrapper}>
+	<div class={card}>
+		<div class={`${readingTimeWrapper} ${onLoadAnimation}`}>
+			<div class={readingTimeIcon}>
+				<Icon name="material-symbols:schedule-outline-rounded" />
+			</div>
+			<div class="text-sm">
+				{remarkPluginFrontmatter.minutes} minutes read
+			</div>
+		</div>
+
+		<div class={`${titleWrapper} ${onLoadAnimation}`}>
+			<div
+				data-pagefind-body
+				data-pagefind-weight="10"
+				data-pagefind-meta="title"
+				class={title}
+			>
+				{post.data.title}
+			</div>
+
+			<div
+				data-pagefind-body
+				data-pagefind-weight="5"
+				data-pagefind-meta="subtitle"
+				class={subtitle}
+			>
+				{post.data.subtitle}
+			</div>
+		</div>
+
+		<div class={`${metadata} ${onLoadAnimation}`}>
+			<PostMetadata
+				publishDate={post.data.publishDate}
+				tags={post.data.tags}
+			/>
+
+			{
+				!post.data.image && (
+					<div class={border} />
+				)
+			}
+		</div>
+
+		{
+			post.data.image && (
+				<Image
+					src={path.join("content/posts/", getDir(post.id), "index.jpg")}
+					class={`${coverImage} ${onLoadAnimation}`}
+				/>
+			)
+		}
+
+		<Markdown class={`${markdownContent} ${onLoadAnimation}`}>
+			<Content />
+		</Markdown>
+	</div>
+</div>

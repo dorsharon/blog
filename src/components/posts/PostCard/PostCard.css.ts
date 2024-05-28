@@ -2,6 +2,8 @@ import { style } from "@vanilla-extract/css";
 import { cardBorderRadius } from "../../../styles/variables.css";
 import { theme } from "../../../styles/themes.css";
 
+const coverWidth = "28%";
+
 export const wrapper = style(
 	{
 		backgroundColor: theme.background.card,
@@ -32,7 +34,7 @@ export const contentWrapper = style({
 			paddingRight: "0.5rem",
 			paddingTop: "1.75rem",
 			paddingBottom: "1.75rem",
-			width: "calc(100% - var(--coverWidth) - 12px)"
+			width: `calc(100% - ${coverWidth} - 12px)`
 		}
 	}
 });
@@ -44,8 +46,8 @@ export const titleLink = style({
 	fontSize: "1.875rem",
 	color: theme.text.primary,
 	transition: "all 0.3s ease",
-	position: 'relative',
-	cursor: 'pointer',
+	position: "relative",
+	cursor: "pointer",
 
 	":hover": {
 		color: theme.color.primary
@@ -62,8 +64,17 @@ export const titleLink = style({
 		borderRadius: "0.25rem",
 		backgroundColor: theme.color.primary,
 		position: "absolute",
-		top: '10px',
-		left: '-18px'
+		top: "10px",
+		left: "-18px"
+	},
+
+	"@media": {
+		"screen and (max-width: 768px)": {
+			"::before": {
+				display: "none"
+
+			}
+		}
 	}
 });
 
@@ -75,7 +86,7 @@ export const subtitleWrapper = style({
 
 export const readingTime = style({
 	fontSize: "0.875rem",
-	color: "rgba(0, 0, 0, 0.3)",
+	color: theme.text.secondary,
 	display: "flex",
 	gap: "1rem",
 	transition: "all 0.3s ease",
@@ -100,7 +111,7 @@ export const coverImageWrapper = style({
 			marginBottom: "0",
 			marginLeft: "0",
 			marginRight: "0",
-			width: "var(--coverWidth)",
+			width: coverWidth,
 			position: "absolute",
 			top: "0.75rem",
 			bottom: "0.75rem",
@@ -164,17 +175,4 @@ export const postLinkIcon = style({
 	color: theme.color.primary,
 	fontSize: "2rem",
 	margin: "auto"
-});
-
-export const divider = style({
-	transition: "all 0.3s ease",
-	borderTopWidth: "1px",
-	borderTopStyle: "dashed",
-	margin: "1.5rem",
-	borderTopColor: "rgba(0, 0, 0, 0.1)",
-	"@media": {
-		"screen and (min-width: 768px)": {
-			borderTopColor: "rgba(255, 255, 255, 0.15)"
-		}
-	}
 });

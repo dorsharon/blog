@@ -1,0 +1,29 @@
+---
+import PostCard from "../PostCard/PostCard.astro";
+import { type CollectionEntry } from "astro:content";
+import { wrapper, divider } from "./PostsList.css";
+
+interface Props {
+	posts: CollectionEntry<"posts">[];
+}
+
+const { posts } = Astro.props;
+---
+
+<div class={wrapper}>
+	{
+		posts.map(
+			(post, index) => (
+				<>
+					<PostCard
+						post={post}
+						index={index}
+					/>
+
+					{index !== posts.length - 1 && (
+						<div class={divider}></div>)}
+				</>
+			)
+		)
+	}
+</div>

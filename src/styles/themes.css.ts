@@ -1,7 +1,7 @@
 import { createTheme } from "@vanilla-extract/css";
 
 export const [lightThemeClass, theme] = createTheme({
-	color: { primary: "#6da3da" },
+	color: { primary: "#67b3ff" },
 	text: {
 		primary: "#000000bf",
 		secondary: "#a3a3a3"
@@ -15,7 +15,7 @@ export const [lightThemeClass, theme] = createTheme({
 });
 
 export const darkThemeClass = createTheme(theme, {
-	color: { primary: "#6da3da" },
+	color: { primary: "#67b3ff" },
 	text: {
 		primary: "#ffffffe6",
 		secondary: "#ffffff80"

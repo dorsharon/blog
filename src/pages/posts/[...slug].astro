@@ -1,33 +1,25 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../components/layout/BaseLayout/BaseLayout.astro";
-import { Image } from 'astro:assets';
-import { Icon } from "astro-icon/components";
-import PostMetadata from "../../components/posts/PostMetadata/PostMetadata.astro";
-import { getDir, getPostUrlBySlug } from "@utils/url-utils";
-import Markdown from "../../components/common/Markdown.astro";
-import path from "path";
 import { formatDate } from "../../utils/date-utils";
 import type { GetStaticPaths } from "astro";
+import PostContent from "../../components/posts/PostContent/PostContent.astro";
 
 export const getStaticPaths = (async () => {
 	const posts = await getCollection("posts");
 
 	return posts.map((post) => ({
 		params: { slug: post.slug },
-		props: { post },
+		props: { post }
 	}));
 }) satisfies GetStaticPaths;
 
 interface Props {
-	post: CollectionEntry<'posts'>;
+	post: CollectionEntry<"posts">;
 
 }
 
 const { post } = Astro.props;
-const { Content } = await post.render();
-
-const { remarkPluginFrontmatter } = await post.render();
 
 const jsonLd = {
 	"@context": "https://schema.org",
@@ -38,9 +30,9 @@ const jsonLd = {
 	author: {
 		"@type": "Person",
 		name: "Dor Sharon",
-		url: Astro.site,
+		url: Astro.site
 	},
-	datePublished: formatDate(post.data.publishDate),
+	datePublished: formatDate(post.data.publishDate)
 	// TODO include cover image here
 };
 ---
@@ -52,93 +44,5 @@ const jsonLd = {
 		set:html={JSON.stringify(jsonLd)}
 	/>
 
-	<div
-		class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4"
-	>
-		<div
-			id="post-container"
-			class:list={[
-				"card-base z-10 px-6 md:px-9 pt-6 pb-4 relative w-full ",
-				{},
-			]}
-		>
-			<!-- Reading time -->
-			<div class="flex flex-row items-center">
-				<div
-					class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2"
-				>
-					<Icon name="material-symbols:schedule-outline-rounded" />
-				</div>
-				<div class="text-sm">
-					{remarkPluginFrontmatter.minutes} minutes read
-				</div>
-			</div>
-
-			<!-- title -->
-			<div class="relative onload-animation">
-				<div
-					data-pagefind-body
-					data-pagefind-weight="10"
-					data-pagefind-meta="title"
-					class="transition w-full block font-bold mb-3
-                    text-3xl md:text-[2.5rem]/[2.75rem]
-                    text-black/90 dark:text-white/90
-                    md:before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
-                    before:absolute before:top-[0.75rem] before:left-[-1.125rem]"
-				>
-					{post.data.title}
-				</div>
-			</div>
-
-			<!-- metadata -->
-			<div class="onload-animation">
-				<PostMetadata
-					publishDate={post.data.publishDate}
-					tags={post.data.tags}
-				/>
-				{
-					!post.data.image && (
-						<div class="border-[var(--line-divider)] border-dashed border-b-[1px] mb-5" />
-					)
-				}
-			</div>
-
-			<!-- always show cover as long as it has one -->
-
-			{
-				post.data.image && (
-					<Image
-						src={post.data.image}
-						basePath={path.join("content/posts/", getDir(post.id))}
-						class="mb-8 rounded-xl banner-container onload-animation"
-					/>
-				)
-			}
-
-			<Markdown class="mb-6 markdown-content onload-animation">
-				<Content />
-			</Markdown>
-		</div>
-	</div>
+	<PostContent post={post} />
 </BaseLayout>
-
-<style is:global>
-	#post-container :nth-child(1) {
-		animation-delay: calc(var(--content-delay) + 0ms);
-	}
-	#post-container :nth-child(2) {
-		animation-delay: calc(var(--content-delay) + 50ms);
-	}
-	#post-container :nth-child(3) {
-		animation-delay: calc(var(--content-delay) + 100ms);
-	}
-	#post-container :nth-child(4) {
-		animation-delay: calc(var(--content-delay) + 175ms);
-	}
-	#post-container :nth-child(5) {
-		animation-delay: calc(var(--content-delay) + 250ms);
-	}
-	#post-container :nth-child(6) {
-		animation-delay: calc(var(--content-delay) + 325ms);
-	}
-</style>

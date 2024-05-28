@@ -1,6 +1,6 @@
 import { floatPanel, floatPanelClosed, link, linkText, menuButton } from "./NavMenu.css.ts";
-import type { NavBarLink } from "@/types/config.ts";
-import { useRef } from "react";
+import React, { useRef } from "react";
+import type { NavBarLink } from "../../../types/config.ts";
 
 export default function NavMenu({ links }: { links: NavBarLink[] }) {
 	const panelRef = useRef<HTMLDivElement>(null);
@@ -25,6 +25,7 @@ export default function NavMenu({ links }: { links: NavBarLink[] }) {
 				{
 					links.map(({ name, url }) => (
 						<a
+							key={url}
 							href={url}
 							className={link}
 						>

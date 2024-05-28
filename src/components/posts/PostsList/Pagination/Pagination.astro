@@ -1,0 +1,69 @@
+---
+import type { Page } from "astro";
+import { Icon } from 'astro-icon/components';
+import { getUrl } from "../../../../utils/url-utils";
+import { activePage, button, container, linkButton, moreIcon, pagination } from "./Pagination.css";
+
+interface Props {
+    page: Page;
+}
+
+const { page } = Astro.props;
+
+const HIDDEN = -1;
+const ADJ_DIST = 2;
+const VISIBLE = ADJ_DIST * 2 + 1;
+
+// for test
+let count = 1;
+let l = page.currentPage, r = page.currentPage;
+while (0 < l - 1 && r + 1 <= page.lastPage && count + 2 <= VISIBLE) {
+    count += 2;
+    l--;
+    r++;
+}
+while (0 < l - 1 && count < VISIBLE) {
+    count++;
+    l--;
+}
+while (r + 1 <= page.lastPage && count < VISIBLE) {
+    count++;
+    r++;
+}
+
+let pages: number[] = [];
+if (l > 1) pages.push(1);
+if (l == 3) pages.push(2);
+if (l > 3) pages.push(HIDDEN);
+for (let i = l; i <= r; i++) pages.push(i);
+if (r < page.lastPage - 2) pages.push(HIDDEN);
+if (r == page.lastPage - 2) pages.push(page.lastPage - 1);
+if (r < page.lastPage) pages.push(page.lastPage);
+
+const getPageUrl = (p: number) => {
+    if (p == 1) return '/';
+    return `/${p}/`;
+}
+---
+
+<div class={container} style={{ animationDelay: `calc(var(--content-delay) + ${page.data.length * 50}ms)` }}>
+    <a href={getUrl(page.url.prev)} aria-label={page.url.prev ? "Previous Page" : null}
+       class:list={[button, { "disabled": page.url.prev == undefined }]}
+    >
+        <Icon name="material-symbols:chevron-left-rounded" size="1.75rem"></Icon>
+    </a>
+
+    <div class={pagination}>
+        {pages.map((p) => {
+            if (p == HIDDEN) return <Icon name="material-symbols:more-horiz" class={moreIcon} />;
+            if (p == page.currentPage) return <div class={activePage}>{p}</div>;
+            return <a href={getUrl(getPageUrl(p))} aria-label={`Page ${p}`} class={linkButton}>{p}</a>;
+        })}
+    </div>
+
+    <a href={getUrl(page.url.next)} aria-label={page.url.next ? "Next Page" : null}
+       class:list={[button, { "disabled": page.url.next == undefined }]}
+    >
+        <Icon name="material-symbols:chevron-right-rounded" size="1.75rem"></Icon>
+    </a>
+</div>

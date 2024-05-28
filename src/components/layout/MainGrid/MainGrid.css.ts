@@ -7,7 +7,7 @@ export const grid = style({
 	minHeight: "100vh",
 	display: "grid",
 	gridTemplateColumns: "17.5rem auto",
-	gridTemplateRows: "auto auto 1fr auto",
+	gridTemplateRows: "auto 1fr auto",
 	gridTemplateAreas: `
 		"header header"
 		"sidebar content"

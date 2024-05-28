@@ -36,7 +36,7 @@ export const button = style({
 export const homeLink = style({
 	display: "flex",
 	flexDirection: "row",
-	color: "var(--primary)",
+	color: theme.color.primary,
 	alignItems: "center",
 	fontSize: "1rem"
 });
@@ -48,8 +48,10 @@ export const homeIcon = style({
 
 export const linksWrapper = style({
 	display: "none",
-	"@media (min-width: 768px)": {
-		display: "flex"
+	"@media": {
+		"(min-width: 768px)": {
+			display: "flex"
+		}
 	}
 });
 
@@ -64,8 +66,8 @@ export const navLink = style({
 	borderRadius: "0.5rem",
 	transition: "transform 0.2s",
 
-	":hover":{
-		backgroundColor: theme.background.hover,
+	":hover": {
+		backgroundColor: theme.background.hover
 	},
 
 	":active": {

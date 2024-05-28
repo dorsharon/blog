@@ -52,10 +52,15 @@ export const tagLink = style({
 	fontSize: "0.875rem",
 	fontWeight: "500",
 	transition: "color 0.3s ease",
+	whiteSpace: "nowrap",
+	padding: '0.375rem',
+	borderRadius: '0.375rem',
+	cursor: 'pointer',
+
 	":hover": {
+		backgroundColor: theme.background.hover,
 		color: theme.color.primary
 	},
-	whiteSpace: "nowrap"
 });
 
 export const withDivider = style({

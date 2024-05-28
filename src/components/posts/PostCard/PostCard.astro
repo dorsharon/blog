@@ -4,7 +4,7 @@ import PostMetadata from "../PostMetadata/PostMetadata.astro";
 import { Icon } from "astro-icon/components";
 import { getDir, getPostUrlBySlug } from "../../../utils/url-utils";
 import { type CollectionEntry } from "astro:content";
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
 import {
 	contentWrapper,
 	coverImageIcon, coverImageOverlay,
@@ -16,12 +16,12 @@ import {
 } from "./PostCard.css";
 
 interface Props {
-	post: CollectionEntry<'posts'>
-	style: any
+	post: CollectionEntry<"posts">;
+	index: number;
 }
 
 const {
-	post, style
+	post, index
 } = Astro.props;
 
 const {
@@ -29,17 +29,16 @@ const {
 	subtitle,
 	image,
 	publishDate,
-	tags,
+	tags
 } = post.data;
 
 const hasCover = image !== undefined && image !== null && image !== "";
 const url = getPostUrlBySlug(post.slug);
-const coverWidth = "28%";
 
 const { remarkPluginFrontmatter } = await post.render();
 ---
 
-<div class={wrapper} style={style}>
+<div class={wrapper} style={{ animationDelay: `calc(var(--content-delay) + ${index * 50}ms)` }}>
 	<div class={contentWrapper}>
 		<a href={url} class={titleLink}>
 			{title}
@@ -95,7 +94,3 @@ const { remarkPluginFrontmatter } = await post.render();
 		</a>
 	)}
 </div>
-
-<div class={divider}></div>
-
-<style define:vars={{ coverWidth }}></style>

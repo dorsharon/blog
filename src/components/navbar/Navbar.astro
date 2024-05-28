@@ -27,16 +27,14 @@ const links: NavBarLink[] = [
 	<a href={getUrl("/")} class={button}>
 		<div class={homeLink}>
 			<Icon name="material-symbols:home-outline-rounded" size={"1.75rem"} class={homeIcon} />
-			{siteConfig.title}
+			Dor Sharon
 		</div>
 	</a>
 
 	<div class={linksWrapper}>
 		{links.map(({ name, url }) =>
 			<a aria-label={name} href={getUrl(url)} class={navLink}>
-				<div class="flex items-center">
-					{name}
-				</div>
+				{name}
 			</a>
 		)}
 	</div>
@@ -48,7 +46,7 @@ const links: NavBarLink[] = [
 			<Icon slot="search-switch" name="material-symbols:search" size={"1.25rem"}></Icon>
 		</Search>
 
-		<ThemeSwitch client:only="react"/>
+		<ThemeSwitch client:only="react" />
 
 		<NavMenu client:load links={links} />
 	</div>
