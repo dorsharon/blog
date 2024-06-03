@@ -1,0 +1,12 @@
+---
+import { Code } from "astro:components";
+import { codeBlock } from "./CodeBlock.css";
+
+interface Props {
+	code: string;
+}
+
+const { code } = Astro.props;
+console.log(code);
+---
+{code && <Code class={codeBlock} code={code} lang="ts" theme="one-dark-pro" />}

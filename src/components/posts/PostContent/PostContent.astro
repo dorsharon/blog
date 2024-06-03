@@ -13,8 +13,6 @@ import {
 	markdownContent, border, wrapper, metadata, subtitle
 } from "./PostContent.css";
 import { onLoadAnimation } from "../../../styles/common-styles.css";
-import Markdown from "./Markdown/Markdown.astro";
-import  Blockquote from "../../markdown/Blockquote/Blockquote.astro";
 import { markdownComponents } from "../../markdown/markdownComponents";
 
 interface Props{
@@ -78,6 +76,7 @@ const { Content,remarkPluginFrontmatter } = await post.render();
 					src={post.data.image}
 					alt="Cover image"
 					class={`${coverImage} ${onLoadAnimation}`}
+					width="800px" height="400px"
 				/>
 			)
 		}
