@@ -15,13 +15,12 @@ import {
 import { onLoadAnimation } from "../../../styles/common-styles.css";
 import { markdownComponents } from "../../markdown/markdownComponents";
 
-interface Props{
-	post: CollectionEntry<'posts'>
+interface Props {
+	post: CollectionEntry<"posts">;
 }
 
 const { post } = Astro.props;
-const { Content,remarkPluginFrontmatter } = await post.render();
-
+const { Content, remarkPluginFrontmatter } = await post.render();
 ---
 <div class={wrapper}>
 	<div class={card}>
@@ -73,15 +72,16 @@ const { Content,remarkPluginFrontmatter } = await post.render();
 					src={post.data.image}
 					alt="Cover image"
 					class={`${coverImage} ${onLoadAnimation}`}
-					width="800px" height="400px"
+					width={800} height={400}
 				/>
 			)
 		}
 
-		<div style={{display: 'none'}}>{markdownComponents.map(Component=><Component/>)}</div>
+		<div style={{ display: "none" }}>{markdownComponents.map(Component =>
+			<Component />)}</div>
 
 		<article data-pagefind-body class={`${markdownContent} ${onLoadAnimation}`}>
-			<Content  />
+			<Content />
 		</article>
 	</div>
 </div>

@@ -17,13 +17,14 @@ export const GithubCardComponent: ComponentFunction = (properties, children) => 
 			["Invalid directive. (\"github\" directive must be leaf type \"::github{repo=\"owner/repo\"}\")"]
 		);
 
-	if (!properties.repo || !properties.repo.includes("/"))
+	const repo = properties?.repo as string
+
+	if (!repo || !repo.includes("/"))
 		return h("div",
 			{ class: "hidden" },
 			"Invalid repository. (\"repo\" attributte must be in the format \"owner/repo\")"
 		);
 
-	const repo = properties.repo;
 	const cardUuid = `GC${Math.random().toString(36).slice(-6)}`; // Collisions are not important
 
 	const nAvatar = h(
