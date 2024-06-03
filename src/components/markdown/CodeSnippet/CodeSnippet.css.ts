@@ -1,8 +1,9 @@
 import { style } from "@vanilla-extract/css";
 import { theme } from "../../../styles/themes.css.ts";
+import { codeFont } from "../../../styles/variables.css.ts";
 
 export const codeSnippet = style({
-	fontFamily: "JetBrains Mono Variable",
+	fontFamily: codeFont,
 	fontSize: '0.875em',
 	background: theme.background.hover,
 	color: theme.color.primary,

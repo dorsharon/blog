@@ -5,7 +5,7 @@ import { defineConfig } from "astro/config";
 import Color from "colorjs.io";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
-import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.mjs";
+import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.ts";
 import { AdmonitionComponent } from "./src/plugins/rehype-component-admonition.mjs";
 import remarkDirective from "remark-directive"; /* Handle directives */
 import rehypeComponents from "rehype-components"; /* Render the custom directive content */
