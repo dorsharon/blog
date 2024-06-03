@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { globalStyle, style } from "@vanilla-extract/css";
 import { theme } from "../../../styles/themes.css";
 import { cardBorderRadius } from "../../../styles/variables.css";
 
@@ -123,4 +123,12 @@ export const markdownContent = style({
 	marginBottom: '1.5rem',
 	animationDelay: 'calc(var(--content-delay) + 250ms)',
 	color: theme.text.primary,
+});
+
+globalStyle(`${markdownContent} > *:not(:first-child)`, {
+	marginBlockStart: '1em'
+});
+
+globalStyle(`${markdownContent} > *:not(:last-child)`, {
+	marginBlockEnd: '1em'
 });

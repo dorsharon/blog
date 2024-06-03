@@ -6,8 +6,8 @@ import { getDir, getPostUrlBySlug } from "../../../utils/url-utils";
 import { type CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
 import {
-	contentWrapper,
-	coverImageIcon, coverImageOverlay,
+	contentWrapper, coverImage,
+	coverImageIcon, coverImageIconWrapper, coverImageOverlay,
 	coverImageWrapper, postLinkButton, postLinkIcon,
 	readingTime,
 	subtitleWrapper,
@@ -28,6 +28,7 @@ const {
 	title,
 	subtitle,
 	publishDate,
+	image,
 	tags
 } = post.data;
 
@@ -59,19 +60,19 @@ const { remarkPluginFrontmatter } = await post.render();
 	</div>
 
 	<a href={url} aria-label={title} class={coverImageWrapper}>
-		<div class={coverImageOverlay} />
-
-		<div class={coverImageIcon} />
-
-		<Icon
-			name="material-symbols:chevron-right-rounded"
-			class={coverImageIcon}
-		/>
+		<div class={coverImageOverlay}>
+			<div class={coverImageIconWrapper}>
+				<Icon
+					name="material-symbols:chevron-right-rounded"
+					class={coverImageIcon}
+				/>
+			</div>
+		</div>
 
 		<Image
-			src={path.join("content/posts/", getDir(post.id), 'cover.jpeg')}
+			src={image}
 			alt="Cover Image of the Post"
-			class={coverImageIcon}
+			class={coverImage}
 		/>
 	</a>
 </div>

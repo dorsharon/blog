@@ -98,25 +98,32 @@ export const readingTime = style({
 });
 
 export const coverImageWrapper = style({
-	display: "block",
 	maxHeight: "20vh",
+	margin: "1rem",
 	marginTop: "1rem",
 	marginBottom: "-0.5rem",
-	marginLeft: "1rem",
-	marginRight: "1rem",
+	position: "relative",
+	borderRadius: "0.75rem",
+	overflow: "hidden",
+	transition: "all 0.3s ease",
+
+	":active": {
+		transform: "scale(0.95)"
+	},
+
+	":hover": {
+		cursor: "pointer"
+	},
+
 	"@media": {
 		"screen and (min-width: 768px)": {
 			maxHeight: "none",
-			marginTop: "0",
-			marginBottom: "0",
-			marginLeft: "0",
-			marginRight: "0",
+			margin: 0,
 			width: coverWidth,
 			position: "absolute",
 			top: "0.75rem",
 			bottom: "0.75rem",
-			right: "0.75rem",
-			borderRadius: "0.75rem"
+			right: "0.75rem"
 		}
 	}
 });
@@ -126,25 +133,45 @@ export const coverImageOverlay = style({
 	zIndex: 10,
 	width: "100%",
 	height: "100%",
-	backgroundColor: "rgba(0, 0, 0, 0.3)",
-	transition: "background-color 0.3s ease",
-	"@media": {
-		"screen and (min-width: 768px)": {
-			backgroundColor: "rgba(0, 0, 0, 0.5)"
-		}
+	transition: "all 0.3s ease",
+
+	":hover": {
+		backgroundColor: "rgba(0, 0, 0, 0.3)"
+	},
+
+	":active": {
+		backgroundColor: "rgba(0, 0, 0, 0.5)"
+	}
+});
+
+export const coverImageIconWrapper = style({
+	position: "absolute",
+	zIndex: 20,
+	width: "100%",
+	height: "100%",
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	transition: "all 0.3s ease",
+	opacity: 0,
+
+	":hover": {
+		opacity: 1
 	}
 });
 
 export const coverImageIcon = style({
-	transition: "opacity 0.3s ease",
-	opacity: 0,
 	color: "white",
 	fontSize: "3rem",
-	"@media": {
-		"screen and (min-width: 768px)": {
-			opacity: 1
-		}
-	}
+
+
+});
+
+export const coverImage = style({
+	width: "100%",
+	height: "100%",
+	objectFit: "cover",
+	objectPosition: "center"
 });
 
 export const postLinkButton = style({

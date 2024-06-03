@@ -15,93 +15,71 @@ import sitemap from "@astrojs/sitemap";
 import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
 import react from "@astrojs/react";
 import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
+import mdx from "@astrojs/mdx";
 
-const oklchToHex = (str) => {
+const oklchToHex = str => {
 	const DEFAULT_HUE = 250;
 	const regex = /-?\d+(\.\d+)?/g;
 	const matches = str.string.match(regex);
 	const lch = [matches[0], matches[1], DEFAULT_HUE];
 	return new Color("oklch", lch).to("srgb").toString({
-		format: "hex",
+		format: "hex"
 	});
 };
+
 
 // https://astro.build/config
 export default defineConfig({
 	site: "https://dorsharon.github.io",
 	base: "/blog",
-	integrations: [
-		tailwind(),
-		swup({
-			theme: false,
-			animationClass: "transition-",
-			containers: ["main"],
-			smoothScrolling: true,
-			cache: true,
-			preload: true,
-			accessibility: true,
-			globalInstance: true,
-		}),
-		icon({
-			include: {
-				"material-symbols": ["*"],
-				"fa6-brands": ["*"],
-				"fa6-regular": ["*"],
-				"fa6-solid": ["*"],
-			},
-		}),
-		Compress({
-			Image: false,
-		}),
-		svelte(),
-		sitemap(),
-		react(),
-	],
+	integrations: [tailwind(), swup({
+		theme: false,
+		animationClass: "transition-",
+		containers: ["main"],
+		smoothScrolling: true,
+		cache: true,
+		preload: true,
+		accessibility: true,
+		globalInstance: true
+	}), icon({
+		include: {
+			"material-symbols": ["*"],
+			"fa6-brands": ["*"],
+			"fa6-regular": ["*"],
+			"fa6-solid": ["*"]
+		}
+	}), Compress({
+		Image: false
+	}), svelte(), sitemap(), react(), mdx()],
 	markdown: {
-		remarkPlugins: [
-			remarkReadingTime,
-			remarkDirective,
-			parseDirectiveNode,
-		],
-		rehypePlugins: [
-			[
-				rehypeComponents,
-				{
-					components: {
-						github: GithubCardComponent,
-						note: (x, y) => AdmonitionComponent(x, y, "note"),
-						tip: (x, y) => AdmonitionComponent(x, y, "tip"),
-						important: (x, y) =>
-							AdmonitionComponent(x, y, "important"),
-						caution: (x, y) => AdmonitionComponent(x, y, "caution"),
-						warning: (x, y) => AdmonitionComponent(x, y, "warning"),
-					},
+		remarkPlugins: [remarkReadingTime, remarkDirective, parseDirectiveNode],
+		rehypePlugins: [[rehypeComponents, {
+			components: {
+				github: GithubCardComponent,
+				note: (x, y) => AdmonitionComponent(x, y, "note"),
+				tip: (x, y) => AdmonitionComponent(x, y, "tip"),
+				important: (x, y) => AdmonitionComponent(x, y, "important"),
+				caution: (x, y) => AdmonitionComponent(x, y, "caution"),
+				warning: (x, y) => AdmonitionComponent(x, y, "warning")
+			}
+		}], [rehypeAutolinkHeadings, {
+			behavior: "append",
+			properties: {
+				className: ["anchor"]
+			},
+			content: {
+				type: "element",
+				tagName: "span",
+				properties: {
+					className: ["anchor-icon"],
+					"data-pagefind-ignore": true
 				},
-			],
-			[
-				rehypeAutolinkHeadings,
-				{
-					behavior: "append",
-					properties: {
-						className: ["anchor"],
-					},
-					content: {
-						type: "element",
-						tagName: "span",
-						properties: {
-							className: ["anchor-icon"],
-							"data-pagefind-ignore": true,
-						},
-						children: [
-							{
-								type: "text",
-								value: "#",
-							},
-						],
-					},
-				},
-			],
-		],
+				children: [{
+					type: "text",
+					value: "#"
+				}]
+			}
+		}]]
 	},
 	vite: {
 		plugins: [vanillaExtractPlugin()],
@@ -109,28 +87,21 @@ export default defineConfig({
 			rollupOptions: {
 				onwarn(warning, warn) {
 					// temporarily suppress this warning
-					if (
-						warning.message.includes(
-							"is dynamically imported by",
-						) &&
-						warning.message.includes(
-							"but also statically imported by",
-						)
-					) {
+					if (warning.message.includes("is dynamically imported by") && warning.message.includes("but also statically imported by")) {
 						return;
 					}
 					warn(warning);
-				},
-			},
+				}
+			}
 		},
 		css: {
 			preprocessorOptions: {
 				stylus: {
 					define: {
-						oklchToHex: oklchToHex,
-					},
-				},
-			},
-		},
-	},
+						oklchToHex: oklchToHex
+					}
+				}
+			}
+		}
+	}
 });

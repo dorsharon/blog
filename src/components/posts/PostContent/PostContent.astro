@@ -1,10 +1,8 @@
 ---
 import { Image } from "astro:assets";
+import { type CollectionEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
 import PostMetadata from "../PostMetadata/PostMetadata.astro";
-import { getDir } from "@utils/url-utils";
-import Markdown from "../../common/Markdown.astro";
-import path from "path";
 import {
 	coverImage,
 	card,
@@ -15,11 +13,18 @@ import {
 	markdownContent, border, wrapper, metadata, subtitle
 } from "./PostContent.css";
 import { onLoadAnimation } from "../../../styles/common-styles.css";
+import Markdown from "./Markdown/Markdown.astro";
+import  Blockquote from "../../markdown/Blockquote/Blockquote.astro";
+import { markdownComponents } from "../../markdown/markdownComponents";
+
+interface Props{
+	post: CollectionEntry<'posts'>
+}
+
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content,remarkPluginFrontmatter } = await post.render();
 
-const { remarkPluginFrontmatter } = await post.render();
 ---
 <div class={wrapper}>
 	<div class={card}>
@@ -31,6 +36,8 @@ const { remarkPluginFrontmatter } = await post.render();
 				{remarkPluginFrontmatter.minutes} minutes read
 			</div>
 		</div>
+
+		<!--<Blockquote>xcvxcv</Blockquote>-->
 
 		<div class={`${titleWrapper} ${onLoadAnimation}`}>
 			<div
@@ -68,14 +75,17 @@ const { remarkPluginFrontmatter } = await post.render();
 		{
 			post.data.image && (
 				<Image
-					src={path.join("content/posts/", getDir(post.id), "cover.jpeg")}
+					src={post.data.image}
+					alt="Cover image"
 					class={`${coverImage} ${onLoadAnimation}`}
 				/>
 			)
 		}
 
-		<Markdown class={`${markdownContent} ${onLoadAnimation}`}>
-			<Content />
-		</Markdown>
+		<div style={{display: 'none'}}>{markdownComponents.map(Component=><Component/>)}</div>
+
+		<article data-pagefind-body class={`${markdownContent} ${onLoadAnimation}`}>
+			<Content  />
+		</article>
 	</div>
 </div>

@@ -1,0 +1,8 @@
+---
+import { asdf } from "./Blockquote.css";
+const props = Astro.props;
+---
+<blockquote {...props} class="bg-blue-50 p-4">
+	<span class=`text-4xl text-blue-600 mb-2 ${asdf}`>“</span>
+	<slot /> <!-- Be sure to add a `<slot/>` for child content! -->
+</blockquote>
