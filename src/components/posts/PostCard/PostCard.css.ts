@@ -41,7 +41,6 @@ export const contentWrapper = style({
 
 export const titleLink = style({
 	display: "block",
-	fontWeight: "bold",
 	marginBottom: "0.75rem",
 	fontSize: "1.875rem",
 	color: theme.text.primary,

@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { theme } from "../../styles/themes.css.ts";
-import { pageWidth } from "../../styles/variables.css.ts";
+import { navbarHeight, pageWidth } from "../../styles/variables.css.ts";
 
 export const card = style({
 	backgroundColor: theme.background.card,
@@ -8,7 +8,7 @@ export const card = style({
 	top: "0",
 	overflow: "visible",
 	maxWidth: pageWidth,
-	height: "4.5rem",
+	height: navbarHeight,
 	borderRadius: "0 0 0.75rem 0.75rem",
 	margin: "0 auto",
 	display: "flex",
@@ -76,7 +76,7 @@ export const navLink = style({
 	}
 });
 
-export const rightElementsWrapper = style({
+export const endElementsWrapper = style({
 	display: "flex"
 });
 
@@ -97,7 +97,8 @@ export const arrowIcon = style({
 	fontSize: "0.75rem"
 });
 
-export const switchIcon = style({
-	fontSize: "1.25rem"
+export const searchButtonIcon = style({
+	fontSize: "1.25rem",
+	color: theme.text.primary
 });
 

@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import type { NavBarLink } from "../../types/config";
-import Search from "./Search.svelte";
+import SearchBar from "./SearchBar/SearchBar";
 import { getUrl } from "../../utils/url-utils";
 import ThemeSwitch from "./ThemeSwitch/ThemeSwitch";
 import {
@@ -13,14 +13,18 @@ import {
 	linksWrapper,
 	navLink,
 	searchIcon,
-	rightElementsWrapper, switchIcon
+	endElementsWrapper, searchButtonIcon
 } from "./Navbar.css";
 import NavMenu from "./NavMenu/NavMenu";
+import { getCollection } from "astro:content";
 
 const links: NavBarLink[] = [
 	{ name: "Archive", url: "/archive" },
 	{ name: "About", url: "/about" }
 ];
+
+const allBlogPosts = await getCollection("posts");
+
 ---
 <div class={card}>
 	<a href={getUrl("/")} class={button}>
@@ -38,29 +42,15 @@ const links: NavBarLink[] = [
 		)}
 	</div>
 
-	<div class={rightElementsWrapper}>
-		<Search client:load>
-			<Icon slot="search-icon" name="material-symbols:search" class={searchIcon} />
+	<div class={endElementsWrapper}>
+		<SearchBar client:load posts={allBlogPosts}>
 			<Icon slot="arrow-icon" name="fa6-solid:chevron-right" class={arrowIcon} />
-			<Icon slot="search-switch" name="material-symbols:search" class={switchIcon} />
-		</Search>
+			<Icon slot="search-input-icon" name="material-symbols:search" class={searchIcon} />
+			<Icon slot="search-button-icon" name="material-symbols:search" class={searchButtonIcon} />
+		</SearchBar>
 
 		<ThemeSwitch client:only="react" />
 
 		<NavMenu client:load links={links} />
 	</div>
 </div>
-
-<script is:inline define:vars={{ scriptUrl: getUrl("/pagefind/pagefind.js") }}>
-	async function loadPagefind() {
-		const pagefind = await import(scriptUrl);
-		await pagefind.options({
-			"excerptLength": 20
-			});
-		pagefind.init();
-		window.pagefind = pagefind;
-		pagefind.search("");     // speed up the first search
-		}
-
-		loadPagefind();
-</script>

@@ -1,5 +1,5 @@
 import { globalFontFace, style } from "@vanilla-extract/css";
-import { cardBorderRadius, codeFont, defaultFont, pageWidth } from "../../../styles/variables.css.ts";
+import { cardBorderRadius, codeFont, defaultFont, navbarHeight, pageWidth } from "../../../styles/variables.css.ts";
 import { theme } from "../../../styles/themes.css.ts";
 
 globalFontFace(defaultFont, {
@@ -42,7 +42,8 @@ export const html = style({
 
 	vars: {
 		[pageWidth]: '75rem',
-		[cardBorderRadius]: '1rem'
+		[cardBorderRadius]: '1rem',
+		[navbarHeight]: '4.5rem'
 	},
 });
 

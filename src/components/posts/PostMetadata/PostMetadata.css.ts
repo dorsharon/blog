@@ -53,17 +53,20 @@ export const tagLink = style({
 	fontWeight: "500",
 	transition: "color 0.3s ease",
 	whiteSpace: "nowrap",
-	padding: '0.375rem',
-	borderRadius: '0.375rem',
-	cursor: 'pointer',
+	padding: "0.375rem",
+	borderRadius: "0.375rem",
+	cursor: "pointer",
 
 	":hover": {
 		backgroundColor: theme.background.hover,
 		color: theme.color.primary
-	},
+	}
 });
 
 export const withDivider = style({
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
 	"::before": {
 		content: "'/'",
 		marginLeft: "0.375rem",
@@ -73,7 +76,7 @@ export const withDivider = style({
 		fontWeight: "500",
 		transition: "all 0.3s ease"
 	},
-	selectors:{
+	selectors: {
 		"&:first-of-type::before": {
 			display: "none"
 		}
