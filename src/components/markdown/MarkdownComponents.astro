@@ -1,0 +1,18 @@
+---
+import { wrapper } from "./MarkdownComponents.css";
+import Blockquote from "./Blockquote/Blockquote.astro";
+import CodeBlock from "./CodeBlock/CodeBlock.astro";
+import CodeSnippet from "./CodeSnippet/CodeSnippet.astro";
+import Emphasis from "./Emphasis/Emphasis.astro";
+import Heading from "./Heading/Heading.astro";
+---
+<!-- All components that are used in markdown files should be rendered here-->
+<!-- This is necessary for Astro to load their CSS classes into the head tag,-->
+<!-- since when using them solely in the MDX content files, Astro doesn't load their CSS-->
+<div class={wrapper}>
+	<Blockquote />
+	<CodeBlock code="" />
+	<CodeSnippet />
+	<Emphasis />
+	<Heading />
+</div>

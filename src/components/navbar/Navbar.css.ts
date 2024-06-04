@@ -61,7 +61,6 @@ export const navLink = style({
 	color: theme.text.primary,
 	display: "inline-flex",
 	alignItems: "center",
-	fontWeight: "bold",
 	height: "2.75rem",
 	paddingLeft: "1.25rem",
 	paddingRight: "1.25rem",

@@ -68,7 +68,6 @@ export const metadata = style({
 
 export const title = style({
 	color: theme.text.primary,
-	fontWeight: "bold",
 	marginBottom: "0.75rem",
 	fontSize: "1.875rem",
 	lineHeight: "2.25rem",

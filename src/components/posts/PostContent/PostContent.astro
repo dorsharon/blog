@@ -13,7 +13,7 @@ import {
 	markdownContent, border, wrapper, metadata, subtitle
 } from "./PostContent.css";
 import { onLoadAnimation } from "../../../styles/common-styles.css";
-import { markdownComponents } from "../../markdown/markdownComponents";
+import MarkdownComponents from "../../markdown/MarkdownComponents.astro";
 
 interface Props {
 	post: CollectionEntry<"posts">;
@@ -77,8 +77,8 @@ const { Content, remarkPluginFrontmatter } = await post.render();
 			)
 		}
 
-		<div style={{ display: "none" }}>{markdownComponents.map(Component =>
-			<Component />)}</div>
+		<!--TODO Find a better way to load Markdown components' CSS classes into the head tag-->
+		<MarkdownComponents />
 
 		<article data-pagefind-body class={`${markdownContent} ${onLoadAnimation}`}>
 			<Content />
