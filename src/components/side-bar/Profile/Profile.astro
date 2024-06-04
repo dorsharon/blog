@@ -1,33 +1,42 @@
 ---
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import { profileConfig } from "../../../config";
 import { getUrl } from "../../../utils/url-utils";
-import avatarImage from '../../../assets/avatar.jpeg';
+import avatarImage from "../../../assets/avatar.jpeg";
 import { avatar, bio, icon, link, linkButton, linkIcon, links, name, overlay, separator, wrapper } from "./Profile.css";
+import RotatingText from "./RotatingText/RotatingText";
 
 const config = profileConfig;
 ---
 <div class={wrapper}>
-    <a aria-label="Go to About Page" href={getUrl('/about/')} class={link}>
-        <div class={overlay}>
-            <Icon name="fa6-regular:address-card" class={icon} />
-        </div>
+	<a aria-label="Go to About Page" href={getUrl("/about/")} class={link}>
+		<div class={overlay}>
+			<Icon name="fa6-regular:address-card" class={icon} />
+		</div>
 
-        <Image src={avatarImage} alt="Profile Image" class={avatar} />
-    </a>
+		<Image src={avatarImage} alt="Profile Image" class={avatar} />
+	</a>
 
-    <div class={name}>Dor Sharon</div>
+	<div class={name}>Dor Sharon</div>
 
-    <div class={separator}></div>
+	<div class={separator}></div>
 
-    <div class={bio}>{config.bio}</div>
+	<div class={bio}>{config.bio}</div>
 
-    <div class={links}>
-        {config.links.map(item => (
-            <a rel="me" aria-label={item.name} href={item.url} target="_blank" class={linkButton}>
-                <Icon class={linkIcon} name={item.icon} />
-            </a>
-        ))}
-    </div>
+	<RotatingText client:load items={[
+		{ label: "full stack developer", color: "#fb923c" },
+		{ label: "React fanboy", color: "#5b9ee9" },
+		{ label: "Frontend enthusiast", color: "#a78bfa" },
+		{ label: "Marvel geek", color: "#34d399" },
+		{ label: "bug squasher (and maker)", color: "#d33489" }
+	]} />
+
+	<div class={links}>
+		{config.links.map(item => (
+			<a rel="me" aria-label={item.name} href={item.url} target="_blank" class={linkButton}>
+				<Icon class={linkIcon} name={item.icon} />
+			</a>
+		))}
+	</div>
 </div>
