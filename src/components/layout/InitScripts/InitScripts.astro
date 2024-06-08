@@ -6,33 +6,7 @@
 	import "overlayscrollbars/overlayscrollbars.css";
 	import { OverlayScrollbars } from "overlayscrollbars";
 	import { getTheme, setTheme } from "../../../utils/setting-utils";
-
-	// function setClickOutsideToClose(panel: string, ignores: string[]) {
-	// 	document.addEventListener("click", (event) => {
-	// 		let panelDom = document.getElementById(panel);
-	// 		let tDom = event.target;
-	// 		for (let ig of ignores) {
-	// 			let ie = document.getElementById(ig);
-	// 			if (ie == tDom || ie?.contains(tDom)) {
-	// 				return;
-	// 			}
-	// 		}
-	// 		panelDom.classList.add("float-panel-closed");
-	// 	});
-	// }
-	// setClickOutsideToClose("display-setting", [
-	// 	"display-setting",
-	// 	"display-settings-switch",
-	// ]);
-	// setClickOutsideToClose("nav-menu-panel", [
-	// 	"nav-menu-panel",
-	// 	"nav-menu-switch",
-	// ]);
-	// setClickOutsideToClose("search-panel", [
-	// 	"search-panel",
-	// 	"search-bar",
-	// 	"search-switch",
-	// ]);
+	import { overlayScrollbarsTheme } from "./InitScripts.css";
 
 	function loadTheme() {
 		const theme = getTheme();
@@ -41,30 +15,15 @@
 
 	function initCustomScrollbar() {
 		OverlayScrollbars(
-			// docs say that a initialization to the body element would affect native functionality like window.scrollTo
-			// but just leave it here for now
 			{
-				target: document.querySelector("body") as HTMLElement
+				target: document.querySelector("body"),
 			},
 			{
 				scrollbars: {
-					theme: "scrollbar-base scrollbar-auto py-1",
-					autoHide: "move",
-					autoHideDelay: 500,
-					autoHideSuspend: false
-				}
-			}
+					theme: overlayScrollbarsTheme,
+				},
+			},
 		);
-		document.querySelectorAll("pre").forEach((ele) => {
-			OverlayScrollbars(ele, {
-				scrollbars: {
-					theme: "scrollbar-base scrollbar-dark px-2",
-					autoHide: "leave",
-					autoHideDelay: 500,
-					autoHideSuspend: false
-				}
-			});
-		});
 	}
 
 	function init() {

@@ -121,3 +121,8 @@ export const linkButton = style({
 export const linkIcon = style({
 	fontSize: "1.25rem"
 });
+
+export const rotatingTextWrapper = style({
+	height: '4rem',
+	width: '100%'
+})

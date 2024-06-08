@@ -4,7 +4,20 @@ import { Icon } from "astro-icon/components";
 import { profileConfig } from "../../../config";
 import { getUrl } from "../../../utils/url-utils";
 import avatarImage from "../../../assets/avatar.jpeg";
-import { avatar, bio, icon, link, linkButton, linkIcon, links, name, overlay, separator, wrapper } from "./Profile.css";
+import {
+	avatar,
+	bio,
+	icon,
+	link,
+	linkButton,
+	linkIcon,
+	links,
+	name,
+	overlay,
+	rotatingTextWrapper,
+	separator,
+	wrapper
+} from "./Profile.css";
 import RotatingText from "./RotatingText/RotatingText";
 
 const config = profileConfig;
@@ -22,15 +35,15 @@ const config = profileConfig;
 
 	<div class={separator}></div>
 
-	<div class={bio}>{config.bio}</div>
-
-	<RotatingText client:load items={[
-		{ label: "full stack developer", color: "#fb923c" },
-		{ label: "React fanboy", color: "#5b9ee9" },
-		{ label: "Frontend enthusiast", color: "#a78bfa" },
-		{ label: "Marvel geek", color: "#34d399" },
-		{ label: "bug squasher (and maker)", color: "#d33489" }
-	]} />
+	<div class={rotatingTextWrapper}>
+		<RotatingText client:load items={[
+			{ label: "Full stack developer", color: "#fb923c" },
+			{ label: "React fanboy", color: "#5b9ee9" },
+			{ label: "Frontend tech lead", color: "#a78bfa" },
+			{ label: "Marvel geek", color: "#34d399" },
+			{ label: "bug squasher (and maker)", color: "#d33489" }
+		]} />
+	</div>
 
 	<div class={links}>
 		{config.links.map(item => (

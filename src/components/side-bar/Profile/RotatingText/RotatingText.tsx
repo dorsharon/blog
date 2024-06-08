@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { text } from "./RotatingText.css.ts";
+import { text, textWrapper } from "./RotatingText.css.ts";
 import { adjustBrightness } from "@utils/style-utils.ts";
 
 export default function RotatingText({
@@ -19,7 +19,7 @@ export default function RotatingText({
 
 				return state + 1;
 			});
-		}, 3000);
+		}, 2000);
 
 		return () => clearInterval(id);
 	}, []);
@@ -27,7 +27,7 @@ export default function RotatingText({
 	const { label, color } = items[index];
 
 	return (
-		<div style={{ position: "relative" }}>
+		<div className={textWrapper}>
 			<AnimatePresence>
 				<motion.h4
 					key={index}
@@ -35,7 +35,7 @@ export default function RotatingText({
 					initial={{ y: 20, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
 					exit={{ y: -20, opacity: 0 }}
-					transition={{ ease: "easeInOut" }}
+					// transition={{ duration: 3 }}
 					style={{
 						backgroundImage: `linear-gradient(to bottom right, ${color}, ${adjustBrightness(color, -50)})`,
 					}}

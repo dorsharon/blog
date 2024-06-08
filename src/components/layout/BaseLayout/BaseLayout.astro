@@ -43,16 +43,19 @@ if (title) {
 ---
 
 <!doctype html>
-<html lang={"en"} class={`${html} ${lightThemeClass}`}>
+<html
+	lang={"en"}
+	class={`${html} ${lightThemeClass}`}
+	data-overlayscrollbars-initialize
+>
 	<Head />
 
-	<body class={body}>
-		<GlobalStyles/>
+	<body class={body} data-overlayscrollbars-initialize>
+		<GlobalStyles />
 
 		<MainGrid>
 			<slot />
 		</MainGrid>
-
 
 		<style is:global>
 			@tailwind components;
@@ -64,12 +67,13 @@ if (title) {
 				--text-secondary: #ffffff80;
 				--page-background: #090e13;
 				--card-background: #181e24;
+				--os-handle-bg: #ffffff80;
 
 				.dark {
-                    --text-primary: #ccc;
-                    --text-secondary: #ffffff80;
-                    --page-background: #090e13;
-                    --card-background: #181e24;
+					--text-primary: #ccc;
+					--text-secondary: #ffffff80;
+					--page-background: #090e13;
+					--card-background: #181e24;
 				}
 			}
 		</style>

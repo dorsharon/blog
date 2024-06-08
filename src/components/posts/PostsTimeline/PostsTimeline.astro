@@ -1,0 +1,89 @@
+---
+import { getSortedPosts, groupPostsByYear } from "../../../utils/content-utils";
+import { getPostUrlBySlug } from "../../../utils/url-utils";
+import {
+	card,
+	postContainer,
+	postCount,
+	postDate,
+	postDot,
+	postDotLineContainer,
+	postLink,
+	postTags,
+	postTitle,
+	yearContainer,
+	yearDot,
+	yearDotContainer,
+	yearText,
+} from "./PostsTimeline.css";
+
+interface Props {
+	tags?: string[];
+}
+
+const { tags } = Astro.props;
+
+let posts = await getSortedPosts();
+
+if (Array.isArray(tags) && tags.length > 0) {
+	posts = posts.filter(
+		(post) =>
+			Array.isArray(post.data.tags) &&
+			post.data.tags.some((tag) => tags.includes(tag)),
+	);
+}
+
+const groups = groupPostsByYear(posts);
+
+function formatDate(date: Date) {
+	const month = (date.getMonth() + 1).toString().padStart(2, "0");
+	const day = date.getDate().toString().padStart(2, "0");
+	return `${month}-${day}`;
+}
+
+function formatTag(tag: string[]) {
+	return tag.map((t) => `#${t}`).join(" ");
+}
+---
+
+<div class={card}>
+	{
+		groups.map(({ year, posts }) => (
+			<div>
+				<div class={yearContainer}>
+					<div class={yearText}>{year}</div>
+
+					<div class={yearDotContainer}>
+						<div class={yearDot} />
+					</div>
+
+					<div class={postCount}>{posts.length} posts</div>
+				</div>
+
+				{posts.map((post) => (
+					<a
+						href={getPostUrlBySlug(post.slug)}
+						aria-label={post.data.title}
+						class={postLink}
+					>
+						<div class={postContainer}>
+							<div class={postDate}>
+								{formatDate(post.data.publishDate)}
+							</div>
+
+							<div class={postDotLineContainer}>
+								<div class={postDot} />
+							</div>
+
+							<div class={postTitle}>{post.data.title}</div>
+
+							<div class={postTags}>
+								{formatTag(post.data.tags)}
+							</div>
+						</div>
+					</a>
+				))}
+			</div>
+		))
+	}
+</div>

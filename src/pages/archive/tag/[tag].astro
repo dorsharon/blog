@@ -1,7 +1,7 @@
 ---
 import { getSortedPosts } from "@utils/content-utils";
 import BaseLayout from "../../../components/layout/BaseLayout/BaseLayout.astro";
-import PostsTimeline from "../../../components/archive/PostsTimeline.astro";
+import PostsTimeline from "../../../components/posts/PostsTimeline/PostsTimeline.astro";
 import { type GetStaticPaths } from "astro";
 
 export const getStaticPaths = (async () => {
@@ -17,8 +17,8 @@ export const getStaticPaths = (async () => {
 	return allTagsArray.map((tag) => {
 		return {
 			params: {
-				tag: tag
-			}
+				tag: tag,
+			},
 		};
 	});
 }) satisfies GetStaticPaths;
