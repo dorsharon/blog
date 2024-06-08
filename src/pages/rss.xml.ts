@@ -1,17 +1,18 @@
 import { getCollection } from 'astro:content';
 import rss from '@astrojs/rss';
+import type { APIContext } from 'astro';
 import MarkdownIt from 'markdown-it';
 import sanitizeHtml from 'sanitize-html';
 
 const parser = new MarkdownIt();
 
-export async function GET(context: any) {
+export async function GET(context: APIContext) {
 	const blog = await getCollection('posts');
 
 	return rss({
 		title: 'Dor Sharon',
 		description: "Dor Sharon's blog",
-		site: context.site,
+		site: context.site?.toString() as string,
 		items: blog.map((post) => ({
 			title: post.data.title,
 			pubDate: post.data.publishDate,
