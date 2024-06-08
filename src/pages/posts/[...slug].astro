@@ -1,22 +1,21 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
-import BaseLayout from "../../components/layout/BaseLayout/BaseLayout.astro";
-import { formatDate } from "../../utils/date-utils";
+import { type CollectionEntry, getCollection } from "astro:content";
 import type { GetStaticPaths } from "astro";
+import BaseLayout from "../../components/layout/BaseLayout/BaseLayout.astro";
 import PostContent from "../../components/posts/PostContent/PostContent.astro";
+import { formatDate } from "../../utils/date-utils";
 
 export const getStaticPaths = (async () => {
 	const posts = await getCollection("posts");
 
 	return posts.map((post) => ({
 		params: { slug: post.slug },
-		props: { post }
+		props: { post },
 	}));
 }) satisfies GetStaticPaths;
 
 interface Props {
 	post: CollectionEntry<"posts">;
-
 }
 
 const { post } = Astro.props;
@@ -30,9 +29,9 @@ const jsonLd = {
 	author: {
 		"@type": "Person",
 		name: "Dor Sharon",
-		url: Astro.site
+		url: Astro.site,
 	},
-	datePublished: formatDate(post.data.publishDate)
+	datePublished: formatDate(post.data.publishDate),
 	// TODO include cover image here
 };
 ---

@@ -1,19 +1,23 @@
 ---
 import { Image } from "astro:assets";
-import { type CollectionEntry } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
-import PostMetadata from "../PostMetadata/PostMetadata.astro";
-import {
-	coverImage,
-	card,
-	readingTimeIcon,
-	readingTimeWrapper,
-	title,
-	titleWrapper,
-	markdownContent, border, wrapper, metadata, subtitle
-} from "./PostContent.css";
 import { onLoadAnimation } from "../../../styles/common-styles.css";
 import MarkdownComponents from "../../markdown/MarkdownComponents.astro";
+import PostMetadata from "../PostMetadata/PostMetadata.astro";
+import {
+	border,
+	card,
+	coverImage,
+	markdownContent,
+	metadata,
+	readingTimeIcon,
+	readingTimeWrapper,
+	subtitle,
+	title,
+	titleWrapper,
+	wrapper,
+} from "./PostContent.css";
 
 interface Props {
 	post: CollectionEntry<"posts">;

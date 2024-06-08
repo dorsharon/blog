@@ -1,5 +1,5 @@
 export const adjustBrightness = (colorHex: string, amount: number): string => {
-	const num = parseInt(
+	const num = Number.parseInt(
 		colorHex.charAt(0) === "#" ? colorHex.slice(1) : colorHex,
 		16,
 	);

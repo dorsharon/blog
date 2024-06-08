@@ -1,16 +1,16 @@
 ---
+import { lightThemeClass } from "../../../styles/themes.css";
 import GlobalStyles from "../../GlobalStyles.astro";
 import Head from "../Head/Head.astro";
 import InitScripts from "../InitScripts/InitScripts.astro";
 import MainGrid from "../MainGrid/MainGrid.astro";
 import { body, html } from "./BaseLayout.css";
-import { lightThemeClass } from "../../../styles/themes.css";
 
 interface Props {
 	title?: string;
 }
 
-let { title } = Astro.props;
+const { title } = Astro.props;
 
 const anim = {
 	old: {

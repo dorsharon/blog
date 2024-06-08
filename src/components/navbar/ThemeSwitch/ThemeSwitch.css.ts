@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
 export const themeButtonWrapper = style({
-	position: "relative"
+	position: "relative",
 });
 
 export const themeButton = style({
@@ -15,8 +15,8 @@ export const themeButton = style({
 	transition: "transform 0.2s",
 
 	":active": {
-		transform: "scale(0.9)"
-	}
+		transform: "scale(0.9)",
+	},
 
 	// selectors: {
 	// 	"svg": {
@@ -39,22 +39,22 @@ export const panelBase = style({
 
 	"@media": {
 		"(min-width: 1024px)": {
-			display: "block"
-		}
+			display: "block",
+		},
 	},
 });
 
 export const floatPanelClosed = style({
 	transform: "translateY(-0.5rem)",
 	opacity: 0,
-	pointerEvents: "none"
+	pointerEvents: "none",
 });
 
 export const card = style({
 	padding: "0.5rem",
 	borderRadius: "0.5rem",
 	backgroundColor: "white",
-	boxShadow: "0 0.25rem 0.5rem rgba(0, 0, 0, 0.1)"
+	boxShadow: "0 0.25rem 0.5rem rgba(0, 0, 0, 0.1)",
 });
 
 export const themeOption = style({
@@ -71,12 +71,11 @@ export const themeOption = style({
 	marginBottom: "0.125rem",
 	whiteSpace: "nowrap",
 	":active": {
-		transform: "scale(0.95)"
-	}
+		transform: "scale(0.95)",
+	},
 });
 
 export const currentSetting = style({
 	backgroundColor: "var(--primary)",
-	color: "white"
+	color: "white",
 });
-

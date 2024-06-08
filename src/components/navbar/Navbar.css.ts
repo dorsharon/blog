@@ -15,7 +15,7 @@ export const card = style({
 	alignItems: "center",
 	justifyContent: "space-between",
 	paddingLeft: "1rem",
-	paddingRight: "1rem"
+	paddingRight: "1rem",
 });
 
 export const button = style({
@@ -29,8 +29,8 @@ export const button = style({
 	borderRadius: "0.5rem",
 	transition: "transform 0.2s",
 	":active": {
-		transform: "scale(0.95)"
-	}
+		transform: "scale(0.95)",
+	},
 });
 
 export const homeLink = style({
@@ -38,13 +38,13 @@ export const homeLink = style({
 	flexDirection: "row",
 	color: theme.color.primary,
 	alignItems: "center",
-	fontSize: "1rem"
+	fontSize: "1rem",
 });
 
 export const homeIcon = style({
 	marginBottom: "0.25rem",
 	marginRight: "0.5rem",
-	fontSize: "1.75rem"
+	fontSize: "1.75rem",
 });
 
 export const linksWrapper = style({
@@ -52,9 +52,9 @@ export const linksWrapper = style({
 
 	"@media": {
 		"(min-width: 768px)": {
-			display: "flex"
-		}
-	}
+			display: "flex",
+		},
+	},
 });
 
 export const navLink = style({
@@ -68,16 +68,16 @@ export const navLink = style({
 	transition: "transform 0.2s",
 
 	":hover": {
-		backgroundColor: theme.background.hover
+		backgroundColor: theme.background.hover,
 	},
 
 	":active": {
-		transform: "scale(0.95)"
-	}
+		transform: "scale(0.95)",
+	},
 });
 
 export const endElementsWrapper = style({
-	display: "flex"
+	display: "flex",
 });
 
 export const searchIcon = style({
@@ -86,7 +86,7 @@ export const searchIcon = style({
 	marginLeft: "0.75rem",
 	transition: "color 0.2s",
 	color: theme.text.secondary,
-	fontSize: "1.25rem"
+	fontSize: "1.25rem",
 });
 
 export const arrowIcon = style({
@@ -94,11 +94,10 @@ export const arrowIcon = style({
 	transform: "translateX(0.125rem)",
 	margin: "auto 0",
 	color: theme.color.primary,
-	fontSize: "0.75rem"
+	fontSize: "0.75rem",
 });
 
 export const searchButtonIcon = style({
 	fontSize: "1.25rem",
-	color: theme.text.primary
+	color: theme.text.primary,
 });
-

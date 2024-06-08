@@ -10,16 +10,15 @@ export const menuButton = style({
 	transition: "transform 0.2s",
 
 	":active": {
-		transform: "scale(0.9)"
+		transform: "scale(0.9)",
 	},
 
 	"@media": {
 		"(min-width: 768px)": {
-			display: "none"
-		}
-	}
+			display: "none",
+		},
+	},
 });
-
 
 export const floatPanel = style({
 	position: "absolute",
@@ -28,13 +27,13 @@ export const floatPanel = style({
 	padding: "0.5rem",
 	borderRadius: "0.5rem",
 	transition: "all 0.3s",
-	boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)"
+	boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)",
 });
 
 export const floatPanelClosed = style({
 	transform: "translateY(-100%)",
 	opacity: 0,
-	pointerEvents: "none"
+	pointerEvents: "none",
 });
 
 export const link = style({
@@ -50,15 +49,15 @@ export const link = style({
 
 	":hover": {
 		backgroundColor: "var(--btn-plain-bg-hover)",
-		color: "var(--primary)"
+		color: "var(--primary)",
 	},
 
 	":active": {
 		backgroundColor: "var(--btn-plain-bg-active)",
-		color: "var(--primary)"
-	}
+		color: "var(--primary)",
+	},
 });
 
 export const linkText = style({
-	fontWeight: "bold"
+	fontWeight: "bold",
 });

@@ -1,27 +1,25 @@
 import { style } from "@vanilla-extract/css";
-import { cardBorderRadius } from "../../../styles/variables.css";
 import { theme } from "../../../styles/themes.css";
+import { cardBorderRadius } from "../../../styles/variables.css";
 
 const coverWidth = "28%";
 
-export const wrapper = style(
-	{
-		backgroundColor: theme.background.card,
-		display: "flex",
-		flexDirection: "column-reverse",
-		width: "100%",
-		borderRadius: cardBorderRadius,
-		overflow: "hidden",
-		position: "relative",
-		transition: "all 0.3s ease",
+export const wrapper = style({
+	backgroundColor: theme.background.card,
+	display: "flex",
+	flexDirection: "column-reverse",
+	width: "100%",
+	borderRadius: cardBorderRadius,
+	overflow: "hidden",
+	position: "relative",
+	transition: "all 0.3s ease",
 
-		"@media": {
-			"screen and (min-width: 768px)": {
-				flexDirection: "column"
-			}
-		}
-	}
-);
+	"@media": {
+		"screen and (min-width: 768px)": {
+			flexDirection: "column",
+		},
+	},
+});
 
 export const contentWrapper = style({
 	padding: "1.5rem",
@@ -34,9 +32,9 @@ export const contentWrapper = style({
 			paddingRight: "0.5rem",
 			paddingTop: "1.75rem",
 			paddingBottom: "1.75rem",
-			width: `calc(100% - ${coverWidth} - 12px)`
-		}
-	}
+			width: `calc(100% - ${coverWidth} - 12px)`,
+		},
+	},
 });
 
 export const titleLink = style({
@@ -49,38 +47,37 @@ export const titleLink = style({
 	cursor: "pointer",
 
 	":hover": {
-		color: theme.color.primary
+		color: theme.color.primary,
 	},
 
 	":active": {
-		color: "var(--title-active)"
+		color: "var(--title-active)",
 	},
 
 	"::before": {
-		content: "\"\"",
+		content: '""',
 		width: "0.25rem",
 		height: "1.5rem",
 		borderRadius: "0.25rem",
 		backgroundColor: theme.color.primary,
 		position: "absolute",
 		top: "10px",
-		left: "-18px"
+		left: "-18px",
 	},
 
 	"@media": {
 		"screen and (max-width: 768px)": {
 			"::before": {
-				display: "none"
-
-			}
-		}
-	}
+				display: "none",
+			},
+		},
+	},
 });
 
 export const subtitleWrapper = style({
 	transition: "all 0.3s ease",
 	color: theme.text.secondary,
-	marginBottom: "0.875rem"
+	marginBottom: "0.875rem",
 });
 
 export const readingTime = style({
@@ -91,9 +88,9 @@ export const readingTime = style({
 	transition: "all 0.3s ease",
 	"@media": {
 		"screen and (min-width: 768px)": {
-			color: "rgba(255, 255, 255, 0.3)"
-		}
-	}
+			color: "rgba(255, 255, 255, 0.3)",
+		},
+	},
 });
 
 export const coverImageWrapper = style({
@@ -107,11 +104,11 @@ export const coverImageWrapper = style({
 	transition: "all 0.3s ease",
 
 	":active": {
-		transform: "scale(0.95)"
+		transform: "scale(0.95)",
 	},
 
 	":hover": {
-		cursor: "pointer"
+		cursor: "pointer",
 	},
 
 	"@media": {
@@ -122,9 +119,9 @@ export const coverImageWrapper = style({
 			position: "absolute",
 			top: "0.75rem",
 			bottom: "0.75rem",
-			right: "0.75rem"
-		}
-	}
+			right: "0.75rem",
+		},
+	},
 });
 
 export const coverImageOverlay = style({
@@ -135,12 +132,12 @@ export const coverImageOverlay = style({
 	transition: "all 0.3s ease",
 
 	":hover": {
-		backgroundColor: "rgba(0, 0, 0, 0.3)"
+		backgroundColor: "rgba(0, 0, 0, 0.3)",
 	},
 
 	":active": {
-		backgroundColor: "rgba(0, 0, 0, 0.5)"
-	}
+		backgroundColor: "rgba(0, 0, 0, 0.5)",
+	},
 });
 
 export const coverImageIconWrapper = style({
@@ -155,22 +152,20 @@ export const coverImageIconWrapper = style({
 	opacity: 0,
 
 	":hover": {
-		opacity: 1
-	}
+		opacity: 1,
+	},
 });
 
 export const coverImageIcon = style({
 	color: "white",
 	fontSize: "3rem",
-
-
 });
 
 export const coverImage = style({
 	width: "100%",
 	height: "100%",
 	objectFit: "cover",
-	objectPosition: "center"
+	objectPosition: "center",
 });
 
 export const postLinkButton = style({
@@ -186,19 +181,19 @@ export const postLinkButton = style({
 			borderRadius: "0.75rem",
 			backgroundColor: theme.background.button,
 			":hover": {
-				backgroundColor: theme.background.hover
+				backgroundColor: theme.background.hover,
 			},
 			":active": {
 				backgroundColor: theme.background.hover,
-				transform: "scale(0.95)"
-			}
-		}
-	}
+				transform: "scale(0.95)",
+			},
+		},
+	},
 });
 
 export const postLinkIcon = style({
 	transition: "all 0.3s ease",
 	color: theme.color.primary,
 	fontSize: "2rem",
-	margin: "auto"
+	margin: "auto",
 });

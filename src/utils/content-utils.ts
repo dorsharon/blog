@@ -1,6 +1,6 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 
-export const getSortedPosts = async (): Promise<CollectionEntry<'posts'>[]> => {
+export const getSortedPosts = async (): Promise<CollectionEntry<"posts">[]> => {
 	const allBlogPosts = await getCollection("posts");
 
 	return allBlogPosts.sort((a, b) => {
@@ -35,9 +35,11 @@ export const getTagsList = async (): Promise<Tag[]> => {
 };
 
 export const groupPostsByYear = (
-	posts: CollectionEntry<"posts">[]
+	posts: CollectionEntry<"posts">[],
 ): { year: number; posts: CollectionEntry<"posts">[] }[] => {
-	const groupedPosts = posts.reduce<{ [year: number]: CollectionEntry<"posts">[] }>((result, post) => {
+	const groupedPosts = posts.reduce<{
+		[year: number]: CollectionEntry<"posts">[];
+	}>((result, post) => {
 		const year = post.data.publishDate.getFullYear();
 
 		if (!result[year]) {
@@ -50,8 +52,8 @@ export const groupPostsByYear = (
 
 	// convert the object to an array
 	const groupedPostsArray = Object.keys(groupedPosts).map((key) => ({
-		year: parseInt(key),
-		posts: groupedPosts[parseInt(key)]
+		year: Number.parseInt(key),
+		posts: groupedPosts[Number.parseInt(key)],
 	}));
 
 	// sort years by latest first

@@ -1,4 +1,10 @@
-import { AUTO_MODE, DARK_MODE, DEFAULT_THEME, LIGHT_MODE, THEME_STORAGE_KEY } from "@constants/constants.ts";
+import {
+	AUTO_MODE,
+	DARK_MODE,
+	DEFAULT_THEME,
+	LIGHT_MODE,
+	THEME_STORAGE_KEY,
+} from "@constants/constants.ts";
 import { darkThemeClass } from "../styles/themes.css.ts";
 
 export function setTheme(theme: string): void {

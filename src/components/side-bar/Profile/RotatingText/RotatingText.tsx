@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { text, textWrapper } from "./RotatingText.css.ts";
 import { adjustBrightness } from "@utils/style-utils.ts";
+import { AnimatePresence, motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { text, textWrapper } from "./RotatingText.css.ts";
 
 export default function RotatingText({
 	items,

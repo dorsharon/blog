@@ -4,26 +4,26 @@ export const [lightThemeClass, theme] = createTheme({
 	color: { primary: "#67b3ff" },
 	text: {
 		primary: "#000000bf",
-		secondary: "#a3a3a3"
+		secondary: "#a3a3a3",
 	},
 	background: {
 		page: "#eaeff5",
 		card: "#ffffff",
-		button: '#283747',
-		hover: '#324457'
-	}
+		button: "#283747",
+		hover: "#324457",
+	},
 });
 
 export const darkThemeClass = createTheme(theme, {
 	color: { primary: "#67b3ff" },
 	text: {
 		primary: "#ffffffe6",
-		secondary: "#ffffff80"
+		secondary: "#ffffff80",
 	},
 	background: {
 		page: "#090e13",
 		card: "#181e24",
-		button: '#283747',
-		hover: '#324457'
-	}
+		button: "#283747",
+		hover: "#324457",
+	},
 });

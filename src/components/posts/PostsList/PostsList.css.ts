@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
-import { cardBorderRadius } from "../../../styles/variables.css";
 import { theme } from "../../../styles/themes.css";
+import { cardBorderRadius } from "../../../styles/variables.css";
 
 export const wrapper = style({
 	transition: "all 0.3s ease-in-out",
@@ -17,7 +17,7 @@ export const wrapper = style({
 			paddingTop: 0,
 			paddingBottom: 0,
 			backgroundColor: "transparent",
-			gap: "1rem"
-		}
-	}
+			gap: "1rem",
+		},
+	},
 });

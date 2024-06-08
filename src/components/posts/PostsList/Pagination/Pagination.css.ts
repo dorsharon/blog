@@ -6,7 +6,7 @@ export const container = style({
 	flexDirection: "row",
 	gap: "0.75rem",
 	justifyContent: "center",
-	marginInline: "auto"
+	marginInline: "auto",
 });
 
 export const button = style({
@@ -18,9 +18,9 @@ export const button = style({
 	selectors: {
 		"&.disabled": {
 			cursor: "not-allowed",
-			opacity: 0.5
-		}
-	}
+			opacity: 0.5,
+		},
+	},
 });
 
 export const pagination = style({
@@ -30,7 +30,7 @@ export const pagination = style({
 	borderRadius: "0.5rem",
 	alignItems: "center",
 	color: theme.text.secondary,
-	fontWeight: "bold"
+	fontWeight: "bold",
 });
 
 export const activePage = style({
@@ -42,12 +42,12 @@ export const activePage = style({
 	alignItems: "center",
 	justifyContent: "center",
 	fontWeight: "bold",
-	color: theme.text.primary
+	color: theme.text.primary,
 });
 
 export const moreIcon = style({
 	marginLeft: "0.25rem",
-	marginRight: "0.25rem"
+	marginRight: "0.25rem",
 });
 
 export const linkButton = style({
@@ -56,10 +56,10 @@ export const linkButton = style({
 	height: "2.75rem",
 	overflow: "hidden",
 	":active": {
-		transform: "scale(0.85)"
-	}
+		transform: "scale(0.85)",
+	},
 });
 
 export const arrowIcon = style({
-	fontSize: "1.75rem"
+	fontSize: "1.75rem",
 });

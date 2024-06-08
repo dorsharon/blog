@@ -1,3 +1,5 @@
+import { getPostUrlBySlug } from "@utils/url-utils.ts";
+import Fuse from "fuse.js";
 import React, {
 	type ChangeEvent,
 	type JSX,
@@ -9,17 +11,15 @@ import {
 	noResultsWrapper,
 	resultItem,
 	resultItemDivider,
-	resultItemsList,
 	resultItemSubtitle,
 	resultItemTitle,
+	resultItemsList,
 	searchBar,
 	searchBarInside,
 	searchButton,
 	searchInput,
 	searchPanel,
 } from "./SearchBar.css";
-import Fuse from "fuse.js";
-import { getPostUrlBySlug } from "@utils/url-utils.ts";
 
 export default function SearchBar({
 	posts,
@@ -38,10 +38,7 @@ export default function SearchBar({
 		() => new Fuse(posts, { keys: ["data.title", "data.subtitle"] }),
 		[posts],
 	);
-	const results = useMemo(
-		() => fuse.search(searchValue),
-		[fuse, searchValue],
-	);
+	const results = useMemo(() => fuse.search(searchValue), [fuse, searchValue]);
 
 	const popoverRef = useRef<HTMLDivElement>(null);
 
@@ -106,12 +103,8 @@ export default function SearchBar({
 									href={getPostUrlBySlug(item.slug)}
 									className={resultItem}
 								>
-									<div className={resultItemTitle}>
-										{item.data.title}
-									</div>
-									<div className={resultItemSubtitle}>
-										{item.data.subtitle}
-									</div>
+									<div className={resultItemTitle}>{item.data.title}</div>
+									<div className={resultItemSubtitle}>{item.data.subtitle}</div>
 
 									{arrowIcon}
 								</a>

@@ -1,10 +1,11 @@
-import { Icon } from "astro-icon/components";
 import {
 	AUTO_MODE,
 	DARK_MODE,
 	LIGHT_MODE,
 	THEME_STORAGE_KEY,
 } from "@constants/constants.ts";
+import { setTheme } from "@utils/setting-utils.ts";
+import { Icon } from "astro-icon/components";
 import React, { useRef } from "react";
 import {
 	card,
@@ -15,7 +16,6 @@ import {
 	themeButtonWrapper,
 	themeOption,
 } from "./ThemeSwitch.css.ts";
-import { setTheme } from "@utils/setting-utils.ts";
 
 const themes = [LIGHT_MODE, DARK_MODE, AUTO_MODE];
 

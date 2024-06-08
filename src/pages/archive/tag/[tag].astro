@@ -1,11 +1,11 @@
 ---
 import { getSortedPosts } from "@utils/content-utils";
+import type { GetStaticPaths } from "astro";
 import BaseLayout from "../../../components/layout/BaseLayout/BaseLayout.astro";
 import PostsTimeline from "../../../components/posts/PostsTimeline/PostsTimeline.astro";
-import { type GetStaticPaths } from "astro";
 
 export const getStaticPaths = (async () => {
-	let posts = await getSortedPosts();
+	const posts = await getSortedPosts();
 
 	const allTags = posts.reduce((acc, post) => {
 		post.data.tags.forEach((tag) => acc.add(tag));

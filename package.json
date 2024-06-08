@@ -8,8 +8,6 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "new-post": "node scripts/new-post.js",
-    "format": "biome format --write ./src",
     "lint": "biome check --apply ./src"
   },
   "dependencies": {
@@ -48,8 +46,7 @@
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "^1.8.0",
-    "@eslint/compat": "^1.0.3",
-    "@eslint/js": "^9.4.0",
+    "@biomejs/biome": "1.8.0",
     "@iconify-json/fa6-brands": "^1.1.18",
     "@iconify-json/fa6-regular": "^1.1.18",
     "@iconify-json/fa6-solid": "^1.1.20",
@@ -57,8 +54,6 @@
     "@iconify/svelte": "^3.1.6",
     "@rollup/plugin-yaml": "^4.1.2",
     "@tailwindcss/typography": "^0.5.10",
-    "@types/eslint": "^8.56.10",
-    "@types/eslint__js": "^8.42.3",
     "@types/markdown-it": "^14.0.0",
     "@types/mdast": "^4.0.3",
     "@types/react": "^18.3.3",
@@ -66,16 +61,7 @@
     "@types/sanitize-html": "^2.11.0",
     "@typescript-eslint/parser": "^7.12.0",
     "@vanilla-extract/vite-plugin": "^4.0.10",
-    "eslint": "^8.57.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-astro": "^1.2.0",
-    "eslint-plugin-jsx-a11y": "^6.8.0",
-    "eslint-plugin-react": "^7.34.2",
-    "globals": "^15.4.0",
-    "prettier": "^3.2.5",
-    "prettier-plugin-astro": "^0.14.0",
     "stylus": "^0.63.0",
-    "typescript": "^5.4.5",
-    "typescript-eslint": "^7.12.0"
+    "typescript": "^5.4.5"
   }
 }

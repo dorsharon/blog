@@ -19,7 +19,7 @@ export const grid = style({
 
 	"@media": {
 		"(max-width: 768px)": {
-			padding: "0"
+			padding: "0",
 		},
 		"(max-width: 1024px)": {
 			gridTemplateColumns: "1fr",
@@ -28,15 +28,15 @@ export const grid = style({
 				"header"
 				"content"
 				"sidebar"
-				"footer"`
-		}
-	}
+				"footer"`,
+		},
+	},
 });
 
 export const header = style({
 	gridArea: "header",
 	zIndex: 50,
-	position: "relative"
+	position: "relative",
 });
 
 export const sidebar = style({
@@ -45,9 +45,9 @@ export const sidebar = style({
 
 	"@media": {
 		"(min-width: 1024px)": {
-			maxWidth: "17.5rem"
-		}
-	}
+			maxWidth: "17.5rem",
+		},
+	},
 });
 
 export const card = style({
@@ -57,7 +57,7 @@ export const card = style({
 	right: 0,
 	top: "-2rem",
 	backgroundColor: theme.background.card,
-	transition: "background-color 0.3s"
+	transition: "background-color 0.3s",
 });
 
 export const content = style({
@@ -66,9 +66,9 @@ export const content = style({
 
 	"@media": {
 		"(min-width: 1024px)": {
-			gridColumn: "span 1"
-		}
-	}
+			gridColumn: "span 1",
+		},
+	},
 });
 
 export const footer = style({
@@ -80,5 +80,5 @@ export const footer = style({
 	height: "3rem",
 	display: "flex",
 	alignItems: "center",
-	justifyContent: "center"
+	justifyContent: "center",
 });

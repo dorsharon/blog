@@ -6,8 +6,7 @@ export const heading = style({
 	fontSize: "2rem",
 	selectors: {
 		[`${markdownContent} &`]: {
-			marginBlockEnd: "0.75rem"
-		}
-	}
+			marginBlockEnd: "0.75rem",
+		},
+	},
 });
-

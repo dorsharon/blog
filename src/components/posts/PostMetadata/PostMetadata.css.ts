@@ -8,7 +8,7 @@ export const wrapper = style({
 	alignItems: "center",
 	gap: "1rem",
 	rowGap: "0.5rem",
-	marginBottom: "1rem"
+	marginBottom: "1rem",
 });
 
 export const icon = style({
@@ -21,31 +21,30 @@ export const icon = style({
 	justifyContent: "center",
 	backgroundColor: theme.background.button,
 	color: theme.color.primary,
-	marginRight: "0.5rem"
+	marginRight: "0.5rem",
 });
 
 export const dateWrapper = style({
 	display: "flex",
-	alignItems: "center"
+	alignItems: "center",
 });
 
 export const dateText = style({
 	color: theme.text.secondary,
 	fontSize: "0.875rem",
-	fontWeight: "500"
+	fontWeight: "500",
 });
 
 export const tagContainer = style({
 	display: "flex",
-	alignItems: "center"
+	alignItems: "center",
 });
 
 export const tagList = style({
 	display: "flex",
 	flexDirection: "row",
-	flexWrap: "nowrap"
+	flexWrap: "nowrap",
 });
-
 
 export const tagLink = style({
 	color: theme.text.secondary,
@@ -59,8 +58,8 @@ export const tagLink = style({
 
 	":hover": {
 		backgroundColor: theme.background.hover,
-		color: theme.color.primary
-	}
+		color: theme.color.primary,
+	},
 });
 
 export const withDivider = style({
@@ -74,18 +73,18 @@ export const withDivider = style({
 		color: theme.text.secondary,
 		fontSize: "0.875rem",
 		fontWeight: "500",
-		transition: "all 0.3s ease"
+		transition: "all 0.3s ease",
 	},
 	selectors: {
 		"&:first-of-type::before": {
-			display: "none"
-		}
-	}
+			display: "none",
+		},
+	},
 });
 
 export const noTagsText = style({
 	color: "var(--text-50)",
 	fontSize: "0.875rem",
 	fontWeight: "500",
-	transition: "all 0.3s ease"
+	transition: "all 0.3s ease",
 });

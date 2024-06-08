@@ -8,7 +8,7 @@ export const wrapper = style({
 	borderRadius: cardBorderRadius,
 	overflow: "hidden",
 	position: "relative",
-	marginBottom: "1rem"
+	marginBottom: "1rem",
 });
 
 export const card = style({
@@ -23,9 +23,9 @@ export const card = style({
 		"(min-width: 768px)": {
 			paddingLeft: "2.25rem",
 			paddingRight: "2.25rem",
-			paddingTop: "1.75rem"
-		}
-	}
+			paddingTop: "1.75rem",
+		},
+	},
 });
 
 export const readingTimeWrapper = style({
@@ -34,7 +34,7 @@ export const readingTimeWrapper = style({
 	alignItems: "center",
 	marginBottom: "1rem",
 	color: theme.text.secondary,
-	animationDelay: "calc(var(--content-delay) + 0ms)"
+	animationDelay: "calc(var(--content-delay) + 0ms)",
 });
 
 export const readingTimeIcon = style({
@@ -50,20 +50,19 @@ export const readingTimeIcon = style({
 	"@media": {
 		"(prefers-color-scheme: dark)": {
 			backgroundColor: "rgba(255, 255, 255, 0.1)",
-			color: "rgba(255, 255, 255, 0.5)"
-		}
+			color: "rgba(255, 255, 255, 0.5)",
+		},
 	},
-	transition: "all 0.3s ease"
+	transition: "all 0.3s ease",
 });
-
 
 export const titleWrapper = style({
 	position: "relative",
-	animationDelay: "calc(var(--content-delay) + 50ms)"
+	animationDelay: "calc(var(--content-delay) + 50ms)",
 });
 
 export const metadata = style({
-	animationDelay: "calc(var(--content-delay) + 100ms)"
+	animationDelay: "calc(var(--content-delay) + 100ms)",
 });
 
 export const title = style({
@@ -75,41 +74,41 @@ export const title = style({
 	transition: "all 0.3s ease",
 
 	"::before": {
-		content: "\"\"",
+		content: '""',
 		width: "0.25rem",
 		height: "1.25rem",
 		borderRadius: "0.25rem",
 		backgroundColor: "var(--primary)",
 		position: "absolute",
 		top: "0.75rem",
-		left: "-1.125rem"
+		left: "-1.125rem",
 	},
 
 	"@media": {
 		"(min-width: 768px)": {
 			fontSize: "2.5rem",
-			lineHeight: "2.75rem"
+			lineHeight: "2.75rem",
 		},
 
 		"screen and (max-width: 768px)": {
 			"::before": {
-				display: "none"
-			}
-		}
-	}
+				display: "none",
+			},
+		},
+	},
 });
 
 export const subtitle = style({
 	color: theme.text.secondary,
 	fontSize: "1.25rem",
-	marginBottom: "0.75rem"
+	marginBottom: "0.75rem",
 });
 
 export const border = style({
 	borderColor: "var(--line-divider)",
 	borderStyle: "dashed",
 	borderBottomWidth: "1px",
-	marginBottom: "1.25rem"
+	marginBottom: "1.25rem",
 });
 
 export const coverImage = style({
@@ -117,19 +116,19 @@ export const coverImage = style({
 	borderRadius: "0.75rem",
 	animationDelay: "calc(var(--content-delay) + 175ms)",
 	aspectRatio: "2 / 1",
-	objectFit: "cover"
+	objectFit: "cover",
 });
 
 export const markdownContent = style({
 	marginBottom: "1.5rem",
 	animationDelay: "calc(var(--content-delay) + 250ms)",
-	color: theme.text.primary
+	color: theme.text.primary,
 });
 
 globalStyle(`${markdownContent} > *:not(:first-child)`, {
-	marginBlockStart: "1.25em"
+	marginBlockStart: "1.25em",
 });
 
 globalStyle(`${markdownContent} > *:not(:last-child)`, {
-	marginBlockEnd: "1.25em"
+	marginBlockEnd: "1.25em",
 });
