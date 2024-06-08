@@ -1,8 +1,8 @@
 ---
-import { getSortedPosts } from "@utils/content-utils";
-import type { GetStaticPaths } from "astro";
-import BaseLayout from "../../../components/layout/BaseLayout/BaseLayout.astro";
-import PostsTimeline from "../../../components/posts/PostsTimeline/PostsTimeline.astro";
+import { getSortedPosts } from '@utils/content-utils';
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../../components/layout/BaseLayout/BaseLayout.astro';
+import PostsTimeline from '../../../components/posts/PostsTimeline/PostsTimeline.astro';
 
 export const getStaticPaths = (async () => {
 	const posts = await getSortedPosts();

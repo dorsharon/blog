@@ -1,9 +1,9 @@
 ---
-import { Image } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
-import { Icon } from "astro-icon/components";
-import { getPostUrlBySlug } from "../../../utils/url-utils";
-import PostMetadata from "../PostMetadata/PostMetadata.astro";
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import { getPostUrlBySlug } from '../../../utils/url-utils';
+import PostMetadata from '../PostMetadata/PostMetadata.astro';
 import {
 	contentWrapper,
 	coverImage,
@@ -15,10 +15,10 @@ import {
 	subtitleWrapper,
 	titleLink,
 	wrapper,
-} from "./PostCard.css";
+} from './PostCard.css';
 
 interface Props {
-	post: CollectionEntry<"posts">;
+	post: CollectionEntry<'posts'>;
 	index: number;
 }
 
@@ -39,7 +39,7 @@ const { remarkPluginFrontmatter } = await post.render();
 		<a href={url} class={titleLink}>
 			{title}
 		</a>
-
+ 
 		<PostMetadata publishDate={publishDate} tags={tags} />
 
 		<div class={subtitleWrapper}>

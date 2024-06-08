@@ -1,7 +1,7 @@
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection } from 'astro:content';
 
-export const getSortedPosts = async (): Promise<CollectionEntry<"posts">[]> => {
-	const allBlogPosts = await getCollection("posts");
+export const getSortedPosts = async (): Promise<CollectionEntry<'posts'>[]> => {
+	const allBlogPosts = await getCollection('posts');
 
 	return allBlogPosts.sort((a, b) => {
 		const dateA = new Date(a.data.publishDate);
@@ -16,7 +16,7 @@ export type Tag = {
 };
 
 export const getTagsList = async (): Promise<Tag[]> => {
-	const allBlogPosts = await getCollection("posts");
+	const allBlogPosts = await getCollection('posts');
 
 	const countMap: { [key: string]: number } = {};
 	allBlogPosts.map((post) => {
@@ -35,10 +35,10 @@ export const getTagsList = async (): Promise<Tag[]> => {
 };
 
 export const groupPostsByYear = (
-	posts: CollectionEntry<"posts">[],
-): { year: number; posts: CollectionEntry<"posts">[] }[] => {
+	posts: CollectionEntry<'posts'>[],
+): { year: number; posts: CollectionEntry<'posts'>[] }[] => {
 	const groupedPosts = posts.reduce<{
-		[year: number]: CollectionEntry<"posts">[];
+		[year: number]: CollectionEntry<'posts'>[];
 	}>((result, post) => {
 		const year = post.data.publishDate.getFullYear();
 

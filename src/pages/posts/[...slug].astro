@@ -1,12 +1,12 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
-import type { GetStaticPaths } from "astro";
-import BaseLayout from "../../components/layout/BaseLayout/BaseLayout.astro";
-import PostContent from "../../components/posts/PostContent/PostContent.astro";
-import { formatDate } from "../../utils/date-utils";
+import { type CollectionEntry, getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../components/layout/BaseLayout/BaseLayout.astro';
+import PostContent from '../../components/posts/PostContent/PostContent.astro';
+import { formatDate } from '../../utils/date-utils';
 
 export const getStaticPaths = (async () => {
-	const posts = await getCollection("posts");
+	const posts = await getCollection('posts');
 
 	return posts.map((post) => ({
 		params: { slug: post.slug },
@@ -15,20 +15,20 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 interface Props {
-	post: CollectionEntry<"posts">;
+	post: CollectionEntry<'posts'>;
 }
 
 const { post } = Astro.props;
 
 const jsonLd = {
-	"@context": "https://schema.org",
-	"@type": "BlogPosting",
+	'@context': 'https://schema.org',
+	'@type': 'BlogPosting',
 	headline: post.data.title,
 	description: post.data.subtitle || post.data.title,
 	keywords: post.data.tags,
 	author: {
-		"@type": "Person",
-		name: "Dor Sharon",
+		'@type': 'Person',
+		name: 'Dor Sharon',
 		url: Astro.site,
 	},
 	datePublished: formatDate(post.data.publishDate),

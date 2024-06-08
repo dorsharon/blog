@@ -1,10 +1,10 @@
 ---
-import { Image } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
-import { Icon } from "astro-icon/components";
-import { onLoadAnimation } from "../../../styles/common-styles.css";
-import MarkdownComponents from "../../markdown/MarkdownComponents.astro";
-import PostMetadata from "../PostMetadata/PostMetadata.astro";
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import { onLoadAnimation } from '../../../styles/common-styles.css';
+import MarkdownComponents from '../../markdown/MarkdownComponents.astro';
+import PostMetadata from '../PostMetadata/PostMetadata.astro';
 import {
 	border,
 	card,
@@ -17,10 +17,10 @@ import {
 	title,
 	titleWrapper,
 	wrapper,
-} from "./PostContent.css";
+} from './PostContent.css';
 
 interface Props {
-	post: CollectionEntry<"posts">;
+	post: CollectionEntry<'posts'>;
 }
 
 const { post } = Astro.props;

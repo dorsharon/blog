@@ -1,10 +1,10 @@
 ---
-import { lightThemeClass } from "../../../styles/themes.css";
-import GlobalStyles from "../../GlobalStyles.astro";
-import Head from "../Head/Head.astro";
-import InitScripts from "../InitScripts/InitScripts.astro";
-import MainGrid from "../MainGrid/MainGrid.astro";
-import { body, html } from "./BaseLayout.css";
+import { lightThemeClass } from '../../../styles/themes.css';
+import GlobalStyles from '../../GlobalStyles.astro';
+import Head from '../Head/Head.astro';
+import InitScripts from '../InitScripts/InitScripts.astro';
+import MainGrid from '../MainGrid/MainGrid.astro';
+import { body, html } from './BaseLayout.css';
 
 interface Props {
 	title?: string;
@@ -14,18 +14,18 @@ const { title } = Astro.props;
 
 const anim = {
 	old: {
-		name: "fadeIn",
-		duration: "4s",
-		easing: "linear",
-		fillMode: "forwards",
-		mixBlendMode: "normal",
+		name: 'fadeIn',
+		duration: '4s',
+		easing: 'linear',
+		fillMode: 'forwards',
+		mixBlendMode: 'normal',
 	},
 	new: {
-		name: "fadeOut",
-		duration: "4s",
-		easing: "linear",
-		fillMode: "backwards",
-		mixBlendMode: "normal",
+		name: 'fadeOut',
+		duration: '4s',
+		easing: 'linear',
+		fillMode: 'backwards',
+		mixBlendMode: 'normal',
 	},
 };
 
@@ -34,11 +34,11 @@ const myFade = {
 	backwards: anim,
 };
 
-let pageTitle;
+let pageTitle: string;
 if (title) {
 	pageTitle = `Dor Sharon | ${title}`;
 } else {
-	pageTitle = `Dor Sharon`;
+	pageTitle = 'Dor Sharon';
 }
 ---
 

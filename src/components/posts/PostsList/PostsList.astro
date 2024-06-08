@@ -1,10 +1,10 @@
 ---
-import type { CollectionEntry } from "astro:content";
-import PostCard from "../PostCard/PostCard.astro";
-import { wrapper } from "./PostsList.css";
+import type { CollectionEntry } from 'astro:content';
+import PostCard from '../PostCard/PostCard.astro';
+import { wrapper } from './PostsList.css';
 
 interface Props {
-	posts: CollectionEntry<"posts">[];
+	posts: CollectionEntry<'posts'>[];
 }
 
 const { posts } = Astro.props;

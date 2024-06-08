@@ -1,9 +1,9 @@
 ---
-import { getCollection } from "astro:content";
-import { Icon } from "astro-icon/components";
-import type { NavBarLink } from "../../types/config";
-import { getUrl } from "../../utils/url-utils";
-import NavMenu from "./NavMenu/NavMenu";
+import { getCollection } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import type { NavBarLink } from '../../types/config';
+import { getUrl } from '../../utils/url-utils';
+import NavMenu from './NavMenu/NavMenu';
 import {
 	arrowIcon,
 	button,
@@ -15,16 +15,16 @@ import {
 	navLink,
 	searchButtonIcon,
 	searchIcon,
-} from "./Navbar.css";
-import SearchBar from "./SearchBar/SearchBar";
-import ThemeSwitch from "./ThemeSwitch/ThemeSwitch";
+} from './Navbar.css';
+import SearchBar from './SearchBar/SearchBar';
+import ThemeSwitch from './ThemeSwitch/ThemeSwitch';
 
 const links: NavBarLink[] = [
-	{ name: "Archive", url: "/archive" },
-	{ name: "About", url: "/about" },
+	{ name: 'Archive', url: '/archive' },
+	{ name: 'About', url: '/about' },
 ];
 
-const allBlogPosts = await getCollection("posts");
+const allBlogPosts = await getCollection('posts');
 ---
 <div class={card}>
 	<a href={getUrl("/")} class={button}>

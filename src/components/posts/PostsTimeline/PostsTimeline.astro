@@ -1,6 +1,6 @@
 ---
-import { getSortedPosts, groupPostsByYear } from "../../../utils/content-utils";
-import { getPostUrlBySlug } from "../../../utils/url-utils";
+import { getSortedPosts, groupPostsByYear } from '../../../utils/content-utils';
+import { getPostUrlBySlug } from '../../../utils/url-utils';
 import {
 	card,
 	postContainer,
@@ -15,7 +15,7 @@ import {
 	yearDot,
 	yearDotContainer,
 	yearText,
-} from "./PostsTimeline.css";
+} from './PostsTimeline.css';
 
 interface Props {
 	tags?: string[];
@@ -36,13 +36,13 @@ if (Array.isArray(tags) && tags.length > 0) {
 const groups = groupPostsByYear(posts);
 
 function formatDate(date: Date) {
-	const month = (date.getMonth() + 1).toString().padStart(2, "0");
-	const day = date.getDate().toString().padStart(2, "0");
+	const month = (date.getMonth() + 1).toString().padStart(2, '0');
+	const day = date.getDate().toString().padStart(2, '0');
 	return `${month}-${day}`;
 }
 
 function formatTag(tag: string[]) {
-	return tag.map((t) => `#${t}`).join(" ");
+	return tag.map((t) => `#${t}`).join(' ');
 }
 ---
 
