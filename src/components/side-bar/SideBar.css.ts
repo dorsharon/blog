@@ -9,7 +9,7 @@ export const profileWrapper = style({
 	flexDirection: "column",
 	width: "100%",
 	gap: "1rem",
-	marginBottom: "1rem"
+	marginBottom: "1rem",
 });
 
 export const tagsWrapper = style({
@@ -18,5 +18,5 @@ export const tagsWrapper = style({
 	width: "100%",
 	gap: "1rem",
 	position: "sticky",
-	top: "1rem"
+	top: "1rem",
 });

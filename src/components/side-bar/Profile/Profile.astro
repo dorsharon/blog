@@ -6,7 +6,6 @@ import { getUrl } from "../../../utils/url-utils";
 import avatarImage from "../../../assets/avatar.jpeg";
 import {
 	avatar,
-	bio,
 	icon,
 	link,
 	linkButton,
@@ -16,12 +15,13 @@ import {
 	overlay,
 	rotatingTextWrapper,
 	separator,
-	wrapper
+	wrapper,
 } from "./Profile.css";
 import RotatingText from "./RotatingText/RotatingText";
 
 const config = profileConfig;
 ---
+
 <div class={wrapper}>
 	<a aria-label="Go to About Page" href={getUrl("/about/")} class={link}>
 		<div class={overlay}>
@@ -36,20 +36,31 @@ const config = profileConfig;
 	<div class={separator}></div>
 
 	<div class={rotatingTextWrapper}>
-		<RotatingText client:load items={[
-			{ label: "Full stack developer", color: "#fb923c" },
-			{ label: "React fanboy", color: "#5b9ee9" },
-			{ label: "Frontend tech lead", color: "#a78bfa" },
-			{ label: "Marvel geek", color: "#34d399" },
-			{ label: "bug squasher (and maker)", color: "#d33489" }
-		]} />
+		<RotatingText
+			client:load
+			items={[
+				{ label: "Full stack developer", color: "#fb923c" },
+				{ label: "React fanboy", color: "#5b9ee9" },
+				{ label: "Frontend tech lead", color: "#a78bfa" },
+				{ label: "Marvel geek", color: "#34d399" },
+				{ label: "bug squasher (and maker)", color: "#d33489" },
+			]}
+		/>
 	</div>
 
 	<div class={links}>
-		{config.links.map(item => (
-			<a rel="me" aria-label={item.name} href={item.url} target="_blank" class={linkButton}>
-				<Icon class={linkIcon} name={item.icon} />
-			</a>
-		))}
+		{
+			config.links.map((item) => (
+				<a
+					rel="me"
+					aria-label={item.name}
+					href={item.url}
+					target="_blank"
+					class={linkButton}
+				>
+					<Icon class={linkIcon} name={item.icon} />
+				</a>
+			))
+		}
 	</div>
 </div>

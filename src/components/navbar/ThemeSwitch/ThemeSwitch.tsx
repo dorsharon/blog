@@ -1,5 +1,10 @@
 import { Icon } from "astro-icon/components";
-import { AUTO_MODE, DARK_MODE, LIGHT_MODE, THEME_STORAGE_KEY } from "@constants/constants.ts";
+import {
+	AUTO_MODE,
+	DARK_MODE,
+	LIGHT_MODE,
+	THEME_STORAGE_KEY,
+} from "@constants/constants.ts";
 import React, { useRef } from "react";
 import {
 	card,
@@ -8,7 +13,7 @@ import {
 	panelBase,
 	themeButton,
 	themeButtonWrapper,
-	themeOption
+	themeOption,
 } from "./ThemeSwitch.css.ts";
 import { setTheme } from "@utils/setting-utils.ts";
 
@@ -18,7 +23,7 @@ export default function ThemeSwitch() {
 	const panelRef = useRef<HTMLDivElement>(null);
 
 	const toggleTheme = () => {
-		let i=0;
+		let i = 0;
 		const currentTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
 
 		for (; i < themes.length; i++) {
@@ -69,7 +74,7 @@ export default function ThemeSwitch() {
 				onClick={toggleTheme}
 				onMouseEnter={showPanel}
 			>
-					<Icon name={getThemeIcon()}></Icon>
+				<Icon name={getThemeIcon()}></Icon>
 			</button>
 
 			<div

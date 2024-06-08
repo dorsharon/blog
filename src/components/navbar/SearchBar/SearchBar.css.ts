@@ -13,11 +13,10 @@ export const searchBar = style({
 
 	"@media": {
 		"screen and (min-width: 1024px)": {
-			display: "flex"
-		}
-	}
+			display: "flex",
+		},
+	},
 });
-
 
 export const searchBarInside = style({
 	display: "flex",
@@ -28,18 +27,18 @@ export const searchBarInside = style({
 	backgroundColor: "rgba(0, 0, 0, 0.04)",
 
 	":hover": {
-		backgroundColor: "rgba(0, 0, 0, 0.06)"
+		backgroundColor: "rgba(0, 0, 0, 0.06)",
 	},
 
 	":focus-within": {
-		backgroundColor: "rgba(0, 0, 0, 0.06)"
+		backgroundColor: "rgba(0, 0, 0, 0.06)",
 	},
 
 	"@media": {
 		"screen and (min-width: 1024px)": {
-			display: "none"
-		}
-	}
+			display: "none",
+		},
+	},
 });
 
 export const searchInput = style({
@@ -53,17 +52,17 @@ export const searchInput = style({
 	color: theme.text.secondary,
 
 	":active": {
-		width: "15rem"
+		width: "15rem",
 	},
 	":focus": {
-		width: "15rem"
+		width: "15rem",
 	},
 
 	selectors: {
 		[`${searchBarInside} &`]: {
-			width: "100%"
-		}
-	}
+			width: "100%",
+		},
+	},
 });
 
 export const searchButton = style({
@@ -75,39 +74,38 @@ export const searchButton = style({
 	justifyContent: "center",
 
 	":active": {
-		transform: "scale(0.9)"
+		transform: "scale(0.9)",
 	},
 
 	"@media": {
 		"screen and (min-width: 1024px)": {
-			display: "none"
-		}
-	}
+			display: "none",
+		},
+	},
 });
 
 export const searchPanel = style({
 	insetBlockStart: `calc(-100% + 2 * ${navbarHeight})`,
 	insetInlineEnd: "-40%",
 	translate: "0 50%",
-	boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+	boxShadow:
+		"0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
 	borderRadius: "1rem",
 	padding: "0.5rem",
 	backgroundColor: theme.background.button,
-	width: '30rem',
+	width: "30rem",
 
 	"@media": {
 		"screen and (max-width: 768px)": {
 			width: "95%",
 			insetInlineEnd: "0",
-		}
-	}
+		},
+	},
 });
-
 
 export const resultItemsList = style({
 	display: "flex",
-	flexDirection: "column"
-
+	flexDirection: "column",
 });
 
 export const resultItem = style({
@@ -117,29 +115,29 @@ export const resultItem = style({
 	padding: "0.75rem",
 
 	":hover": {
-		backgroundColor: theme.background.hover
+		backgroundColor: theme.background.hover,
 	},
 	":active": {
-		backgroundColor: theme.background.hover
-	}
+		backgroundColor: theme.background.hover,
+	},
 });
 
 export const resultItemTitle = style({
 	fontSize: "1.125rem",
-	color: theme.text.primary
+	color: theme.text.primary,
 });
 
 export const resultItemSubtitle = style({
 	fontSize: "1rem",
-	color: theme.text.secondary
+	color: theme.text.secondary,
 });
 
 export const resultItemDivider = style({
-	marginBlock: "0.5rem"
+	marginBlock: "0.5rem",
 });
 
 export const noResultsWrapper = style({
 	color: theme.text.secondary,
 	textAlign: "center",
-	paddingBlock: "1rem"
+	paddingBlock: "1rem",
 });

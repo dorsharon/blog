@@ -1,18 +1,20 @@
 ---
-import path from "path";
 import PostMetadata from "../PostMetadata/PostMetadata.astro";
 import { Icon } from "astro-icon/components";
-import { getDir, getPostUrlBySlug } from "../../../utils/url-utils";
+import { getPostUrlBySlug } from "../../../utils/url-utils";
 import { type CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
 import {
-	contentWrapper, coverImage,
-	coverImageIcon, coverImageIconWrapper, coverImageOverlay,
-	coverImageWrapper, postLinkButton, postLinkIcon,
+	contentWrapper,
+	coverImage,
+	coverImageIcon,
+	coverImageIconWrapper,
+	coverImageOverlay,
+	coverImageWrapper,
 	readingTime,
 	subtitleWrapper,
 	titleLink,
-	wrapper
+	wrapper,
 } from "./PostCard.css";
 
 interface Props {
@@ -20,33 +22,25 @@ interface Props {
 	index: number;
 }
 
-const {
-	post, index
-} = Astro.props;
+const { post, index } = Astro.props;
 
-const {
-	title,
-	subtitle,
-	publishDate,
-	image,
-	tags
-} = post.data;
+const { title, subtitle, publishDate, image, tags } = post.data;
 
 const url = getPostUrlBySlug(post.slug);
 
 const { remarkPluginFrontmatter } = await post.render();
 ---
 
-<div class={wrapper} style={{ animationDelay: `calc(var(--content-delay) + ${index * 50}ms)` }}>
+<div
+	class={wrapper}
+	style={{ animationDelay: `calc(var(--content-delay) + ${index * 50}ms)` }}
+>
 	<div class={contentWrapper}>
 		<a href={url} class={titleLink}>
 			{title}
 		</a>
 
-		<PostMetadata
-			publishDate={publishDate}
-			tags={tags}
-		/>
+		<PostMetadata publishDate={publishDate} tags={tags} />
 
 		<div class={subtitleWrapper}>
 			{subtitle}
@@ -69,10 +63,6 @@ const { remarkPluginFrontmatter } = await post.render();
 			</div>
 		</div>
 
-		<Image
-			src={image}
-			alt="Cover Image of the Post"
-			class={coverImage}
-		/>
+		<Image src={image} alt="Cover Image of the Post" class={coverImage} />
 	</a>
 </div>

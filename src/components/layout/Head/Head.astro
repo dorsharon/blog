@@ -1,5 +1,5 @@
 ---
-import { DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE } from "../../../constants/constants";
+
 ---
 
 <head>
@@ -13,14 +13,7 @@ import { DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE } from "../../../consta
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
 
 	<!-- Set the theme before the page is rendered to avoid a flash -->
-	<script
-		define:vars={{
-			DEFAULT_THEME: DEFAULT_THEME,
-			LIGHT_MODE: LIGHT_MODE,
-			DARK_MODE: DARK_MODE,
-			AUTO_MODE: AUTO_MODE
-		}}
-	>
+	<script>
 		import { getTheme, setTheme } from "../../../utils/setting-utils";
 
 		const theme = getTheme();

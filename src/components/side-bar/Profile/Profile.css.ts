@@ -4,7 +4,7 @@ import { theme } from "../../../styles/themes.css.ts";
 export const wrapper = style({
 	display: "flex",
 	flexDirection: "column",
-	alignItems: "center"
+	alignItems: "center",
 });
 
 export const link = style({
@@ -16,8 +16,8 @@ export const link = style({
 	transition: "transform 0.2s",
 
 	":active": {
-		transform: "scale(0.95)"
-	}
+		transform: "scale(0.95)",
+	},
 });
 
 export const overlay = style({
@@ -32,12 +32,12 @@ export const overlay = style({
 	transition: "background-color 0.2s",
 	selectors: {
 		"&:hover": {
-			backgroundColor: "rgba(0, 0, 0, 0.3)"
+			backgroundColor: "rgba(0, 0, 0, 0.3)",
 		},
 		"&:active": {
-			backgroundColor: "rgba(0, 0, 0, 0.5)"
-		}
-	}
+			backgroundColor: "rgba(0, 0, 0, 0.5)",
+		},
+	},
 });
 
 export const avatar = style({
@@ -47,8 +47,8 @@ export const avatar = style({
 	"@media": {
 		"(min-width: 1024px)": {
 			width: "100%",
-			marginTop: "0"
-		}
+			marginTop: "0",
+		},
 	},
 });
 
@@ -59,9 +59,9 @@ export const icon = style({
 	fontSize: "3rem",
 	selectors: {
 		[`${link}:hover &`]: {
-			opacity: 1
-		}
-	}
+			opacity: 1,
+		},
+	},
 });
 
 export const name = style({
@@ -70,7 +70,7 @@ export const name = style({
 	textAlign: "center",
 	marginBottom: "0.25rem",
 	color: theme.text.primary,
-	transition: "color 0.2s"
+	transition: "color 0.2s",
 });
 
 export const separator = style({
@@ -80,14 +80,7 @@ export const separator = style({
 	margin: "0 auto",
 	borderRadius: "0.25rem",
 	marginBottom: "0.5rem",
-	transition: "background-color 0.2s"
-});
-
-export const bio = style({
-	textAlign: "center",
-	color: theme.text.secondary,
-	marginBottom: "0.625rem",
-	transition: "color 0.2s"
+	transition: "background-color 0.2s",
 });
 
 export const links = style({
@@ -95,7 +88,7 @@ export const links = style({
 	gap: "0.5rem",
 	margin: "0 0.5rem",
 	justifyContent: "center",
-	marginBottom: "1rem"
+	marginBottom: "1rem",
 });
 
 export const linkButton = style({
@@ -110,19 +103,19 @@ export const linkButton = style({
 	transition: "backgroundColor transform 0.2s",
 
 	":hover": {
-		backgroundColor: theme.background.hover
+		backgroundColor: theme.background.hover,
 	},
 
 	":active": {
-		transform: "scale(0.9)"
-	}
+		transform: "scale(0.9)",
+	},
 });
 
 export const linkIcon = style({
-	fontSize: "1.25rem"
+	fontSize: "1.25rem",
 });
 
 export const rotatingTextWrapper = style({
-	height: '4rem',
-	width: '100%'
-})
+	height: "4rem",
+	width: "100%",
+});
