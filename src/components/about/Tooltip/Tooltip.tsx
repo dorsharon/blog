@@ -1,10 +1,9 @@
-import { type PropsWithChildren, useRef, useState } from "react";
 import {
+	FloatingArrow,
+	FloatingPortal,
 	arrow,
 	autoUpdate,
 	flip,
-	FloatingArrow,
-	FloatingPortal,
 	offset,
 	shift,
 	useDismiss,
@@ -14,8 +13,9 @@ import {
 	useInteractions,
 	useRole,
 	useTransitionStyles,
-} from "@floating-ui/react";
-import styles from "./Tooltip.module.css";
+} from '@floating-ui/react';
+import { type PropsWithChildren, useRef, useState } from 'react';
+import styles from './Tooltip.module.css';
 
 const ARROW_HEIGHT = 7;
 const GAP = 2;
@@ -35,11 +35,11 @@ export default function Tooltip({
 	} = useFloating({
 		open: isOpen,
 		onOpenChange: setIsOpen,
-		placement: "bottom",
+		placement: 'bottom',
 		whileElementsMounted: autoUpdate,
 		middleware: [
 			offset(ARROW_HEIGHT + GAP),
-			flip({ fallbackAxisSideDirection: "start" }),
+			flip({ fallbackAxisSideDirection: 'start' }),
 			shift(),
 			arrow({ element: arrowRef }),
 		],
@@ -48,7 +48,7 @@ export default function Tooltip({
 	const hover = useHover(context, { move: false });
 	const focus = useFocus(context);
 	const dismiss = useDismiss(context);
-	const role = useRole(context, { role: "tooltip" });
+	const role = useRole(context, { role: 'tooltip' });
 
 	const { getReferenceProps, getFloatingProps } = useInteractions([
 		hover,
@@ -76,8 +76,8 @@ export default function Tooltip({
 						<FloatingArrow
 							ref={arrowRef}
 							context={context}
-							fill={"#ffffff"}
-							stroke={"#ffffff"}
+							fill={'#ffffff'}
+							stroke={'#ffffff'}
 						/>
 
 						{label}

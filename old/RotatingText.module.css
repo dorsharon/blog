@@ -1,7 +1,0 @@
-.text {
-	position: absolute;
-	white-space: nowrap;
-	font-weight: 700;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-}

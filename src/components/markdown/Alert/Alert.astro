@@ -1,0 +1,66 @@
+---
+
+import { Icon } from 'astro-icon/components';
+import {
+	cautionTitle,
+	cautionWrapper,
+	content,
+	infoTitle,
+	infoWrapper,
+	tipTitle,
+	tipWrapper,
+	titleWrapper,
+	warningTitle,
+	warningWrapper,
+	wrapper,
+} from './Alert.css';
+
+interface Props {
+	type: 'info' | 'tip' | 'warning' | 'caution';
+	title: string;
+	description: string;
+}
+
+const { type, title, description } = Astro.props;
+
+let iconName: string;
+let titleClass: string;
+let wrapperClass: string;
+
+switch (type) {
+	case 'info':
+		iconName = 'material-symbols:error-outline-rounded';
+		titleClass = infoTitle;
+		wrapperClass = infoWrapper;
+		break;
+	case 'tip':
+		iconName = 'material-symbols:lightbulb-outline-rounded';
+		titleClass = tipTitle;
+		wrapperClass = tipWrapper;
+		break;
+	case 'warning':
+		iconName = 'material-symbols:warning-outline-rounded';
+		titleClass = warningTitle;
+		wrapperClass = warningWrapper;
+		break;
+	case 'caution':
+		iconName = 'material-symbols:brightness-alert-outline-rounded';
+		titleClass = cautionTitle;
+		wrapperClass = cautionWrapper;
+		break;
+	default:
+		iconName = 'material-symbols:error-outline-rounded';
+		titleClass = infoTitle;
+		wrapperClass = infoWrapper;
+		break;
+}
+---
+<blockquote class={`${wrapper} ${wrapperClass}`}>
+	<div class={`${titleWrapper} ${titleClass}`}>
+		<Icon name={iconName} />
+
+		<h5>{title}</h5>
+	</div>
+
+	<p class={content}><slot/></p>
+</blockquote>

@@ -1,12 +1,12 @@
-import { getPostUrlBySlug } from "@utils/url-utils.ts";
-import Fuse from "fuse.js";
+import { getPostUrlBySlug } from '@utils/url-utils.ts';
+import Fuse from 'fuse.js';
 import React, {
 	type ChangeEvent,
 	type JSX,
 	useMemo,
 	useRef,
 	useState,
-} from "react";
+} from 'react';
 import {
 	noResultsWrapper,
 	resultItem,
@@ -19,7 +19,7 @@ import {
 	searchButton,
 	searchInput,
 	searchPanel,
-} from "./SearchBar.css";
+} from './SearchBar.css';
 
 export default function SearchBar({
 	posts,
@@ -27,15 +27,15 @@ export default function SearchBar({
 	searchInputIcon,
 	searchButtonIcon,
 }: {
-	posts: never[];
+	posts: { slug: string; data: { title: string; subtitle: string } }[];
 	arrowIcon: JSX.Element;
 	searchInputIcon: JSX.Element;
 	searchButtonIcon: JSX.Element;
 }) {
-	const [searchValue, setSearchValue] = useState<string>("");
+	const [searchValue, setSearchValue] = useState<string>('');
 
 	const fuse = useMemo(
-		() => new Fuse(posts, { keys: ["data.title", "data.subtitle"] }),
+		() => new Fuse(posts, { keys: ['data.title', 'data.subtitle'] }),
 		[posts],
 	);
 	const results = useMemo(() => fuse.search(searchValue), [fuse, searchValue]);
@@ -68,7 +68,7 @@ export default function SearchBar({
 				{searchInputIcon}
 
 				<input
-					placeholder="Search"
+					placeholder='Search'
 					value={searchValue}
 					onClick={handleInputClick}
 					onChange={handleInputChange}
@@ -84,14 +84,15 @@ export default function SearchBar({
 
 			<button
 				onClick={togglePanel}
-				aria-label="Search Panel"
+				aria-label='Search Panel'
 				className={searchButton}
+				type={'button'}
 			>
 				{searchButtonIcon}
 			</button>
 
 			{/* @ts-expect-error popover attribute isn't supported in TS */}
-			<div ref={popoverRef} popover="auto" className={searchPanel}>
+			<div ref={popoverRef} popover='auto' className={searchPanel}>
 				<div className={searchBarInside}>{renderSearchBar()}</div>
 
 				{results?.length ? (
@@ -99,7 +100,7 @@ export default function SearchBar({
 						{results.map(({ item }, index) => (
 							<>
 								<a
-									key={index}
+									key={item.slug}
 									href={getPostUrlBySlug(item.slug)}
 									className={resultItem}
 								>

@@ -7,10 +7,13 @@ import PostsTimeline from '../../../components/posts/PostsTimeline/PostsTimeline
 export const getStaticPaths = (async () => {
 	const posts = await getSortedPosts();
 
-	const allTags = posts.reduce((acc, post) => {
-		post.data.tags.forEach((tag) => acc.add(tag));
-		return acc;
-	}, new Set<string>());
+	const allTags = new Set<string>();
+
+	for (const post of posts) {
+		for (const tag of post.data.tags) {
+			allTags.add(tag);
+		}
+	}
 
 	const allTagsArray = Array.from(allTags);
 
