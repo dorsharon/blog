@@ -18,10 +18,9 @@ import {
 interface Props {
 	type: 'info' | 'tip' | 'warning' | 'caution';
 	title: string;
-	description: string;
 }
 
-const { type, title, description } = Astro.props;
+const { type, title } = Astro.props;
 
 let iconName: string;
 let titleClass: string;

@@ -12,28 +12,6 @@ interface Props {
 
 const { title } = Astro.props;
 
-const anim = {
-	old: {
-		name: 'fadeIn',
-		duration: '4s',
-		easing: 'linear',
-		fillMode: 'forwards',
-		mixBlendMode: 'normal',
-	},
-	new: {
-		name: 'fadeOut',
-		duration: '4s',
-		easing: 'linear',
-		fillMode: 'backwards',
-		mixBlendMode: 'normal',
-	},
-};
-
-const myFade = {
-	forwards: anim,
-	backwards: anim,
-};
-
 let pageTitle: string;
 if (title) {
 	pageTitle = `Dor Sharon | ${title}`;
@@ -48,7 +26,7 @@ if (title) {
 	class={`${html} ${lightThemeClass}`}
 	data-overlayscrollbars-initialize
 >
-	<Head />
+	<Head title={pageTitle} />
 
 	<body class={body} data-overlayscrollbars-initialize>
 		<GlobalStyles />

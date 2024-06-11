@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import type { NavBarLink } from '../../../types/config.ts';
 import {
 	floatPanel,

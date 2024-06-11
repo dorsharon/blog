@@ -1,12 +1,6 @@
 import { getPostUrlBySlug } from '@utils/url-utils.ts';
 import Fuse from 'fuse.js';
-import React, {
-	type ChangeEvent,
-	type JSX,
-	useMemo,
-	useRef,
-	useState,
-} from 'react';
+import { type ChangeEvent, type JSX, useMemo, useRef, useState } from 'react';
 import {
 	noResultsWrapper,
 	resultItem,
@@ -28,9 +22,9 @@ export default function SearchBar({
 	searchButtonIcon,
 }: {
 	posts: { slug: string; data: { title: string; subtitle: string } }[];
-	arrowIcon: JSX.Element;
-	searchInputIcon: JSX.Element;
-	searchButtonIcon: JSX.Element;
+	arrowIcon?: JSX.Element;
+	searchInputIcon?: JSX.Element;
+	searchButtonIcon?: JSX.Element;
 }) {
 	const [searchValue, setSearchValue] = useState<string>('');
 

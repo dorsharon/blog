@@ -1,6 +1,6 @@
 import { adjustBrightness } from '@utils/style-utils.ts';
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { text, textWrapper } from './RotatingText.css.ts';
 
 export default function RotatingText({
@@ -10,19 +10,19 @@ export default function RotatingText({
 }) {
 	const [index, setIndex] = useState<number>(0);
 
-	useEffect(() => {
-		const id = setInterval(() => {
-			setIndex((state) => {
-				if (state >= items.length - 1) {
-					return 0;
-				}
-
-				return state + 1;
-			});
-		}, 2000);
-
-		return () => clearInterval(id);
-	}, [items.length]);
+	// useEffect(() => {
+	// 	const id = setInterval(() => {
+	// 		setIndex((state) => {
+	// 			if (state >= items.length - 1) {
+	// 				return 0;
+	// 			}
+	//
+	// 			return state + 1;
+	// 		});
+	// 	}, 2000);
+	//
+	// 	return () => clearInterval(id);
+	// }, [items.length]);
 
 	const { label, color } = items[index];
 

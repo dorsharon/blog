@@ -1,9 +1,13 @@
 ---
+interface Props {
+	title?: string;
+}
 
+const { title } = Astro.props;
 ---
 
 <head>
-	<title>Dor Sharon</title>
+	<title>{title}</title>
 
 	<meta charset="UTF-8" />
 	<meta name="description" content={"Dor Sharon"} />
