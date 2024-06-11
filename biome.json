@@ -25,6 +25,7 @@
 		}
 	},
 	"javascript": {
+		"globals": ["Astro"],
 		"formatter": {
 			"quoteProperties": "asNeeded",
 			"jsxQuoteStyle": "single",

@@ -1,3 +1,4 @@
+import { tooltip } from '@components/about/Tooltip/Tooltip.css.ts';
 import {
 	FloatingArrow,
 	FloatingPortal,
@@ -15,7 +16,6 @@ import {
 	useTransitionStyles,
 } from '@floating-ui/react';
 import { type PropsWithChildren, useRef, useState } from 'react';
-import styles from './Tooltip.module.css';
 
 const ARROW_HEIGHT = 7;
 const GAP = 2;
@@ -68,7 +68,7 @@ export default function Tooltip({
 			<FloatingPortal>
 				{isOpen && (
 					<div
-						className={styles.tooltip}
+						className={tooltip}
 						ref={setFloating}
 						style={{ ...transitionStyles, ...floatingStyles }}
 						{...getFloatingProps()}

@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import avatarImage from '../../../assets/avatar.jpeg';
-import { profileConfig } from '../../../config';
 import { getUrl } from '../../../utils/url-utils';
 import {
 	avatar,
@@ -18,8 +17,6 @@ import {
 	wrapper,
 } from './Profile.css';
 import RotatingText from './RotatingText/RotatingText';
-
-const config = profileConfig;
 ---
 
 <div class={wrapper}>
@@ -49,18 +46,24 @@ const config = profileConfig;
 	</div>
 
 	<div class={links}>
-		{
-			config.links.map((item) => (
-				<a
-					rel="me"
-					aria-label={item.name}
-					href={item.url}
-					target="_blank"
-					class={linkButton}
-				>
-					<Icon class={linkIcon} name={item.icon} />
-				</a>
-			))
-		}
+		<a
+			rel="me"
+			aria-label={'LinkedIn'}
+			href={'https://www.linkedin.com/in/dor-sharon'}
+			target="_blank"
+			class={linkButton}
+		>
+			<Icon class={linkIcon} name={'logos:linkedin-icon'} />
+		</a>
+
+		<a
+			rel="me"
+			aria-label={'Github'}
+			href={'https://github.com/dorsharon'}
+			target="_blank"
+			class={linkButton}
+		>
+			<Icon class={linkIcon} name={'logos:github-icon'} />
+		</a>
 	</div>
 </div>

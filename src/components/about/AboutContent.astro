@@ -1,0 +1,60 @@
+---
+
+import { wrapper } from './AboutContent.css';
+import SkillIcon from './SkillIcon/SkillIcon.astro';
+
+const skills: { label: string; iconName: string }[] = [
+	{ label: 'HTML', iconName: 'logos:html-5' },
+	{ label: 'CSS', iconName: 'logos:css-3' },
+	{ label: 'TypeScript', iconName: 'logos:typescript-icon' },
+	{ label: 'React', iconName: 'logos:react' },
+	{ label: 'Vite', iconName: 'logos:vitejs' },
+	{ label: 'Redux', iconName: 'logos:redux' },
+	{ label: 'Styled Components', iconName: 'vscode-icons:file-type-styled' },
+	{ label: 'Tailwind', iconName: 'logos:tailwindcss-icon' },
+	{
+		label: 'Vanilla Extract',
+		iconName: 'vscode-icons:file-type-vanilla-extract',
+	},
+	{ label: 'Astro', iconName: 'logos:astro' },
+	{ label: 'NodeJS', iconName: 'logos:nodejs' },
+	{ label: 'NestJS', iconName: 'logos:nestjs' },
+	{ label: 'gRPC', iconName: 'logos:grpc' },
+	{ label: 'MongoDB', iconName: 'logos:mongodb-icon' },
+	{ label: 'PostgreSQL', iconName: 'logos:postgresql' },
+	{ label: 'Redis', iconName: 'logos:redis' },
+	{ label: 'Jest', iconName: 'logos:jest' },
+	{ label: 'Storybook', iconName: 'logos:storybook-icon' },
+	{ label: 'Vitest', iconName: 'logos:vitest' },
+	{ label: 'Testing Library', iconName: 'logos:testing-library' },
+	{ label: 'Playwright', iconName: 'logos:playwright' },
+	{ label: 'CircleCI', iconName: 'logos:circleci' },
+	{ label: 'Docker', iconName: 'logos:docker-icon' },
+	{ label: 'Kubernetes', iconName: 'logos:kubernetes' },
+	{ label: 'Helm', iconName: 'logos:helm' },
+];
+---
+<div class={wrapper}>
+	<h3>Hi!</h3>
+	<h4>I'm Dor Sharon</h4>
+
+	<p>
+		I'm a full stack developer anda frontend tech lead.<br/>
+		I have a great passion for everything around frontend, a bad addiction to TypeScript and a habit of pushing bugs to production (try it, it's fun!)<br/>
+	</p>
+
+	<p>
+		This is my blog, where I'll be spewing things that range anywhere between informative life experience and utter nonsense.<br/>
+		Try to differentiate what falls where.
+	</p>
+
+	<p>
+		These are the technologies that I (mostly) like to work with:
+	</p>
+
+	<div>
+		{skills.map(({label, iconName})=>(
+			<SkillIcon label={label} iconName={iconName} />
+		))}
+	</div>
+</div>

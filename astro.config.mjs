@@ -8,7 +8,6 @@ import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.ts";
 import remarkDirective from "remark-directive"; /* Handle directives */
 import rehypeComponents from "rehype-components"; /* Render the custom directive content */
-import svelte from "@astrojs/svelte";
 import swup from "@swup/astro";
 import sitemap from "@astrojs/sitemap";
 import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
@@ -29,8 +28,7 @@ const oklchToHex = str => {
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://dorsharon.github.io",
-	base: "/blog",
+	site: "https://dorsharon.dev",
 	integrations: [tailwind(), swup({
 		theme: false,
 		animationClass: "transition-",
@@ -45,11 +43,12 @@ export default defineConfig({
 			"material-symbols": ["*"],
 			"fa6-brands": ["*"],
 			"fa6-regular": ["*"],
-			"fa6-solid": ["*"]
+			"fa6-solid": ["*"],
+			"logos": ["*"],
 		}
 	}), Compress({
 		Image: false
-	}), svelte(), sitemap(), react(), mdx()],
+	}), sitemap(), react(), mdx()],
 	markdown: {
 		remarkPlugins: [remarkReadingTime, remarkDirective, parseDirectiveNode],
 		rehypePlugins: [[rehypeComponents, {

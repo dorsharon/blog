@@ -1,0 +1,21 @@
+---
+import { Icon } from 'astro-icon/components';
+import Tooltip from '../Tooltip/Tooltip';
+import { wrapper } from './SkillIcon.css';
+
+interface Props {
+	label: string;
+	iconName: string;
+}
+
+const { label, iconName } = Astro.props;
+---
+
+<Tooltip label={label} client:load>
+	<div class={wrapper}>
+		<Icon name={iconName} width={50} height={50} />
+	</div>
+</Tooltip>
+
+
+
