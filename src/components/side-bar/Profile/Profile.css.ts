@@ -79,7 +79,6 @@ export const separator = style({
 	backgroundColor: theme.color.primary,
 	margin: '0 auto',
 	borderRadius: '0.25rem',
-	marginBottom: '0.5rem',
 	transition: 'background-color 0.2s',
 });
 
@@ -116,6 +115,6 @@ export const linkIcon = style({
 });
 
 export const rotatingTextWrapper = style({
-	height: '4rem',
+	height: '3rem',
 	width: '100%',
 });

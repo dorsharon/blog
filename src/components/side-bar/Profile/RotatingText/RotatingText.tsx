@@ -10,26 +10,26 @@ export default function RotatingText({
 }) {
 	const [index, setIndex] = useState<number>(0);
 
-	// useEffect(() => {
-	// 	const id = setInterval(() => {
-	// 		setIndex((state) => {
-	// 			if (state >= items.length - 1) {
-	// 				return 0;
-	// 			}
-	//
-	// 			return state + 1;
-	// 		});
-	// 	}, 2000);
-	//
-	// 	return () => clearInterval(id);
-	// }, [items.length]);
+	useEffect(() => {
+		const id = setInterval(() => {
+			setIndex((state) => {
+				if (state >= items.length - 1) {
+					return 0;
+				}
+
+				return state + 1;
+			});
+		}, 2000);
+
+		return () => clearInterval(id);
+	}, [items.length]);
 
 	const { label, color } = items[index];
 
 	return (
 		<div className={textWrapper}>
 			<AnimatePresence>
-				<motion.h4
+				<motion.div
 					key={index}
 					className={text}
 					initial={{ y: 20, opacity: 0 }}
@@ -41,7 +41,7 @@ export default function RotatingText({
 					}}
 				>
 					{label}
-				</motion.h4>
+				</motion.div>
 			</AnimatePresence>
 		</div>
 	);
