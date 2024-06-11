@@ -1,6 +1,5 @@
 ---
-
-import { wrapper } from './AboutContent.css';
+import { skillsGrid, subtitle, title, wrapper } from './AboutContent.css';
 import SkillIcon from './SkillIcon/SkillIcon.astro';
 
 const skills: { label: string; iconName: string }[] = [
@@ -35,12 +34,13 @@ const skills: { label: string; iconName: string }[] = [
 ];
 ---
 <div class={wrapper}>
-	<h3>Hi!</h3>
-	<h4>I'm Dor Sharon</h4>
+	<h3 class={title}>Hi!</h3>
+
+	<h4 class={subtitle}>I'm Dor Sharon</h4>
 
 	<p>
-		I'm a full stack developer anda frontend tech lead.<br/>
-		I have a great passion for everything around frontend, a bad addiction to TypeScript and a habit of pushing bugs to production (try it, it's fun!)<br/>
+		I'm a full stack developer and a frontend tech lead.<br/>
+		I have a great passion for everything around frontend, a bad addiction to TypeScript and a nasty habit of pushing bugs to production (try it, it's fun!)<br/>
 	</p>
 
 	<p>
@@ -52,7 +52,7 @@ const skills: { label: string; iconName: string }[] = [
 		These are the technologies that I (mostly) like to work with:
 	</p>
 
-	<div>
+	<div class={skillsGrid}>
 		{skills.map(({label, iconName})=>(
 			<SkillIcon label={label} iconName={iconName} />
 		))}

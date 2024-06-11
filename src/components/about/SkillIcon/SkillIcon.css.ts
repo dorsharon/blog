@@ -3,7 +3,7 @@ import { theme } from '../../../styles/themes.css';
 
 export const wrapper = style({
 	padding: '0.5rem',
-	border: '1px solid #ccc',
+	border: `1px solid ${theme.text.secondary}`,
 	borderRadius: '5px',
 	display: 'inline-flex',
 	alignItems: 'center',
