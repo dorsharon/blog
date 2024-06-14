@@ -16,7 +16,7 @@
 	function initCustomScrollbar() {
 		OverlayScrollbars(
 			{
-				target: document.querySelector("body") as HTMLElement
+				target: document.body
 			},
 			{
 				scrollbars: {
@@ -28,7 +28,7 @@
 
 	function init() {
 		loadTheme();
-		initCustomScrollbar();
+		// initCustomScrollbar();
 	}
 
 	/* Load settings when entering the site */
@@ -52,4 +52,15 @@
 	// } else {
 	// 	document.addEventListener("swup:enable", setup);
 	// }
+
+
+</script>
+
+<script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=G-WND45XZ8GC"></script>
+<script type="text/partytown">
+	window.dataLayer = window.dataLayer || [];
+	window.gtag = function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-WND45XZ8GC');
 </script>
