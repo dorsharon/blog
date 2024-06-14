@@ -1,6 +1,14 @@
+import Popover from '@components/common/Popover/Popover.tsx';
 import { getPostUrlBySlug } from '@utils/url-utils.ts';
 import Fuse from 'fuse.js';
-import { type ChangeEvent, type JSX, useMemo, useRef, useState } from 'react';
+import {
+	type ChangeEvent,
+	Fragment,
+	type JSX,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
 import {
 	noResultsWrapper,
 	resultItem,
@@ -27,6 +35,7 @@ export default function SearchBar({
 	searchButtonIcon?: JSX.Element;
 }) {
 	const [searchValue, setSearchValue] = useState<string>('');
+	const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
 
 	const fuse = useMemo(
 		() => new Fuse(posts, { keys: ['data.title', 'data.subtitle'] }),
@@ -34,15 +43,10 @@ export default function SearchBar({
 	);
 	const results = useMemo(() => fuse.search(searchValue), [fuse, searchValue]);
 
-	const popoverRef = useRef<HTMLDivElement>(null);
-
-	const togglePanel = () => {
-		popoverRef.current?.togglePopover();
-	};
-
 	const handleInputClick = () => {
+		console.log({ searchValue, leng: searchValue?.length });
 		if (searchValue?.length) {
-			popoverRef.current?.showPopover();
+			setIsPopoverOpen(true);
 		}
 	};
 
@@ -50,10 +54,12 @@ export default function SearchBar({
 		setSearchValue(e.target.value);
 
 		if (e.target.value?.length) {
-			popoverRef.current?.showPopover();
+			setIsPopoverOpen(true);
 		} else {
-			popoverRef.current?.hidePopover();
+			setIsPopoverOpen(false);
 		}
+
+		e.target.focus();
 	};
 
 	const renderSearchBar = (): JSX.Element => {
@@ -73,47 +79,50 @@ export default function SearchBar({
 	};
 
 	return (
-		<>
-			<div className={searchBar}>{renderSearchBar()}</div>
+		<Popover
+			isOpen={isPopoverOpen}
+			onOpenChange={setIsPopoverOpen}
+			content={
+				<div className={searchPanel}>
+					<div className={searchBarInside}>{renderSearchBar()}</div>
 
-			<button
-				onClick={togglePanel}
-				aria-label='Search Panel'
-				className={searchButton}
-				type={'button'}
-			>
-				{searchButtonIcon}
-			</button>
+					{results?.length ? (
+						<div className={resultItemsList}>
+							{results.map(({ item }, index) => (
+								<Fragment key={item.slug}>
+									<a href={getPostUrlBySlug(item.slug)} className={resultItem}>
+										<div className={resultItemTitle}>{item.data.title}</div>
+										<div className={resultItemSubtitle}>
+											{item.data.subtitle}
+										</div>
 
-			{/* @ts-expect-error popover attribute isn't supported in TS */}
-			<div ref={popoverRef} popover='auto' className={searchPanel}>
-				<div className={searchBarInside}>{renderSearchBar()}</div>
+										{arrowIcon}
+									</a>
 
-				{results?.length ? (
-					<div className={resultItemsList}>
-						{results.map(({ item }, index) => (
-							<>
-								<a
-									key={item.slug}
-									href={getPostUrlBySlug(item.slug)}
-									className={resultItem}
-								>
-									<div className={resultItemTitle}>{item.data.title}</div>
-									<div className={resultItemSubtitle}>{item.data.subtitle}</div>
+									{index !== results.length - 1 && (
+										<hr className={resultItemDivider} />
+									)}
+								</Fragment>
+							))}
+						</div>
+					) : (
+						<div className={noResultsWrapper}>No results found</div>
+					)}
+				</div>
+			}
+		>
+			<>
+				<div className={searchBar}>{renderSearchBar()}</div>
 
-									{arrowIcon}
-								</a>
-
-								{index !== results.length - 1 && (
-									<hr className={resultItemDivider} />
-								)}
-							</>
-						))}
-					</div>
-				) : (
-					<div className={noResultsWrapper}>No results found</div>
-				)}
-			</div>
-		</>
+				<button
+					// onClick={togglePanel}
+					aria-label='Search Panel'
+					className={searchButton}
+					type={'button'}
+				>
+					{searchButtonIcon}
+				</button>
+			</>
+		</Popover>
 	);
 }

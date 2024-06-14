@@ -1,0 +1,115 @@
+---
+import {
+	DARK_THEME,
+	LIGHT_THEME,
+	SYSTEM_THEME,
+	THEME_STORAGE_KEY,
+} from '@constants/constants.ts';
+import { setTheme } from '@utils/setting-utils.ts';
+import { Icon } from 'astro-icon/components';
+import { getTheme } from '../../../utils/setting-utils';
+import {
+	activeThemeOption,
+	card,
+	floatPanelClosed,
+	panelBase,
+	themeButton,
+	themeButtonWrapper,
+	themeOption,
+} from './ThemeSwitch.css.ts';
+
+const getThemeIcon = () => {
+	const currentTheme = getTheme();
+
+	switch (currentTheme) {
+		case LIGHT_THEME:
+			return 'material-symbols:wb-sunny-outline-rounded';
+		case DARK_THEME:
+			return 'material-symbols:dark-mode-outline-rounded';
+		case SYSTEM_THEME:
+			return 'material-symbols:radio-button-partial-outline';
+	}
+};
+
+const themes = [LIGHT_THEME, DARK_THEME, SYSTEM_THEME];
+
+const themeButtonId = 'theme-button';
+const themePopoverId = 'theme-popover';
+---
+<div
+	class={themeButtonWrapper}
+	role='menu'
+	tabIndex={-1}
+>
+	<button
+		id={themeButtonId}
+		aria-label='Switch Theme'
+		role='menuitem'
+		type={'button'}
+		class={themeButton}
+	>
+		<Icon name={getThemeIcon()} />
+	</button>
+
+	<div id={themePopoverId}>
+		<div class={card}>
+			{themes.map((theme) => (
+				<button
+					key={theme}
+				 class={`${themeOption} ${theme === window.localStorage.getItem(THEME_STORAGE_KEY) ? activeThemeOption : ''}`}
+			onClick={() => setTheme(theme)}
+			type={'button'}
+			>
+			<Icon name={getThemeIcon()} />
+			{theme}
+				</button>
+			))}
+		</div>
+	</div>
+</div>
+
+<script define:vars={{themes, themeButtonId, themePopoverId}}>
+	const toggleTheme = () => {
+		let i = 0;
+		const currentTheme = getTheme();
+
+		for (; i < themes.length; i++) {
+			if (themes[i] === currentTheme) {
+				break;
+			}
+		}
+		setTheme(themes[(i + 1) % themes.length]);
+	};
+
+	const showPanel = () => {
+		const popoverElement = document.getElementById(themePopoverId);
+		popoverElement?.showPopover();
+	};
+
+	const hidePanel = () => {
+		const popoverElement = document.getElementById(themePopoverId);
+		popoverElement?.hidePopover();
+	};
+
+	const init = () =>{
+		const themeButton = document.getElementById(themeButtonId);
+
+		themeButton.addEventListener("click", () => {
+			toggleTheme()
+		});
+
+		themeButton.addEventListener('mouseenter', ()=>{
+			showPanel();
+		})
+
+		themeButton.addEventListener('mouseleave', ()=>{
+			hidePanel();
+		})
+	}
+
+	init();
+
+	document.addEventListener('astro:after-swap', () => {
+		init();
+	}, { once: false });
+</script>

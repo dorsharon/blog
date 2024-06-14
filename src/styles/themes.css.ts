@@ -9,8 +9,8 @@ export const [lightThemeClass, theme] = createTheme({
 	background: {
 		page: '#eaeff5',
 		card: '#ffffff',
-		button: '#283747',
-		hover: '#324457',
+		button: '#f1f1f1',
+		hover: '#d8d8d8',
 	},
 });
 

@@ -1,7 +1,7 @@
 export const PAGE_SIZE = 8;
 
 export const THEME_STORAGE_KEY = 'theme';
-export const LIGHT_MODE = 'Light',
-	DARK_MODE = 'Dark',
-	AUTO_MODE = 'System';
-export const DEFAULT_THEME = AUTO_MODE;
+export const LIGHT_THEME = 'Light';
+export const DARK_THEME = 'Dark';
+export const SYSTEM_THEME = 'System';
+export const DEFAULT_THEME = SYSTEM_THEME;

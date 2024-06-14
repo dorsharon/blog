@@ -1,102 +1,148 @@
+import Popover from '@components/common/Popover/Popover.tsx';
 import {
-	AUTO_MODE,
-	DARK_MODE,
-	LIGHT_MODE,
+	DARK_THEME,
+	LIGHT_THEME,
+	SYSTEM_THEME,
 	THEME_STORAGE_KEY,
 } from '@constants/constants.ts';
-import { setTheme } from '@utils/setting-utils.ts';
-import { Icon } from 'astro-icon/components';
-import React, { useRef } from 'react';
+import { applyDarkTheme, applyLightTheme } from '@utils/setting-utils.ts';
+import React, { type JSX, useEffect, useRef, useState } from 'react';
+import { darkThemeClass, lightThemeClass } from '../../../styles/themes.css.ts';
 import {
+	activeThemeButton,
+	activeThemeOption,
 	card,
-	currentSetting,
-	floatPanelClosed,
-	panelBase,
 	themeButton,
 	themeButtonWrapper,
 	themeOption,
+	themeOptionsWrapper,
 } from './ThemeSwitch.css.ts';
 
-const themes = [LIGHT_MODE, DARK_MODE, AUTO_MODE];
+const themes = [LIGHT_THEME, DARK_THEME, SYSTEM_THEME];
 
-export default function ThemeSwitch() {
-	const panelRef = useRef<HTMLDivElement>(null);
+export default function ThemeSwitch({
+	themeButtonId,
+	lightThemeIcon,
+	darkThemeIcon,
+	systemThemeIcon,
+}: {
+	themeButtonId: string;
+	lightThemeIcon?: JSX.Element;
+	darkThemeIcon?: JSX.Element;
+	systemThemeIcon?: JSX.Element;
+}) {
+	const [currentTheme, setCurrentTheme] = useState<string>(SYSTEM_THEME);
+	const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
+
+	// useEffect(() => {
+	// 	const isDarkTheme =
+	// 		document.documentElement.classList.contains(darkThemeClass);
+	// 	setCurrentTheme(isDarkTheme ? DARK_THEME : LIGHT_THEME);
+	// }, []);
+
+	// useEffect(() => {
+	// 	const isDark =
+	// 		currentTheme === 'dark' ||
+	// 		(currentTheme === 'system' &&
+	// 			window.matchMedia('(prefers-color-scheme: dark)').matches);
+	// 	document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
+	// }, [currentTheme]);
+
+	useEffect(() => {
+		switch (currentTheme) {
+			case LIGHT_THEME:
+				applyLightTheme();
+				break;
+			case DARK_THEME:
+				applyDarkTheme();
+				break;
+			case SYSTEM_THEME:
+				if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+					applyDarkTheme();
+				} else {
+					applyLightTheme();
+				}
+				break;
+		}
+	}, [currentTheme]);
 
 	const toggleTheme = () => {
 		let i = 0;
-		const currentTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
 
 		for (; i < themes.length; i++) {
 			if (themes[i] === currentTheme) {
 				break;
 			}
 		}
-		setTheme(themes[(i + 1) % themes.length]);
+		setCurrentTheme(themes[(i + 1) % themes.length]);
 	};
+	//
+	// const showPanel = () => {
+	// 	if (popoverRef.current) {
+	// 		popoverRef.current.showPopover();
+	// 	}
+	// };
+	//
+	// const hidePanel = () => {
+	// 	if (popoverRef.current) {
+	// 		popoverRef.current.hidePopover();
+	// 	}
+	// };
 
-	const showPanel = () => {
-		if (panelRef.current) {
-			panelRef.current.classList.remove(floatPanelClosed);
-		}
-	};
-
-	const hidePanel = () => {
-		if (panelRef.current) {
-			panelRef.current.classList.add(floatPanelClosed);
-		}
-	};
-
-	const getThemeIcon = () => {
-		const currentTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
-
-		switch (currentTheme) {
-			case LIGHT_MODE:
-				return 'material-symbols:wb-sunny-outline-rounded';
-			case DARK_MODE:
-				return 'material-symbols:dark-mode-outline-rounded';
-			case AUTO_MODE:
-				return 'material-symbols:radio-button-partial-outline';
+	const getThemeIcon = (theme: string) => {
+		switch (theme) {
+			case LIGHT_THEME:
+				return lightThemeIcon;
+			case DARK_THEME:
+				return darkThemeIcon;
+			case SYSTEM_THEME:
+				return systemThemeIcon;
 		}
 	};
 
 	return (
-		<div
-			className={themeButtonWrapper}
-			role='menu'
-			tabIndex={-1}
-			onMouseLeave={hidePanel}
-		>
-			<button
-				aria-label='Light/Dark Mode'
-				role='menuitem'
-				type={'button'}
-				className={themeButton}
-				id='scheme-switch'
-				onClick={toggleTheme}
-				onMouseEnter={showPanel}
-			>
-				<Icon name={getThemeIcon()} />
-			</button>
-
-			<div
-				id='light-dark-panel'
-				className={`${panelBase} ${floatPanelClosed}`}
-				ref={panelRef}
-			>
+		<Popover
+			isOpen={isPopoverOpen}
+			onOpenChange={setIsPopoverOpen}
+			content={
 				<div className={card}>
-					{themes.map((theme) => (
-						<button
-							key={theme}
-							className={`${themeOption} ${theme === window.localStorage.getItem(THEME_STORAGE_KEY) ? currentSetting : ''}`}
-							onClick={() => setTheme(theme)}
-							type={'button'}
-						>
-							<Icon name={getThemeIcon()} />
-							{theme}
-						</button>
-					))}
+					<div className={themeOptionsWrapper}>
+						{themes.map((theme) => (
+							<button
+								key={theme}
+								className={`${themeOption} ${theme === currentTheme ? activeThemeOption : ''}`}
+								onClick={() => setCurrentTheme(theme)}
+								type={'button'}
+							>
+								{getThemeIcon(theme)}
+
+								{theme}
+							</button>
+						))}
+					</div>
 				</div>
+			}
+		>
+			<div
+				className={themeButtonWrapper}
+				role='menu'
+				tabIndex={-1}
+				// onMouseLeave={hidePanel}
+			>
+				{themes.map((theme) => (
+					<button
+						key={theme}
+						aria-label='Switch Theme'
+						role='menuitem'
+						type={'button'}
+						className={`${themeButton} ${theme === currentTheme ? activeThemeButton : ''}`}
+						onClick={toggleTheme}
+						// onMouseEnter={showPanel}
+					>
+						{getThemeIcon(theme)}
+					</button>
+				))}
 			</div>
-		</div>
+		</Popover>
 	);
 }

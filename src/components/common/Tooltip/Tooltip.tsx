@@ -1,4 +1,4 @@
-import { tooltip } from '@components/about/Tooltip/Tooltip.css.ts';
+import { tooltip } from '@components/common/Tooltip/Tooltip.css.ts';
 import {
 	FloatingArrow,
 	FloatingPortal,

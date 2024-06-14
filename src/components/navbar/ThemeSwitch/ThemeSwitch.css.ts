@@ -1,4 +1,6 @@
 import { style } from '@vanilla-extract/css';
+import { theme } from '../../../styles/themes.css.ts';
+import { navbarHeight } from '../../../styles/variables.css.ts';
 
 export const themeButtonWrapper = style({
 	position: 'relative',
@@ -6,13 +8,13 @@ export const themeButtonWrapper = style({
 
 export const themeButton = style({
 	position: 'relative',
-	display: 'inline-flex',
 	alignItems: 'center',
 	justifyContent: 'center',
 	height: '2.75rem',
 	width: '2.75rem',
 	borderRadius: '0.5rem',
 	transition: 'transform 0.2s',
+	display: 'none',
 
 	':active': {
 		transform: 'scale(0.9)',
@@ -24,6 +26,10 @@ export const themeButton = style({
 	//
 	// 	}
 	// }
+});
+
+export const activeThemeButton = style({
+	display: 'inline-flex',
 });
 
 export const themeIcon = style({});
@@ -53,12 +59,19 @@ export const floatPanelClosed = style({
 export const card = style({
 	padding: '0.5rem',
 	borderRadius: '0.5rem',
-	backgroundColor: 'white',
+	backgroundColor: theme.background.button,
+	color: theme.text.primary,
 	boxShadow: '0 0.25rem 0.5rem rgba(0, 0, 0, 0.1)',
+});
+
+export const themeOptionsWrapper = style({
+	display: 'flex',
+	flexDirection: 'column',
 });
 
 export const themeOption = style({
 	display: 'flex',
+	gap: '0.5rem',
 	alignItems: 'center',
 	justifyContent: 'start',
 	height: '2.25rem',
@@ -75,7 +88,7 @@ export const themeOption = style({
 	},
 });
 
-export const currentSetting = style({
-	backgroundColor: 'var(--primary)',
-	color: 'white',
+export const activeThemeOption = style({
+	backgroundColor: theme.color.primary,
+	color: theme.text.primary,
 });

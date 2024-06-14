@@ -101,3 +101,8 @@ export const searchButtonIcon = style({
 	fontSize: '1.25rem',
 	color: theme.text.primary,
 });
+
+export const themeIcon = style({
+	fontSize: '1.25rem',
+	color: theme.text.primary,
+});

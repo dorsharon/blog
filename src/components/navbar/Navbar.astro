@@ -15,6 +15,7 @@ import {
 	navLink,
 	searchButtonIcon,
 	searchIcon,
+	themeIcon,
 } from './Navbar.css';
 import SearchBar from './SearchBar/SearchBar';
 import ThemeSwitch from './ThemeSwitch/ThemeSwitch';
@@ -25,6 +26,7 @@ const links: NavBarLink[] = [
 ];
 
 const allBlogPosts = await getCollection('posts');
+const themeButtonId = 'theme-button';
 ---
 <div class={card}>
 	<a href={getUrl("/")} class={button}>
@@ -49,8 +51,59 @@ const allBlogPosts = await getCollection('posts');
 			<Icon slot="search-button-icon" name="material-symbols:search" class={searchButtonIcon} />
 		</SearchBar>
 
-		<ThemeSwitch client:only="react" />
+		<ThemeSwitch client:load themeButtonId={themeButtonId} >
+			<Icon slot="light-theme-icon" name="material-symbols:wb-sunny-outline-rounded" class={themeIcon} />
+			<Icon slot="dark-theme-icon" name="material-symbols:dark-mode-outline-rounded" class={themeIcon} />
+			<Icon slot="system-theme-icon" name="material-symbols:radio-button-partial-outline" class={themeIcon} />
+		</ThemeSwitch>
 
+		<!--<ThemeSwitch2  />-->
 		<NavMenu client:load links={links} />
 	</div>
 </div>
+
+<script is:inline >
+	import { darkThemeClass, lightThemeClass } from '../../styles/themes.css';
+	import { DARK_THEME, LIGHT_THEME, THEME_STORAGE_KEY } from '../../constants/constants';
+
+	let theme;
+
+	if (typeof localStorage !== 'undefined' && localStorage.getItem(THEME_STORAGE_KEY)) {
+		theme = localStorage.getItem(THEME_STORAGE_KEY);
+	} else {
+		theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? DARK_THEME : LIGHT_THEME;
+	}
+
+	console.log({'script',theme})
+
+
+	const isDarkTheme = theme === DARK_THEME;
+	
+	if (isDarkTheme) {
+		document.documentElement.classList.add(darkThemeClass);
+		document.documentElement.classList.remove(lightThemeClass);
+	} else {
+		document.documentElement.classList.add(lightThemeClass);
+		document.documentElement.classList.remove(darkThemeClass);
+	}
+
+	console.log({'typeof localStorage':typeof localStorage})
+
+	if (typeof localStorage !== 'undefined') {
+		const observer = new MutationObserver(() => {
+			const isDarkThemeApplied = document.documentElement.classList.contains(darkThemeClass);
+			localStorage.setItem(THEME_STORAGE_KEY, isDarkThemeApplied ? DARK_THEME : LIGHT_THEME);
+		});
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+	}
+</script>
+
+<!--<script>-->
+<!--	document.getElementById(themeButtonId).addEventListener("click", function () {-->
+<!--		switchTheme()-->
+<!--	});-->
+
+<!--	document.addEventListener('astro:after-swap', () => {-->
+<!--		loadButtonScript();-->
+<!--	}, { once: false });-->
+<!--</script>-->

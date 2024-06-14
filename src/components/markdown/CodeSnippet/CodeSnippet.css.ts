@@ -1,11 +1,12 @@
 import { style } from '@vanilla-extract/css';
 import { theme } from '../../../styles/themes.css.ts';
 import { codeFont } from '../../../styles/variables.css.ts';
+import { adjustBrightness } from '../../../utils/style-utils.ts';
 
 export const codeSnippet = style({
 	fontFamily: codeFont,
 	fontSize: '0.875em',
-	background: theme.background.hover,
+	backgroundColor: adjustBrightness(theme.color.primary, 100),
 	color: theme.color.primary,
 	padding: '.125rem .25rem',
 	borderRadius: '0.25rem',

@@ -1,23 +1,23 @@
 import {
-	AUTO_MODE,
-	DARK_MODE,
+	DARK_THEME,
 	DEFAULT_THEME,
-	LIGHT_MODE,
+	LIGHT_THEME,
+	SYSTEM_THEME,
 	THEME_STORAGE_KEY,
 } from '@constants/constants.ts';
-import { darkThemeClass } from '../styles/themes.css.ts';
+import { darkThemeClass, lightThemeClass } from '../styles/themes.css.ts';
 
 export function setTheme(theme: string): void {
-	localStorage.setItem(THEME_STORAGE_KEY, theme);
+	window.localStorage.setItem(THEME_STORAGE_KEY, theme);
 
 	switch (theme) {
-		case LIGHT_MODE:
+		case LIGHT_THEME:
 			document.documentElement.classList.remove(darkThemeClass);
 			break;
-		case DARK_MODE:
+		case DARK_THEME:
 			document.documentElement.classList.add(darkThemeClass);
 			break;
-		case AUTO_MODE:
+		case SYSTEM_THEME:
 			if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
 				document.documentElement.classList.add(darkThemeClass);
 			} else {
@@ -28,5 +28,15 @@ export function setTheme(theme: string): void {
 }
 
 export function getTheme(): string {
-	return localStorage.getItem(THEME_STORAGE_KEY) || DEFAULT_THEME;
+	return window.localStorage.getItem(THEME_STORAGE_KEY) || DEFAULT_THEME;
 }
+
+export const applyLightTheme = (): void => {
+	document.documentElement.classList.add(lightThemeClass);
+	document.documentElement.classList.remove(darkThemeClass);
+};
+
+export const applyDarkTheme = (): void => {
+	document.documentElement.classList.add(darkThemeClass);
+	document.documentElement.classList.remove(lightThemeClass);
+};
