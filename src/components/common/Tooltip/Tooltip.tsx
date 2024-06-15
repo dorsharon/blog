@@ -16,6 +16,7 @@ import {
 	useTransitionStyles,
 } from '@floating-ui/react';
 import { type PropsWithChildren, useRef, useState } from 'react';
+import { theme } from '../../../styles/themes.css.ts';
 
 const ARROW_HEIGHT = 7;
 const GAP = 2;
@@ -65,8 +66,8 @@ export default function Tooltip({
 				{children}
 			</div>
 
-			<FloatingPortal>
-				{isOpen && (
+			{isOpen && (
+				<FloatingPortal>
 					<div
 						className={tooltip}
 						ref={setFloating}
@@ -76,14 +77,14 @@ export default function Tooltip({
 						<FloatingArrow
 							ref={arrowRef}
 							context={context}
-							fill={'#ffffff'}
+							fill={theme.background.button}
 							stroke={'#ffffff'}
 						/>
 
 						{label}
 					</div>
-				)}
-			</FloatingPortal>
+				</FloatingPortal>
+			)}
 		</>
 	);
 }

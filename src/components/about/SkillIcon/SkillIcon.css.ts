@@ -12,7 +12,6 @@ export const wrapper = style({
 	transition: 'all 0.3s ease-in-out',
 
 	':hover': {
-		backgroundColor: '#ffffff',
 		scale: 1.1,
 	},
 });

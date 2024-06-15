@@ -41,18 +41,12 @@ export const readingTimeIcon = style({
 	height: '1.5rem',
 	width: '1.5rem',
 	borderRadius: '0.375rem',
-	backgroundColor: 'rgba(0, 0, 0, 0.05)',
-	color: 'rgba(0, 0, 0, 0.5)',
+	backgroundColor: theme.background.button,
+	color: theme.text.secondary,
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
 	marginRight: '0.5rem',
-	'@media': {
-		'(prefers-color-scheme: dark)': {
-			backgroundColor: 'rgba(255, 255, 255, 0.1)',
-			color: 'rgba(255, 255, 255, 0.5)',
-		},
-	},
 	transition: 'all 0.3s ease',
 });
 

@@ -59,7 +59,7 @@ export default function SearchBar({
 			setIsPopoverOpen(false);
 		}
 
-		e.target.focus();
+		// e.target.focus();
 	};
 
 	const renderSearchBar = (): JSX.Element => {

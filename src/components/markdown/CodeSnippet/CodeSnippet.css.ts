@@ -6,8 +6,8 @@ import { adjustBrightness } from '../../../utils/style-utils.ts';
 export const codeSnippet = style({
 	fontFamily: codeFont,
 	fontSize: '0.875em',
-	backgroundColor: adjustBrightness(theme.color.primary, 100),
-	color: theme.color.primary,
+	backgroundColor: theme.background.code,
+	color: theme.text.code,
 	padding: '.125rem .25rem',
 	borderRadius: '0.25rem',
 	overflow: 'hidden',

@@ -66,28 +66,17 @@ export default function ThemeSwitch({
 		}
 	}, [currentTheme]);
 
-	const toggleTheme = () => {
-		let i = 0;
-
-		for (; i < themes.length; i++) {
-			if (themes[i] === currentTheme) {
-				break;
-			}
-		}
-		setCurrentTheme(themes[(i + 1) % themes.length]);
+	const togglePopover = () => {
+		setIsPopoverOpen(!isPopoverOpen);
 	};
-	//
-	// const showPanel = () => {
-	// 	if (popoverRef.current) {
-	// 		popoverRef.current.showPopover();
-	// 	}
-	// };
-	//
-	// const hidePanel = () => {
-	// 	if (popoverRef.current) {
-	// 		popoverRef.current.hidePopover();
-	// 	}
-	// };
+
+	const showPopover = () => {
+		setIsPopoverOpen(true);
+	};
+
+	const hidePopover = () => {
+		setIsPopoverOpen(false);
+	};
 
 	const getThemeIcon = (theme: string) => {
 		switch (theme) {
@@ -123,26 +112,20 @@ export default function ThemeSwitch({
 				</div>
 			}
 		>
-			<div
-				className={themeButtonWrapper}
-				role='menu'
-				tabIndex={-1}
-				// onMouseLeave={hidePanel}
-			>
-				{themes.map((theme) => (
-					<button
-						key={theme}
-						aria-label='Switch Theme'
-						role='menuitem'
-						type={'button'}
-						className={`${themeButton} ${theme === currentTheme ? activeThemeButton : ''}`}
-						onClick={toggleTheme}
-						// onMouseEnter={showPanel}
-					>
-						{getThemeIcon(theme)}
-					</button>
-				))}
-			</div>
+			{/* In order for Astro to load all icons, we need to render all three possible buttons, with only one
+				being displayed at a time.*/}
+			{themes.map((theme) => (
+				<button
+					key={theme}
+					aria-label='Switch Theme'
+					role='menuitem'
+					type={'button'}
+					className={`${themeButton} ${theme === currentTheme ? activeThemeButton : ''}`}
+					onClick={togglePopover}
+				>
+					{getThemeIcon(theme)}
+				</button>
+			))}
 		</Popover>
 	);
 }

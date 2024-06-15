@@ -52,19 +52,14 @@ export default function Popover({
 			</div>
 
 			{isOpen && (
-				<FloatingPortal>
-					<FloatingFocusManager context={context} modal={false}>
-						<div
-							className='Popover'
-							ref={setFloating}
-							style={floatingStyles}
-							aria-labelledby={headingId}
-							{...getFloatingProps()}
-						>
-							{content}
-						</div>
-					</FloatingFocusManager>
-				</FloatingPortal>
+				<div
+					ref={setFloating}
+					style={floatingStyles}
+					aria-labelledby={headingId}
+					{...getFloatingProps()}
+				>
+					{content}
+				</div>
 			)}
 		</>
 	);
