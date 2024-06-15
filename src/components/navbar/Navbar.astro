@@ -51,13 +51,12 @@ const themeButtonId = 'theme-button';
 			<Icon slot="search-button-icon" name="material-symbols:search" class={searchButtonIcon} />
 		</SearchBar>
 
-		<ThemeSwitch client:load themeButtonId={themeButtonId} >
+		<ThemeSwitch client:load>
 			<Icon slot="light-theme-icon" name="material-symbols:wb-sunny-outline-rounded" class={themeIcon} />
 			<Icon slot="dark-theme-icon" name="material-symbols:dark-mode-outline-rounded" class={themeIcon} />
 			<Icon slot="system-theme-icon" name="material-symbols:radio-button-partial-outline" class={themeIcon} />
 		</ThemeSwitch>
 
-		<!--<ThemeSwitch2  />-->
 		<NavMenu client:load links={links} />
 	</div>
 </div>

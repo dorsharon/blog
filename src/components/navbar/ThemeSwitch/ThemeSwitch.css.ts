@@ -1,10 +1,5 @@
 import { style } from '@vanilla-extract/css';
 import { theme } from '../../../styles/themes.css.ts';
-import { navbarHeight } from '../../../styles/variables.css.ts';
-
-export const themeButtonWrapper = style({
-	position: 'relative',
-});
 
 export const themeButton = style({
 	position: 'relative',
@@ -19,13 +14,6 @@ export const themeButton = style({
 	':active': {
 		transform: 'scale(0.9)',
 	},
-
-	// selectors: {
-	// 	"svg": {
-	// 		fill: "var(--text-primary)"
-	//
-	// 	}
-	// }
 });
 
 export const activeThemeButton = style({
@@ -59,7 +47,7 @@ export const floatPanelClosed = style({
 export const card = style({
 	padding: '0.5rem',
 	borderRadius: '0.5rem',
-	backgroundColor: theme.background.button,
+	backgroundColor: theme.background.popover,
 	color: theme.text.primary,
 	boxShadow: '0 0.25rem 0.5rem rgba(0, 0, 0, 0.1)',
 });

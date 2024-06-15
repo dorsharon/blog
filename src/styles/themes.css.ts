@@ -13,6 +13,8 @@ export const [lightThemeClass, theme] = createTheme({
 		button: '#e3f0ff',
 		hover: '#d8d8d8',
 		code: '#e3f0ff',
+		input: '#f0f0f0',
+		popover: '#ffffff',
 	},
 });
 
@@ -29,5 +31,7 @@ export const darkThemeClass = createTheme(theme, {
 		button: '#283747',
 		hover: '#324457',
 		code: '#283747',
+		input: '#0b0b0b',
+		popover: '#0f141a',
 	},
 });

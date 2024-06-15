@@ -9,7 +9,7 @@ export const searchBar = style({
 	height: '2.75rem',
 	marginRight: '0.5rem',
 	borderRadius: '0.5rem',
-	backgroundColor: theme.background.button,
+	backgroundColor: theme.background.input,
 
 	'@media': {
 		'screen and (min-width: 1024px)': {
@@ -89,7 +89,7 @@ export const searchPanel = style({
 		'0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
 	borderRadius: '1rem',
 	padding: '0.5rem',
-	backgroundColor: theme.background.button,
+	backgroundColor: theme.background.popover,
 	width: '30rem',
 
 	'@media': {

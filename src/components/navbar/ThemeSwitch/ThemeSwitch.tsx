@@ -1,19 +1,12 @@
 import Popover from '@components/common/Popover/Popover.tsx';
-import {
-	DARK_THEME,
-	LIGHT_THEME,
-	SYSTEM_THEME,
-	THEME_STORAGE_KEY,
-} from '@constants/constants.ts';
+import { DARK_THEME, LIGHT_THEME, SYSTEM_THEME } from '@constants/constants.ts';
 import { applyDarkTheme, applyLightTheme } from '@utils/setting-utils.ts';
-import React, { type JSX, useEffect, useRef, useState } from 'react';
-import { darkThemeClass, lightThemeClass } from '../../../styles/themes.css.ts';
+import React, { type JSX, useEffect, useState } from 'react';
 import {
 	activeThemeButton,
 	activeThemeOption,
 	card,
 	themeButton,
-	themeButtonWrapper,
 	themeOption,
 	themeOptionsWrapper,
 } from './ThemeSwitch.css.ts';
@@ -21,12 +14,10 @@ import {
 const themes = [LIGHT_THEME, DARK_THEME, SYSTEM_THEME];
 
 export default function ThemeSwitch({
-	themeButtonId,
 	lightThemeIcon,
 	darkThemeIcon,
 	systemThemeIcon,
 }: {
-	themeButtonId: string;
 	lightThemeIcon?: JSX.Element;
 	darkThemeIcon?: JSX.Element;
 	systemThemeIcon?: JSX.Element;
@@ -68,14 +59,6 @@ export default function ThemeSwitch({
 
 	const togglePopover = () => {
 		setIsPopoverOpen(!isPopoverOpen);
-	};
-
-	const showPopover = () => {
-		setIsPopoverOpen(true);
-	};
-
-	const hidePopover = () => {
-		setIsPopoverOpen(false);
 	};
 
 	const getThemeIcon = (theme: string) => {
