@@ -24,7 +24,7 @@ export const searchBarInside = style({
 	alignItems: 'center',
 	height: '2.75rem',
 	borderRadius: '0.75rem',
-	backgroundColor: 'rgba(0, 0, 0, 0.04)',
+	backgroundColor: theme.background.input,
 
 	':hover': {
 		backgroundColor: 'rgba(0, 0, 0, 0.06)',
@@ -94,7 +94,7 @@ export const searchPanel = style({
 
 	'@media': {
 		'screen and (max-width: 768px)': {
-			width: '95%',
+			width: '100vw',
 			insetInlineEnd: '0',
 		},
 	},

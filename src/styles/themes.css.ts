@@ -31,7 +31,7 @@ export const darkThemeClass = createTheme(theme, {
 		button: '#283747',
 		hover: '#324457',
 		code: '#283747',
-		input: '#0b0b0b',
+		input: '#4C4C4C',
 		popover: '#0f141a',
 	},
 });

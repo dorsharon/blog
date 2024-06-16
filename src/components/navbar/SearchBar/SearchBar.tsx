@@ -1,14 +1,7 @@
 import Popover from '@components/common/Popover/Popover.tsx';
 import { getPostUrlBySlug } from '@utils/url-utils.ts';
 import Fuse from 'fuse.js';
-import {
-	type ChangeEvent,
-	Fragment,
-	type JSX,
-	useMemo,
-	useRef,
-	useState,
-} from 'react';
+import { type ChangeEvent, Fragment, type JSX, useMemo, useState } from 'react';
 import {
 	noResultsWrapper,
 	resultItem,
@@ -43,8 +36,11 @@ export default function SearchBar({
 	);
 	const results = useMemo(() => fuse.search(searchValue), [fuse, searchValue]);
 
+	const togglePopover = () => {
+		setIsPopoverOpen(!isPopoverOpen);
+	};
+
 	const handleInputClick = () => {
-		console.log({ searchValue, leng: searchValue?.length });
 		if (searchValue?.length) {
 			setIsPopoverOpen(true);
 		}
@@ -58,8 +54,6 @@ export default function SearchBar({
 		} else {
 			setIsPopoverOpen(false);
 		}
-
-		// e.target.focus();
 	};
 
 	const renderSearchBar = (): JSX.Element => {
@@ -115,7 +109,7 @@ export default function SearchBar({
 				<div className={searchBar}>{renderSearchBar()}</div>
 
 				<button
-					// onClick={togglePanel}
+					onClick={togglePopover}
 					aria-label='Search Panel'
 					className={searchButton}
 					type={'button'}

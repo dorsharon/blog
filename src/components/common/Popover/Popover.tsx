@@ -1,18 +1,15 @@
 import {
-	FloatingFocusManager,
-	FloatingPortal,
 	autoUpdate,
 	flip,
 	offset,
 	shift,
-	useClick,
 	useDismiss,
 	useFloating,
 	useId,
 	useInteractions,
 	useRole,
 } from '@floating-ui/react';
-import { type JSX, type PropsWithChildren, useState } from 'react';
+import type { JSX, PropsWithChildren } from 'react';
 
 export default function Popover({
 	isOpen,
@@ -31,7 +28,12 @@ export default function Popover({
 	} = useFloating({
 		open: isOpen,
 		onOpenChange,
-		middleware: [offset(10), flip(), shift()],
+		// placement: 'bottom-start',
+		middleware: [
+			offset(10),
+			flip({ fallbackAxisSideDirection: 'start' }),
+			shift(),
+		],
 		whileElementsMounted: autoUpdate,
 	});
 
