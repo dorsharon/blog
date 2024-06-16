@@ -12,6 +12,7 @@ import {
 	homeIcon,
 	homeLink,
 	linksWrapper,
+	menuIcon,
 	navLink,
 	searchButtonIcon,
 	searchIcon,
@@ -26,7 +27,6 @@ const links: NavBarLink[] = [
 ];
 
 const allBlogPosts = await getCollection('posts');
-const themeButtonId = 'theme-button';
 ---
 <div class={card}>
 	<a href={getUrl("/")} class={button}>
@@ -57,7 +57,9 @@ const themeButtonId = 'theme-button';
 			<Icon slot="system-theme-icon" name="material-symbols:radio-button-partial-outline" class={themeIcon} />
 		</ThemeSwitch>
 
-		<NavMenu client:load links={links} />
+		<NavMenu client:load links={links} >
+			<Icon slot="menu-icon" name="material-symbols:menu-rounded" class={menuIcon} />
+		</NavMenu>
 	</div>
 </div>
 
@@ -72,9 +74,6 @@ const themeButtonId = 'theme-button';
 	} else {
 		theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? DARK_THEME : LIGHT_THEME;
 	}
-
-	console.log({'script',theme})
-
 
 	const isDarkTheme = theme === DARK_THEME;
 	
@@ -97,12 +96,3 @@ const themeButtonId = 'theme-button';
 	}
 </script>
 
-<!--<script>-->
-<!--	document.getElementById(themeButtonId).addEventListener("click", function () {-->
-<!--		switchTheme()-->
-<!--	});-->
-
-<!--	document.addEventListener('astro:after-swap', () => {-->
-<!--		loadButtonScript();-->
-<!--	}, { once: false });-->
-<!--</script>-->

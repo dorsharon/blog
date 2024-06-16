@@ -1,46 +1,41 @@
-import { useRef } from 'react';
+import Popover from '@components/common/Popover/Popover.tsx';
+import { type JSX, useState } from 'react';
 import type { NavBarLink } from '../../../types/config.ts';
-import {
-	floatPanel,
-	floatPanelClosed,
-	link,
-	linkText,
-	menuButton,
-} from './NavMenu.css.ts';
+import { card, link, menuButton } from './NavMenu.css.ts';
 
-export default function NavMenu({ links }: { links: NavBarLink[] }) {
-	const panelRef = useRef<HTMLDivElement>(null);
+export default function NavMenu({
+	links,
+	menuIcon,
+}: { links: NavBarLink[]; menuIcon: JSX.Element }) {
+	const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
 
-	const handleClick = () => {
-		if (panelRef.current !== null) {
-			panelRef.current.classList.toggle('float-panel-closed');
-		}
+	const togglePopover = () => {
+		setIsPopoverOpen(!isPopoverOpen);
 	};
 
 	return (
-		<>
+		<Popover
+			isOpen={isPopoverOpen}
+			onOpenChange={setIsPopoverOpen}
+			content={
+				<div className={card}>
+					{links.map(({ name, url }) => (
+						<a key={url} href={url} className={link}>
+							{name}
+						</a>
+					))}
+				</div>
+			}
+		>
 			<button
 				aria-label='Menu'
 				name='Nav Menu'
 				className={menuButton}
-				id='nav-menu-switch'
-				onClick={handleClick}
+				onClick={togglePopover}
 				type={'button'}
 			>
-				{/*<Icon name="material-symbols:menu-rounded" size={"1.25rem"}></Icon>*/}
+				{menuIcon}
 			</button>
-
-			<div
-				id='nav-menu-panel'
-				ref={panelRef}
-				className={`${floatPanel} ${floatPanelClosed}`}
-			>
-				{links.map(({ name, url }) => (
-					<a key={url} href={url} className={link}>
-						<div className={linkText}>{name}</div>
-					</a>
-				))}
-			</div>
-		</>
+		</Popover>
 	);
 }

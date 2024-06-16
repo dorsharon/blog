@@ -106,3 +106,8 @@ export const themeIcon = style({
 	fontSize: '1.25rem',
 	color: theme.text.primary,
 });
+
+export const menuIcon = style({
+	fontSize: '1.25rem',
+	color: theme.text.primary,
+});

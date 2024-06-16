@@ -1,7 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import { theme } from '../../../styles/themes.css.ts';
 import { codeFont } from '../../../styles/variables.css.ts';
-import { adjustBrightness } from '../../../utils/style-utils.ts';
 
 export const codeSnippet = style({
 	fontFamily: codeFont,

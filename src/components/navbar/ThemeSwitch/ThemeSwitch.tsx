@@ -1,7 +1,7 @@
 import Popover from '@components/common/Popover/Popover.tsx';
 import { DARK_THEME, LIGHT_THEME, SYSTEM_THEME } from '@constants/constants.ts';
 import { applyDarkTheme, applyLightTheme } from '@utils/setting-utils.ts';
-import React, { type JSX, useEffect, useState } from 'react';
+import { type JSX, useEffect, useState } from 'react';
 import {
 	activeThemeButton,
 	activeThemeOption,

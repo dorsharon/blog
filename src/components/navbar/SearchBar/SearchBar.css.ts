@@ -1,6 +1,5 @@
 import { style } from '@vanilla-extract/css';
 import { theme } from '../../../styles/themes.css.ts';
-import { navbarHeight } from '../../../styles/variables.css.ts';
 
 export const searchBar = style({
 	display: 'none',
