@@ -37,11 +37,13 @@ export const header = style({
 	gridArea: 'header',
 	zIndex: 50,
 	position: 'relative',
+	animationDelay: '0ms',
 });
 
 export const sidebar = style({
 	width: '100%',
 	gridArea: 'sidebar',
+	animationDelay: '200ms',
 
 	'@media': {
 		'(min-width: 1024px)': {
@@ -63,6 +65,7 @@ export const card = style({
 export const content = style({
 	gridArea: 'content',
 	overflow: 'hidden',
+	animationDelay: '200ms',
 
 	'@media': {
 		'(min-width: 1024px)': {
@@ -81,4 +84,5 @@ export const footer = style({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
+	animationDelay: '400ms',
 });
