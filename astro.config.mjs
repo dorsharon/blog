@@ -44,7 +44,8 @@ export default defineConfig({
       "fa6-brands": ["*"],
       "fa6-regular": ["*"],
       "fa6-solid": ["*"],
-      "logos": ["*"]
+      "logos": ["*"],
+      "svg-spinners": ["3-dots-bounce"]
     }
   }), Compress({
     Image: false
