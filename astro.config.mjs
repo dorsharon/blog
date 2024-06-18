@@ -5,9 +5,7 @@ import { defineConfig } from "astro/config";
 import Color from "colorjs.io";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
-import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.ts";
 import remarkDirective from "remark-directive"; /* Handle directives */
-import rehypeComponents from "rehype-components"; /* Render the custom directive content */
 import swup from "@swup/astro";
 import sitemap from "@astrojs/sitemap";
 import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
@@ -15,6 +13,7 @@ import react from "@astrojs/react";
 import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 import mdx from "@astrojs/mdx";
 import partytown from "@astrojs/partytown";
+
 const oklchToHex = str => {
   const DEFAULT_HUE = 250;
   const regex = /-?\d+(\.\d+)?/g;
@@ -52,11 +51,7 @@ export default defineConfig({
   }), react(), sitemap(), mdx(), partytown()],
   markdown: {
     remarkPlugins: [remarkReadingTime, remarkDirective, parseDirectiveNode],
-    rehypePlugins: [[rehypeComponents, {
-      components: {
-        github: GithubCardComponent
-      }
-    }], [rehypeAutolinkHeadings, {
+    rehypePlugins: [[rehypeAutolinkHeadings, {
       behavior: "append",
       properties: {
         className: ["anchor"]
