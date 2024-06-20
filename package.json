@@ -8,7 +8,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "biome check --apply ./src"
+    "lint": "biome check --write ./src"
   },
   "dependencies": {
     "@astrojs/check": "^0.7.0",
@@ -34,7 +34,6 @@
     "react-dom": "^18.3.1",
     "reading-time": "^1.5.0",
     "rehype-autolink-headings": "^7.1.0",
-    "remark-directive": "^3.0.0",
     "remark-directive-rehype": "^0.4.2",
     "remark-math": "^6.0.0",
     "sanitize-html": "^2.13.0",

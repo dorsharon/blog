@@ -4,11 +4,9 @@ import icon from "astro-icon";
 import { defineConfig } from "astro/config";
 import Color from "colorjs.io";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
-import remarkDirective from "remark-directive"; /* Handle directives */
+import { remarkReadingTime } from "./src/plugins/remark-reading-time";
 import swup from "@swup/astro";
 import sitemap from "@astrojs/sitemap";
-import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
 import react from "@astrojs/react";
 import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 import mdx from "@astrojs/mdx";
@@ -50,39 +48,11 @@ export default defineConfig({
     Image: false
   }), react(), sitemap(), mdx(), partytown()],
   markdown: {
-    remarkPlugins: [remarkReadingTime, remarkDirective, parseDirectiveNode],
-    rehypePlugins: [[rehypeAutolinkHeadings, {
-      behavior: "append",
-      properties: {
-        className: ["anchor"]
-      },
-      content: {
-        type: "element",
-        tagName: "span",
-        properties: {
-          className: ["anchor-icon"],
-          "data-pagefind-ignore": true
-        },
-        children: [{
-          type: "text",
-          value: "#"
-        }]
-      }
-    }]]
+    remarkPlugins: [remarkReadingTime],
+    rehypePlugins: [rehypeAutolinkHeadings]
   },
   vite: {
     plugins: [vanillaExtractPlugin()],
-    build: {
-      rollupOptions: {
-        onwarn(warning, warn) {
-          // temporarily suppress this warning
-          if (warning.message.includes("is dynamically imported by") && warning.message.includes("but also statically imported by")) {
-            return;
-          }
-          warn(warning);
-        }
-      }
-    },
     css: {
       preprocessorOptions: {
         stylus: {
