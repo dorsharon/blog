@@ -22,7 +22,7 @@ if (repoName?.length) {
 	const response = await fetch(`https://api.github.com/repos/${repoName}`, {
 		referrerPolicy: 'no-referrer',
 		headers: {
-			authorization: 'Bearer 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',
+			authorization: `Bearer ${import.meta.env.GITHUB_TOKEN}`,
 		},
 	});
 	repo = await response.json();

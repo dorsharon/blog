@@ -1,5 +1,5 @@
 ---
-
+const isProd = import.meta.env.PROD;
 ---
 
 <script>
@@ -56,11 +56,13 @@
 
 </script>
 
-<script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=G-WND45XZ8GC"></script>
-<script type="text/partytown">
-	window.dataLayer = window.dataLayer || [];
-	window.gtag = function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
+{isProd &&
+	<script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=G-WND45XZ8GC"></script>
+	<script type="text/partytown">
+		window.dataLayer = window.dataLayer || [];
+		window.gtag = function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
 
-	gtag('config', 'G-WND45XZ8GC');
-</script>
+		gtag('config', 'G-WND45XZ8GC');
+	</script>
+}
