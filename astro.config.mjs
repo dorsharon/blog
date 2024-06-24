@@ -42,7 +42,7 @@ export default defineConfig({
       "fa6-regular": ["*"],
       "fa6-solid": ["*"],
       "logos": ["*"],
-      "svg-spinners": ["3-dots-bounce"]
+      "svg-spinners": ["3-dots-bounce", "tadpole"]
     }
   }), Compress({
     Image: false

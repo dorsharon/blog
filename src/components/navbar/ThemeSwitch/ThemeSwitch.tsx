@@ -2,6 +2,7 @@ import Popover from '@components/common/Popover/Popover.tsx';
 import { DARK_THEME, LIGHT_THEME, SYSTEM_THEME } from '@constants/constants.ts';
 import { applyDarkTheme, applyLightTheme } from '@utils/setting-utils.ts';
 import { type JSX, useEffect, useState } from 'react';
+import { darkThemeClass } from '../../../styles/themes.css.ts';
 import {
 	activeThemeButton,
 	activeThemeOption,
@@ -14,30 +15,29 @@ import {
 const themes = [LIGHT_THEME, DARK_THEME, SYSTEM_THEME];
 
 export default function ThemeSwitch({
+	loadingIcon,
 	lightThemeIcon,
 	darkThemeIcon,
 	systemThemeIcon,
 }: {
+	loadingIcon?: JSX.Element;
 	lightThemeIcon?: JSX.Element;
 	darkThemeIcon?: JSX.Element;
 	systemThemeIcon?: JSX.Element;
 }) {
-	const [currentTheme, setCurrentTheme] = useState<string>(SYSTEM_THEME);
+	const [currentTheme, setCurrentTheme] = useState<string>('');
 	const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
 
-	// useEffect(() => {
-	// 	const isDarkTheme =
-	// 		document.documentElement.classList.contains(darkThemeClass);
-	// 	setCurrentTheme(isDarkTheme ? DARK_THEME : LIGHT_THEME);
-	// }, []);
-
-	// useEffect(() => {
-	// 	const isDark =
-	// 		currentTheme === 'dark' ||
-	// 		(currentTheme === 'system' &&
-	// 			window.matchMedia('(prefers-color-scheme: dark)').matches);
-	// 	document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
-	// }, [currentTheme]);
+	useEffect(() => {
+		if (!currentTheme?.length) {
+			const initialTheme = document.documentElement.classList.contains(
+				darkThemeClass,
+			)
+				? DARK_THEME
+				: LIGHT_THEME;
+			setCurrentTheme(initialTheme);
+		}
+	}, [currentTheme]);
 
 	useEffect(() => {
 		switch (currentTheme) {
@@ -69,6 +69,8 @@ export default function ThemeSwitch({
 				return darkThemeIcon;
 			case SYSTEM_THEME:
 				return systemThemeIcon;
+			default:
+				return loadingIcon;
 		}
 	};
 
@@ -96,8 +98,9 @@ export default function ThemeSwitch({
 			}
 		>
 			{/* In order for Astro to load all icons, we need to render all three possible buttons, with only one
-				being displayed at a time.*/}
-			{themes.map((theme) => (
+				being displayed at a time.
+				The '' is added to load the loading spinner icon as well.*/}
+			{[...themes, ''].map((theme) => (
 				<button
 					key={theme}
 					aria-label='Switch Theme'

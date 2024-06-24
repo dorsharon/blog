@@ -1,6 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import { Icon } from 'astro-icon/components';
+import {
+	DARK_THEME,
+	LIGHT_THEME,
+	THEME_STORAGE_KEY,
+} from '../../constants/constants';
+import { darkThemeClass, lightThemeClass } from '../../styles/themes.css';
 import type { NavBarLink } from '../../types/config';
 import { getUrl } from '../../utils/url-utils';
 import NavMenu from './NavMenu/NavMenu';
@@ -55,6 +61,7 @@ const allBlogPosts = await getCollection('posts');
 			<Icon slot="light-theme-icon" name="material-symbols:wb-sunny-outline-rounded" class={themeIcon} />
 			<Icon slot="dark-theme-icon" name="material-symbols:dark-mode-outline-rounded" class={themeIcon} />
 			<Icon slot="system-theme-icon" name="material-symbols:radio-button-partial-outline" class={themeIcon} />
+			<Icon slot="loading-icon" name="svg-spinners:tadpole" class={themeIcon} />
 		</ThemeSwitch>
 
 		<NavMenu client:load links={links} >
@@ -63,10 +70,7 @@ const allBlogPosts = await getCollection('posts');
 	</div>
 </div>
 
-<script is:inline >
-	import { darkThemeClass, lightThemeClass } from '../../styles/themes.css';
-	import { DARK_THEME, LIGHT_THEME, THEME_STORAGE_KEY } from '../../constants/constants';
-
+<script is:inline type="module" define:vars={{ darkThemeClass, lightThemeClass, DARK_THEME, LIGHT_THEME, THEME_STORAGE_KEY }}>
 	let theme;
 
 	if (typeof localStorage !== 'undefined' && localStorage.getItem(THEME_STORAGE_KEY)) {
@@ -84,9 +88,7 @@ const allBlogPosts = await getCollection('posts');
 		document.documentElement.classList.add(lightThemeClass);
 		document.documentElement.classList.remove(darkThemeClass);
 	}
-
-	console.log({'typeof localStorage':typeof localStorage})
-
+	
 	if (typeof localStorage !== 'undefined') {
 		const observer = new MutationObserver(() => {
 			const isDarkThemeApplied = document.documentElement.classList.contains(darkThemeClass);
