@@ -22,11 +22,15 @@ export const skillsGrid = style({
 export const title = style({
 	fontSize: '2rem',
 	fontWeight: 'bold',
-	// color: theme.text.secondary,
+	margin: 0,
 });
 
 export const subtitle = style({
 	fontSize: '1.5rem',
 	fontWeight: 'bold',
-	// color: theme.text.secondary,
+	margin: 0,
+});
+
+export const paragraph = style({
+	margin: 0,
 });

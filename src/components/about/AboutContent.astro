@@ -1,5 +1,11 @@
 ---
-import { skillsGrid, subtitle, title, wrapper } from './AboutContent.css';
+import {
+	paragraph,
+	skillsGrid,
+	subtitle,
+	title,
+	wrapper,
+} from './AboutContent.css';
 import SkillIcon from './SkillIcon/SkillIcon.astro';
 
 const skills: { label: string; iconName: string }[] = [
@@ -38,17 +44,25 @@ const skills: { label: string; iconName: string }[] = [
 
 	<h4 class={subtitle}>I'm Dor Sharon</h4>
 
-	<p>
+	<p class={paragraph}>
 		I'm a full stack developer and a frontend tech lead.<br/>
 		I have a great passion for everything around frontend, a bad addiction to TypeScript and a nasty habit of pushing bugs to production (try it, it's fun!)<br/>
 	</p>
 
-	<p>
+	<p class={paragraph}>
+		I've been working in both corporate-level companies as well as startups for the past few years, and over that time, I've learned to enjoy the world of web development.
+	</p>
+
+	<p class={paragraph}>
+		At times, I've also been heavily involved in backend development, and even some DevOps.
+	</p>
+
+	<p class={paragraph}>
 		This is my blog, where I'll be spewing things that range anywhere between informative life experience and utter nonsense.<br/>
 		Try to differentiate what falls where.
 	</p>
 
-	<p>
+	<p class={paragraph}>
 		These are the technologies that I (mostly) like to work with:
 	</p>
 
