@@ -1,4 +1,3 @@
-import tailwind from "@astrojs/tailwind";
 import Compress from "astro-compress";
 import icon from "astro-icon";
 import { defineConfig } from "astro/config";
@@ -26,7 +25,7 @@ const oklchToHex = str => {
 // https://astro.build/config
 export default defineConfig({
   site: "https://dorsharon.dev",
-  integrations: [tailwind(), swup({
+  integrations: [swup({
     theme: false,
     animationClass: "transition-",
     containers: ["main"],

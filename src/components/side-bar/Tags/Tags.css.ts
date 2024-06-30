@@ -31,36 +31,11 @@ export const title = style({
 	},
 });
 
-export const collapseWrapper = style({
-	paddingLeft: '1rem',
-	paddingRight: '1rem',
-	overflow: 'hidden',
-});
-
-export const collapsed = style({
-	maxHeight: '7.5rem',
-});
-
-export const expandButton = style({
-	paddingLeft: '1rem',
-	paddingRight: '1rem',
-	marginBottom: '-0.5rem',
-});
-
 export const button = style({
 	width: '100%',
 	height: '2.25rem',
 	borderRadius: '0.5rem',
 	backgroundColor: theme.background.button,
-});
-
-export const buttonContent = style({
-	color: theme.color.primary,
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-	gap: '0.5rem',
-	transform: 'translateX(-0.5rem)',
 });
 
 export const tagsWrapper = style({
@@ -83,6 +58,7 @@ export const tagButton = style({
 	alignItems: 'center',
 	justifyContent: 'center',
 	transition: 'background-color 0.3s ease, color 0.3s ease',
+	textDecoration: 'none',
 
 	':hover': {
 		backgroundColor: theme.background.hover,

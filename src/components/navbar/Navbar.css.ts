@@ -28,6 +28,8 @@ export const button = style({
 	paddingRight: '1.25rem',
 	borderRadius: '0.5rem',
 	transition: 'transform 0.2s',
+	textDecoration: 'none',
+
 	':active': {
 		transform: 'scale(0.95)',
 	},
@@ -66,6 +68,7 @@ export const navLink = style({
 	paddingRight: '1.25rem',
 	borderRadius: '0.5rem',
 	transition: 'transform 0.2s',
+	textDecoration: 'none',
 
 	':hover': {
 		backgroundColor: theme.background.hover,

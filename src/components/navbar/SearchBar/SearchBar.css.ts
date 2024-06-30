@@ -49,6 +49,7 @@ export const searchInput = style({
 	height: '100%',
 	width: '10rem',
 	color: theme.text.secondary,
+	border: 'none',
 
 	':active': {
 		width: '15rem',

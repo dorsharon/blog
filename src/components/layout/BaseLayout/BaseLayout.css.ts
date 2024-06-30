@@ -1,4 +1,4 @@
-import { globalFontFace, style } from '@vanilla-extract/css';
+import { globalFontFace, globalStyle, style } from '@vanilla-extract/css';
 import { theme } from '../../../styles/themes.css.ts';
 import {
 	cardBorderRadius,
@@ -55,6 +55,18 @@ export const html = style({
 		[cardBorderRadius]: '1rem',
 		[navbarHeight]: '4.5rem',
 	},
+});
+
+// Swup animations
+globalStyle(`${html}.is-changing .transition-fade`, {
+	transition: '200ms',
+	transform: 'translateY(0)',
+	opacity: 1,
+});
+
+globalStyle(`${html}.is-animating .transition-fade`, {
+	transform: 'translateY(2rem)',
+	opacity: 0,
 });
 
 export const body = style({

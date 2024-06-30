@@ -10,6 +10,9 @@ export const themeButton = style({
 	borderRadius: '0.5rem',
 	transition: 'transform 0.2s',
 	display: 'none',
+	backgroundColor: 'transparent',
+	border: 'none',
+	cursor: 'pointer',
 
 	':active': {
 		transform: 'scale(0.9)',
@@ -18,30 +21,6 @@ export const themeButton = style({
 
 export const activeThemeButton = style({
 	display: 'inline-flex',
-});
-
-export const themeIcon = style({});
-
-export const panelBase = style({
-	position: 'absolute',
-	display: 'none',
-	transition: 'transform 0.2s, opacity 0.2s',
-	top: '2.75rem',
-	right: '-0.5rem',
-	paddingTop: '1.25rem',
-	zIndex: 50,
-
-	'@media': {
-		'(min-width: 1024px)': {
-			display: 'block',
-		},
-	},
-});
-
-export const floatPanelClosed = style({
-	transform: 'translateY(-0.5rem)',
-	opacity: 0,
-	pointerEvents: 'none',
 });
 
 export const card = style({
@@ -71,6 +50,11 @@ export const themeOption = style({
 	transition: 'transform 0.2s',
 	marginBottom: '0.125rem',
 	whiteSpace: 'nowrap',
+	background: 'transparent',
+	border: 'none',
+	color: theme.text.primary,
+	cursor: 'pointer',
+
 	':active': {
 		transform: 'scale(0.95)',
 	},

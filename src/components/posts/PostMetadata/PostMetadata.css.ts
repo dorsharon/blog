@@ -55,6 +55,7 @@ export const tagLink = style({
 	padding: '0.375rem',
 	borderRadius: '0.375rem',
 	cursor: 'pointer',
+	textDecoration: 'none',
 
 	':hover': {
 		backgroundColor: theme.background.hover,

@@ -45,6 +45,7 @@ export const titleLink = style({
 	transition: 'all 0.3s ease',
 	position: 'relative',
 	cursor: 'pointer',
+	textDecoration: 'none',
 
 	':hover': {
 		color: theme.color.primary,
