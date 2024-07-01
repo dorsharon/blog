@@ -1,13 +1,8 @@
 import { style } from '@vanilla-extract/css';
-import { markdownContent } from '../../posts/PostContent/PostContent.css.ts';
 
 export const heading = style({
 	fontWeight: 'bold',
 	fontSize: '2rem',
-	margin: 0,
-	selectors: {
-		[`${markdownContent} &`]: {
-			marginBlockEnd: '0.75rem',
-		},
-	},
+	marginBlockStart: '2.5rem',
+	marginBlockEnd: '0.75rem',
 });
