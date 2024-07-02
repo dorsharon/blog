@@ -72,6 +72,8 @@ export const searchButton = style({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
+	backgroundColor: 'transparent',
+	border: 'none',
 
 	':active': {
 		transform: 'scale(0.9)',
@@ -94,7 +96,7 @@ export const searchPanel = style({
 
 	'@media': {
 		'screen and (max-width: 768px)': {
-			width: '100vw',
+			width: '94vw',
 			insetInlineEnd: '0',
 		},
 	},

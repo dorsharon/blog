@@ -106,11 +106,18 @@ export const border = style({
 });
 
 export const coverImage = style({
-	marginBottom: '2rem',
+	marginBottom: '1rem',
 	borderRadius: '0.75rem',
 	animationDelay: 'calc(var(--content-delay) + 175ms)',
 	aspectRatio: '2 / 1',
 	objectFit: 'cover',
+
+	'@media': {
+		'screen and (max-width: 768px)': {
+			width: '100%',
+			height: 'auto',
+		},
+	},
 });
 
 export const markdownContent = style({

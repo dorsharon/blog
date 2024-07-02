@@ -10,6 +10,8 @@ export const menuButton = style({
 	width: '2.75rem',
 	borderRadius: '0.5rem',
 	transition: 'transform 0.2s',
+	backgroundColor: 'transparent',
+	border: 'none',
 
 	':active': {
 		transform: 'scale(0.9)',
