@@ -7,8 +7,8 @@ export const wrapper = style({
 	alignItems: 'center',
 });
 
-export const link = style({
-	display: 'block',
+export const avatarWrapper = style({
+	display: 'flex',
 	position: 'relative',
 	margin: '0.75rem',
 	overflow: 'hidden',
@@ -28,15 +28,14 @@ export const overlay = style({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
-	pointerEvents: 'none',
 	transition: 'background-color 0.2s',
-	selectors: {
-		'&:hover': {
-			backgroundColor: 'rgba(0, 0, 0, 0.3)',
-		},
-		'&:active': {
-			backgroundColor: 'rgba(0, 0, 0, 0.5)',
-		},
+
+	':hover': {
+		backgroundColor: 'rgba(0, 0, 0, 0.3)',
+	},
+
+	':active': {
+		backgroundColor: 'rgba(0, 0, 0, 0.5)',
 	},
 });
 
@@ -58,7 +57,7 @@ export const icon = style({
 	color: 'white',
 	fontSize: '3rem',
 	selectors: {
-		[`${link}:hover &`]: {
+		[`${avatarWrapper}:hover &`]: {
 			opacity: 1,
 		},
 	},

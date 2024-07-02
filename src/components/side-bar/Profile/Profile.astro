@@ -5,8 +5,8 @@ import avatarImage from '../../../assets/avatar.jpeg';
 import { getUrl } from '../../../utils/url-utils';
 import {
 	avatar,
+	avatarWrapper,
 	icon,
-	link,
 	linkButton,
 	linkIcon,
 	links,
@@ -20,7 +20,7 @@ import RotatingText from './RotatingText/RotatingText';
 ---
 
 <div class={wrapper}>
-	<a aria-label="Go to About Page" href={getUrl("/about/")} class={link}>
+	<a aria-label="Go to About Page" href={getUrl("/about/")} class={avatarWrapper}>
 		<div class={overlay}>
 			<Icon name="fa6-regular:address-card" class={icon} />
 		</div>
