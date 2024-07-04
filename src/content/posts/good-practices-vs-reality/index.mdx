@@ -1,0 +1,91 @@
+---
+title: When good practices meet reality
+subtitle: "At first there's a spark, then it hits you in the face"
+publishDate: 2024-07-04
+image: './cover.jpg'
+tags: ['Opinions', 'Development', 'Non-Technical']
+---
+import CodeSnippet from "../../../components/markdown/CodeSnippet/CodeSnippet.astro";
+import Emphasis from "../../../components/markdown/Emphasis/Emphasis.astro";
+import Heading from "../../../components/markdown/Heading/Heading.astro";
+
+"Your architecture sucks."
+
+That's basically what we were told by an external advisor my company recently brought to advise on several issues.\
+It's like saying to your spouse "That makeup makes you look like a drag queen," only a developer might react with a bit more eye twitching and a touch of murderous intent.
+
+But here's the thing: he's not totally wrong.
+
+<Heading>An Architecture in Diapers</Heading>
+You see, as with every early-stage startup, it's incredibly hard to predict how things will look like going forward.\
+As a result, a lot of the groundwork being laid is made of a mix of some fair assumptions, a dash of corner rounding, and a shit ton of "ah, we'll do that later down the road".
+
+So we ended up with a pretty big monolithic server.\
+Pretty much all the company's APIs, DBs, and business logic for all data domains were housed together under the same virtual roof (sounds like a recipe for a great sitcom. Like Full House, but with gRPC as the wacky uncle).
+
+However, pretty early on we split off a couple of data domains into separate microservices, due to the independent nature of their data, and for various technical needs.\
+In general, we had always known we'd be heading towards a microservice-based architecture.\
+That way, we could split the deployment processes, be able to scale different services separately, and delegate ownerships of services between the dev teams, among other things.\
+To us, it made sense to split those domains off right away instead of introducing them into the monolith and breaking them off a year or so later.
+
+And herein lies the advisor's complaint: we rushed to microservices too fast, before there was an actual need for them, redundantly introducing complexity, potential new issues, and maintenance overhead way too early.\
+Instead, according to him, we should've stuck with our giant dysfunctional family of modules in one massive monolith until the need for microservices was real.
+
+There's a lot of sense in that. It's like telling a teenager they don’t need a car until they can afford the insurance.
+
+<Heading>Embracing the Monster</Heading>
+While some devs might react to the notion of big monoliths with a violent projection of their lunch all over your shirt, this kind of architecture does simplify many things.\
+Moreover, as you let your monolith grow and mature, its data domains become more refined and better defined. This could result in data that was considered standalone suddenly developing a relational nature, which might make you rethink whether and how it should be split off from the monolith.
+
+<Emphasis>However, when good practices meet with reality</Emphasis>, many times they clash.\
+In practice, making big tech changes, as well as holding them off, can prove to be quite problematic in some companies.
+
+As a young startup, we were constantly justifying every minute of work spent into anything.\
+Whenever I had to "waste" my time developing anything that isn't a feature or enhancement that benefits the customer, I needed a damn good reason.\
+At times, persuading people that a particular effort was more crucial than anything else felt as challenging as convincing a toddler that broccoli is better than candy.
+
+Sure, you can always throw buzzwords like "more scalable" or "better velocity". You can even try to write your code in a way that'll ease such refactors. But, at the end of the day, these kinds of changes aren't mostly done in a day or two.\
+Even after the work is done, which, many times, could be anywhere from a couple of weeks to a couple of months, there's testing and bug fixing, and you need to justify all of these work hours.
+
+What happens many times, is that until the need for these changes is born out of genuine limitations that hurt the customer, there's not enough justification to make it happen.\
+And by the time you get to that point, you'll be paying for this change more than you would've if you'd done it earlier.
+
+When we chose to go for microservices early on, we may have paid a price for it, but 3 years later, I feel safe to say that splitting those domains off from the monolith now wouldn't be happening unless some technical reason would force our hand.\
+Startups at different times have different priorities and capacities, and at the moment, it would've been very hard to afford this effort, not to mention how much larger it would've been compared to what it was when we did it.
+
+And this concept applies to more than just microservices.
+
+<Heading>Sophie’s Choice: Database Edition</Heading>
+One time, we were drafting a tech spec for a big feature and had a huge debate about whether we should just utilize new tables in our existing PostgreSQL DB, or prepare a new non-SQL DB like MongoDB.\
+The non-SQL option seemed to have a better fit, as the data for this feature could easily be independent and its structure was very dynamic and fluid, which could conflict with the schema-based SQL DB.
+
+However, even though there were strong opinions against it, we ended up choosing the "easier" option of using the existing SQL DB, and not spending more time introducing a new kind of DB.\
+The idea was that to get this feature off the ground it was enough, and if our stack choice becomes an issue, we'll refactor.\
+Sure, because refactoring is everyone’s favorite pastime.
+
+Obviously, this worked for a while until it didn't.\
+By that time, the feature was already heavily developed, and this kind of refactor proved to be very costly.
+
+In retrospect, you look at these decision processes and realize that they're like building a house on sand and deciding you'll fix the foundation when you start sinking.
+
+<Heading>The Right Time, the Right Code</Heading>
+Eventually you realize that every technical change or decision we make must come at the right time.\
+We often try to go for what we consider good practices, like designing a microservice-based architecture, or shifting to a different kind of DB, or making changes to our tech stack.\
+But a good practice's biggest enemy is often reality, and reality sure doesn't mind kicking you in the nuts.
+
+If you make a bad decision too early in the process, you could find yourself stuck wrestling with unnecessary complexity, only to potentially realize too late that you made a bad choice.\
+It’s like trying to bake a cake without knowing if it’s for a birthday or a wedding.
+
+If you decide to hold off on that technical change for too long, by the time you do it, you could end up doing 10 times the work, trying to retrofit the system, while you're potentially pressed against time to deliver something to the customer.
+
+In the worst cases, by the way, you don't make any changes. You stick with the "bad" choice you made, and you make it work through tears and blood, crafting voodoo dolls of the devs who voted for this tech choice back then.
+
+<Heading>Conclusion</Heading>
+Changing the practices and technologies you want to work with is like cooking a soufflé — you need to get the balance just right, or you'll end up with a sad, deflated mess.\
+And here's the kicker: there's no perfect answer. It's all about finding that sweet spot where the codebase supports growth without dragging you down, and your company can afford the effort.
+
+And even if you end up deep in refactor hell, who doesn’t love a little chaos?\
+It's the little low points in life that give us something to complain about at lunch.
+
+
+
