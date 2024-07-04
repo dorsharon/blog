@@ -21,10 +21,7 @@ import { theme } from '../../../styles/themes.css.ts';
 const ARROW_HEIGHT = 7;
 const GAP = 2;
 
-export default function Tooltip({
-	label,
-	children,
-}: PropsWithChildren<{ label: string }>) {
+export default function Tooltip({ label, children }: PropsWithChildren<{ label: string }>) {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	const arrowRef = useRef(null);
@@ -51,12 +48,7 @@ export default function Tooltip({
 	const dismiss = useDismiss(context);
 	const role = useRole(context, { role: 'tooltip' });
 
-	const { getReferenceProps, getFloatingProps } = useInteractions([
-		hover,
-		focus,
-		dismiss,
-		role,
-	]);
+	const { getReferenceProps, getFloatingProps } = useInteractions([hover, focus, dismiss, role]);
 
 	const { styles: transitionStyles } = useTransitionStyles(context);
 

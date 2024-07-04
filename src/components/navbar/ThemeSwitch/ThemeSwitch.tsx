@@ -30,9 +30,7 @@ export default function ThemeSwitch({
 
 	useEffect(() => {
 		if (!currentTheme?.length) {
-			const initialTheme = document.documentElement.classList.contains(
-				darkThemeClass,
-			)
+			const initialTheme = document.documentElement.classList.contains(darkThemeClass)
 				? DARK_THEME
 				: LIGHT_THEME;
 			setCurrentTheme(initialTheme);

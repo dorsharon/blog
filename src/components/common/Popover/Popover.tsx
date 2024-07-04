@@ -29,21 +29,14 @@ export default function Popover({
 		open: isOpen,
 		onOpenChange,
 		// placement: 'bottom-start',
-		middleware: [
-			offset(10),
-			flip({ fallbackAxisSideDirection: 'start' }),
-			shift(),
-		],
+		middleware: [offset(10), flip({ fallbackAxisSideDirection: 'start' }), shift()],
 		whileElementsMounted: autoUpdate,
 	});
 
 	const dismiss = useDismiss(context);
 	const role = useRole(context);
 
-	const { getReferenceProps, getFloatingProps } = useInteractions([
-		dismiss,
-		role,
-	]);
+	const { getReferenceProps, getFloatingProps } = useInteractions([dismiss, role]);
 
 	const headingId = useId();
 

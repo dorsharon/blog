@@ -27,9 +27,7 @@ let posts = await getSortedPosts();
 
 if (Array.isArray(tags) && tags.length > 0) {
 	posts = posts.filter(
-		(post) =>
-			Array.isArray(post.data.tags) &&
-			post.data.tags.some((tag) => tags.includes(tag)),
+		(post) => Array.isArray(post.data.tags) && post.data.tags.some((tag) => tags.includes(tag)),
 	);
 }
 

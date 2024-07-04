@@ -30,10 +30,7 @@ export default function SearchBar({
 	const [searchValue, setSearchValue] = useState<string>('');
 	const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
 
-	const fuse = useMemo(
-		() => new Fuse(posts, { keys: ['data.title', 'data.subtitle'] }),
-		[posts],
-	);
+	const fuse = useMemo(() => new Fuse(posts, { keys: ['data.title', 'data.subtitle'] }), [posts]);
 	const results = useMemo(() => fuse.search(searchValue), [fuse, searchValue]);
 
 	const togglePopover = () => {
@@ -86,16 +83,12 @@ export default function SearchBar({
 								<Fragment key={item.slug}>
 									<a href={getPostUrlBySlug(item.slug)} className={resultItem}>
 										<div className={resultItemTitle}>{item.data.title}</div>
-										<div className={resultItemSubtitle}>
-											{item.data.subtitle}
-										</div>
+										<div className={resultItemSubtitle}>{item.data.subtitle}</div>
 
 										{arrowIcon}
 									</a>
 
-									{index !== results.length - 1 && (
-										<hr className={resultItemDivider} />
-									)}
+									{index !== results.length - 1 && <hr className={resultItemDivider} />}
 								</Fragment>
 							))}
 						</div>
