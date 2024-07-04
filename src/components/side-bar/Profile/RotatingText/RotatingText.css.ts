@@ -11,13 +11,13 @@ export const textWrapper = style({
 
 export const rotatingAnimation = keyframes({
 	'0%': { opacity: 0, translate: '0 20px' }, // 0s
-	'2%': { opacity: 1, translate: '0 0' }, // 0.3s
-	'22%': { opacity: 1, translate: '0 0' }, // 3.3s
-	'24%': { opacity: 0, translate: '0 -20px' }, // 3.6s
+	'1%': { opacity: 1, translate: '0 0' }, // 0.15s
+	'21%': { opacity: 1, translate: '0 0' }, // 3.15s
+	'22%': { opacity: 0, translate: '0 -20px' }, // 3.3s
 	'100%': { opacity: 0, translate: '0 -20px' }, // 15s
 });
 
-const animationDuration = '300ms';
+const animationDuration = '150ms';
 const timeOnScreen = '3s';
 const itemsCount = 5;
 
@@ -34,17 +34,22 @@ export const text = style({
 	opacity: 0,
 
 	selectors: {
-		[`${textWrapper} &:nth-child(2)`]: {
-			animationDelay: '3s',
-		},
-		[`${textWrapper} &:nth-child(3)`]: {
-			animationDelay: '6s',
-		},
-		[`${textWrapper} &:nth-child(4)`]: {
-			animationDelay: '9s',
-		},
-		[`${textWrapper} &:nth-child(5)`]: {
-			animationDelay: '12s',
-		},
+		...[...Array(itemsCount)].map((_, index) => ({
+			[`${textWrapper} &:nth-child(${index + 1})`]: {
+				animationDelay: `calc(${(index + 1) * timeOnScreen})`,
+			},
+		})),
+		// [`${textWrapper} &:nth-child(2)`]: {
+		// 	animationDelay: '3s',
+		// },
+		// [`${textWrapper} &:nth-child(3)`]: {
+		// 	animationDelay: '6s',
+		// },
+		// [`${textWrapper} &:nth-child(4)`]: {
+		// 	animationDelay: '9s',
+		// },
+		// [`${textWrapper} &:nth-child(5)`]: {
+		// 	animationDelay: '12s',
+		// },
 	},
 });
