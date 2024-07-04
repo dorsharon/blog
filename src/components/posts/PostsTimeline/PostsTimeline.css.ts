@@ -74,6 +74,7 @@ export const postLink = style({
 	width: '100%',
 	borderRadius: '0.5rem',
 	transition: 'color 0.3s',
+	textDecoration: 'none',
 
 	':hover': {
 		backgroundColor: theme.background.hover,

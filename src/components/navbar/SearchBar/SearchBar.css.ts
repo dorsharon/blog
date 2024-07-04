@@ -111,6 +111,7 @@ export const resultItem = style({
 	display: 'block',
 	borderRadius: '0.75rem',
 	padding: '0.75rem',
+	textDecoration: 'none',
 
 	':hover': {
 		backgroundColor: theme.background.hover,
