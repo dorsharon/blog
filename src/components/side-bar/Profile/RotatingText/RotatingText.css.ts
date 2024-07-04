@@ -9,17 +9,27 @@ export const textWrapper = style({
 	justifyContent: 'center',
 });
 
-export const rotatingAnimation = keyframes({
-	'0%': { opacity: 0, translate: '0 20px' }, // 0s
-	'1%': { opacity: 1, translate: '0 0' }, // 0.15s
-	'21%': { opacity: 1, translate: '0 0' }, // 3.15s
-	'22%': { opacity: 0, translate: '0 -20px' }, // 3.3s
-	'100%': { opacity: 0, translate: '0 -20px' }, // 15s
-});
-
-const animationDuration = '150ms';
-const timeOnScreen = '3s';
+const transitionDurationMs = 150;
+const onScreenTimeMs = 3000;
 const itemsCount = 5;
+const totalAnimationDurationMs = 5 * (onScreenTimeMs + transitionDurationMs);
+
+const transitionDurationPercentage = (transitionDurationMs / totalAnimationDurationMs) * 100;
+const onScreenTimePercentage = (onScreenTimeMs / totalAnimationDurationMs) * 100;
+
+export const rotatingAnimation = keyframes({
+	'0%': { opacity: 0, transform: 'translateY(20px)' },
+	[`${transitionDurationPercentage}%`]: { opacity: 1, transform: 'translateY(0)' },
+	[`${transitionDurationPercentage + onScreenTimePercentage}%`]: {
+		opacity: 1,
+		transform: 'translateY(0)',
+	},
+	[`${transitionDurationPercentage + onScreenTimePercentage + transitionDurationPercentage}%`]: {
+		opacity: 0,
+		transform: 'translateY(-20px)',
+	},
+	'100%': { opacity: 0, transform: 'translateY(-20px)' },
+});
 
 export const text = style({
 	position: 'absolute',
@@ -30,26 +40,15 @@ export const text = style({
 	textAlign: 'center',
 	WebkitBackgroundClip: 'text',
 	WebkitTextFillColor: 'transparent',
-	animation: `${rotatingAnimation} calc((${timeOnScreen} - (${animationDuration})) * ${itemsCount}) linear infinite 0s`,
+	animation: `${rotatingAnimation} ${totalAnimationDurationMs}ms linear infinite 0s`,
 	opacity: 0,
 
 	selectors: {
-		...[...Array(itemsCount)].map((_, index) => ({
-			[`${textWrapper} &:nth-child(${index + 1})`]: {
-				animationDelay: `calc(${(index + 1) * timeOnScreen})`,
-			},
-		})),
-		// [`${textWrapper} &:nth-child(2)`]: {
-		// 	animationDelay: '3s',
-		// },
-		// [`${textWrapper} &:nth-child(3)`]: {
-		// 	animationDelay: '6s',
-		// },
-		// [`${textWrapper} &:nth-child(4)`]: {
-		// 	animationDelay: '9s',
-		// },
-		// [`${textWrapper} &:nth-child(5)`]: {
-		// 	animationDelay: '12s',
-		// },
+		...[...Array(itemsCount)].reduce((result, _, index) => {
+			result[`${textWrapper} &:nth-child(${index + 1})`] = {
+				animationDelay: `calc(${index} * (${onScreenTimeMs}ms + ${transitionDurationMs}ms))`,
+			};
+			return result;
+		}, {}),
 	},
 });
