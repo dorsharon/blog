@@ -13,7 +13,7 @@ export const wrapper = style({
 	flexDirection: 'column',
 	padding: '1rem',
 	borderRadius: cardBorderRadius,
-	gap: '0.25rem',
+	gap: '1rem',
 });
 
 export const titleWrapper = style({
@@ -22,6 +22,15 @@ export const titleWrapper = style({
 	gap: '0.5rem',
 	textTransform: 'uppercase',
 	fontSize: '1rem',
+});
+
+export const title = style({
+	margin: 0,
+});
+
+export const icon = style({
+	width: '1.5rem',
+	height: '1.5rem',
 });
 
 export const infoTitle = style({
@@ -58,4 +67,5 @@ export const cautionWrapper = style({
 
 export const content = style({
 	color: theme.text.primary,
+	margin: 0,
 });

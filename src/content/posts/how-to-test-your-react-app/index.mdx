@@ -1,0 +1,97 @@
+---
+title: How to test your React app
+subtitle: Some recommendations from a guy who went through hell to learn them
+publishDate: 2024-07-12
+image: './cover.jpg'
+tags: ['Development', 'Technical', 'Testing', 'React']
+---
+import CodeSnippet from "../../../components/markdown/CodeSnippet/CodeSnippet.astro";
+import Emphasis from "../../../components/markdown/Emphasis/Emphasis.astro";
+import Heading from "../../../components/markdown/Heading/Heading.astro";
+import Alert from "../../../components/markdown/Alert/Alert.astro";
+
+A while ago, I was tasked with doing research and a proof of concept for testing our React client.\
+So, I did a deep dive across Reddit, StackOverflow, and a few other sites to understand the current industry standards and recommendations.\
+I wish I had done a deep dive into an active volcano instead.
+
+You see, client-side testing can be a pretty divided matter, not only regarding the tools being used but the practices as well.\
+In short, everyone's got their own thing going for testing their app.\
+Today, if you ask the React community what's the best framework for a client-side rendered app, they'll unanimously say <CodeSnippet>vite</CodeSnippet>.\
+If you ask them for the best tools for to test a React app, you'll get 20 different answers mixing different tools and one guy saying "Just push it to production and whisper a small prayer."
+
+So after spending a couple of months going over pretty much every big, modern tool used for client-side testing, here are my recommendations for every type of testing:
+
+<Alert type={'caution'} title={'Disclaimer'}>From here on out, this is going to be my personal opinion, brewed fresh from the depths of my eccentric mind.\
+If you disagree, that's perfectly fine—just remember, I'm not responsible for any eye-rolling or head-shaking this might cause.\
+Read on at your own peril!</Alert>
+
+<Heading>E2E Testing</Heading>
+These tests are best for simulating long or complex user journeys.\
+Usually, these are run against a deployed environment, which includes the entire backend as well as the frontend.\
+Since these are using a real backend, these kinds of tests are a great representation of real-life scenarios and behavior.
+
+The downside here is that usually these tests are a bit longer to implement and slower to run, so many times they will only run happy path scenarios and a few select others (though <a href="https://www.shaiyallin.com/post/fake-don-t-mock" target='_blank'>some modern approaches</a> seem to attempt to overcome these downsides).
+
+<Alert type={'tip'} title={'Personal recommendation: Playwright'}><CodeSnippet>Playwright</CodeSnippet> has been a rising star in the past couple of years, and for good reason.\
+Their API is great, with an auto-wait mechanism that saves a lot of trouble, support for all browsers, user agent emulation for mobile devices and an awesome debugging experience.\
+They've also got cool features like image snapshotting and network interception out of the box.</Alert>
+
+<Heading>Integration Testing</Heading>
+By definition, integration tests are meant to test the integration of multiple "units" and how they interact together.\
+In React, this translates to testing components, as a component not only contains logic and rendering but could also contain child components, therefore seemingly fitting the definition.
+
+These tests usually render the component in isolation, and check that its UI elements look and behave as expected, while working against a mocked backend.
+
+The upside to these tests is that they're usually quicker to write and run, and are more concise and focused compared to E2E tests.\
+In addition, due to the APIs being mocked, it's much easier to simulate certain situations to test every edge case.
+
+<Alert type={'tip'} title={'Personal recommendation: Storybook'}><CodeSnippet>Storybook</CodeSnippet> has come a long way as a tool that lets you render components in isolation, and their testing capabilities have recently become quite impressive.\
+It still has some small kinks to work out, but for the most part, their APIs are nice to work with, and they have some awesome features like visual regression using the wonderful <CodeSnippet>Chromatic</CodeSnippet> tool, interaction tests that utilize the Vitest and Testing Library APIs, accessibility tests, support for almost every web framework out there and more.</Alert>
+
+<Alert type={'warning'} title={'Why not Cypress or Playwright?'}>Both of them are great, don't get me wrong.\
+However, I did dislike <CodeSnippet>Cypress</CodeSnippet>'s whole approach to variables and their preference to use aliasing. In general, <CodeSnippet>Cypress</CodeSnippet>'s API is not the most comfortable I've seen.\
+In addition, it's got some <a href="https://docs.cypress.io/guides/references/trade-offs" target='_blank'>annoying limitations</a>.\
+<CodeSnippet>Playwright</CodeSnippet>, on the other hand, is amazing, and I probably would've gone with it, but its component testing is still experimental, and the number of issues I ran into with it just made it unbearable to work with.</Alert>
+
+<Heading>Unit Testing</Heading>
+These tests usually validate the functionality of small units of logic, and in the scope of a React app, that mostly means hooks.\
+You can also use them to validate utility functions that live in your app.
+
+These are the shortest and most isolated tests you'll find, and for the most part, they don't require a real browser or any kind of visualization for that matter, as they're mostly all about logic instead of rendering.
+
+<Alert type={'tip'} title={'Personal recommendation: Vitest'}>This one's pretty easy.\
+<CodeSnippet>Vitest</CodeSnippet> has cemented itself not only as a fast and reliable testing tool but also as a familiar-looking one.\
+If you've ever written tests in <CodeSnippet>Jest</CodeSnippet>, you'll find that Vitest has an almost identical API as <CodeSnippet>Jest</CodeSnippet>, making any transition from one to the other impressively easy, not to mention that the API itself is pretty awesome.\
+The only downside to Vitest is that it utilizes the headless <CodeSnippet>JSDOM</CodeSnippet> (or <CodeSnippet>happy-dom</CodeSnippet>) as its driver, which is missing some browser APIs and is not always representative of real browser behavior. Nevertheless, it's not that much of a bad thing, considering that visualization is not needed here, and browser APIs are not always at play here.</Alert>
+
+<Heading>What tests should you write more of?</Heading>
+You thought this wasn't controversial enough so far?\
+Well, get those pitchforks and torches ready.
+
+I'll start by saying that every use case has a best-fitting type of test.\
+Therefore, depending on your app, the ratio of tests you'll have of each type will probably vary.\
+Having said that, many people usually just follow that famous pyramid, where you have a lot of unit tests, many integration tests, and only a few E2E tests.\
+When we're talking in the context of a React app, I like to flip the pyramid a bit, so that integration tests are the ones you have the most of.
+
+Since E2E are usually best kept for long user journeys or complex reproductions, and they involve an actual backend, you might find yourself asking some hard questions:\
+How do you make the server return an error response to test your error handling?\
+How do you make it return specific successful responses to test those?\
+How do you simulate data coming from 3rd party providers that the client communicates with directly, instead of through a backend layer?\
+How do you test a specific point in a long flow without having to run through the entire flow every single time, risking flakiness and a longer test runtime?\
+What did I do to deserve having to deal with all these questions?
+
+That last question might just be relevant to my own experience, but the rest of them will likely have to be addressed by being familiar with the backend logic.\
+That might work for some full-stack devs, but many other devs work against a backend they have nothing to do with. A black box.\
+In those cases, the answers become more obscure.
+
+This is why I prefer integration tests.\
+You can easily mock the server responses to simulate any kind of error or success, including 3rd party providers.\
+In addition, their shorter tests and fast feedback loop make it easy to cover more edge cases.
+
+<Heading>Conclusion</Heading>
+If you need to set up a testing infrastructure to your React app, start by doing a self-reflection of your past sins to understand why God or karma chose to punish you this way.\
+After that, my recommendation is that you choose Playwright, Storybook, and Vitest for E2E, Integration, and unit tests, respectively.
+
+If you believe a different tool stack is better, that's fine.\
+A key thing to understand is that testing is not just about preventing bugs, but also removing our fear of change, and as long as that's achieved, we're golden.\
+We are all, in the end, just nervous devs trying to gather the nerve to push that one-line commit without having a mini heart attack.

@@ -5,10 +5,12 @@ import {
 	cautionTitle,
 	cautionWrapper,
 	content,
+	icon,
 	infoTitle,
 	infoWrapper,
 	tipTitle,
 	tipWrapper,
+	title,
 	titleWrapper,
 	warningTitle,
 	warningWrapper,
@@ -20,7 +22,7 @@ interface Props {
 	title: string;
 }
 
-const { type, title } = Astro.props;
+const { type, title: titleLabel } = Astro.props;
 
 let iconName: string;
 let titleClass: string;
@@ -56,9 +58,9 @@ switch (type) {
 ---
 <blockquote class={`${wrapper} ${wrapperClass}`}>
 	<div class={`${titleWrapper} ${titleClass}`}>
-		<Icon name={iconName} />
+		<Icon class={icon} name={iconName} />
 
-		<h5>{title}</h5>
+		<h3 class={title}>{titleLabel}</h3>
 	</div>
 
 	<p class={content}><slot/></p>
