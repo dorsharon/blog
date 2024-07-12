@@ -16,6 +16,12 @@ export const [lightThemeClass, theme] = createTheme({
 		input: '#f0f0f0',
 		popover: '#ffffff',
 	},
+	alert: {
+		info: '#228be6',
+		tip: '#12b886',
+		warning: '#fab005',
+		caution: '#fa5252',
+	},
 });
 
 export const darkThemeClass = createTheme(theme, {
@@ -33,5 +39,11 @@ export const darkThemeClass = createTheme(theme, {
 		code: '#283747',
 		input: '#080808',
 		popover: '#0f141a',
+	},
+	alert: {
+		info: '#1971c2',
+		tip: '#099268',
+		warning: '#f08c00',
+		caution: '#e03131',
 	},
 });

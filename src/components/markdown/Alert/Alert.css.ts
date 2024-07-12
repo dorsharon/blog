@@ -1,12 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import { theme } from '../../../styles/themes.css';
 import { cardBorderRadius } from '../../../styles/variables.css';
-import { adjustBrightness } from '../../../utils/style-utils';
-
-const infoColor: string = '#67b3ff';
-const tipColor: string = '#00c9b1';
-const warningColor: string = '#ee9748';
-const cautionColor: string = '#f14d4c';
 
 export const wrapper = style({
 	display: 'flex',
@@ -30,6 +24,7 @@ export const titleWrapper = style({
 	gap: '0.5rem',
 	textTransform: 'uppercase',
 	fontSize: '1rem',
+	color: '#ffffff',
 });
 
 export const title = style({
@@ -42,38 +37,38 @@ export const icon = style({
 });
 
 export const infoTitle = style({
-	color: infoColor,
+	color: theme.alert.info,
 });
 
 export const tipTitle = style({
-	color: tipColor,
+	color: theme.alert.tip,
 });
 
 export const warningTitle = style({
-	color: warningColor,
+	color: theme.alert.warning,
 });
 
 export const cautionTitle = style({
-	color: cautionColor,
+	color: theme.alert.caution,
 });
 
 export const infoWrapper = style({
-	backgroundColor: adjustBrightness(infoColor, -100),
+	backgroundColor: theme.alert.info,
 });
 
 export const tipWrapper = style({
-	backgroundColor: adjustBrightness(tipColor, -100),
+	backgroundColor: theme.alert.tip,
 });
 
 export const warningWrapper = style({
-	backgroundColor: adjustBrightness(warningColor, -100),
+	backgroundColor: theme.alert.warning,
 });
 
 export const cautionWrapper = style({
-	backgroundColor: adjustBrightness(cautionColor, -100),
+	backgroundColor: theme.alert.caution,
 });
 
 export const content = style({
-	color: theme.text.primary,
+	color: '#ffffff',
 	margin: 0,
 });

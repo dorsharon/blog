@@ -25,39 +25,33 @@ interface Props {
 const { type, title: titleLabel } = Astro.props;
 
 let iconName: string;
-let titleClass: string;
 let wrapperClass: string;
 
 switch (type) {
 	case 'info':
 		iconName = 'material-symbols:error-outline-rounded';
-		titleClass = infoTitle;
 		wrapperClass = infoWrapper;
 		break;
 	case 'tip':
 		iconName = 'material-symbols:lightbulb-outline-rounded';
-		titleClass = tipTitle;
 		wrapperClass = tipWrapper;
 		break;
 	case 'warning':
 		iconName = 'material-symbols:warning-outline-rounded';
-		titleClass = warningTitle;
 		wrapperClass = warningWrapper;
 		break;
 	case 'caution':
 		iconName = 'material-symbols:brightness-alert-outline-rounded';
-		titleClass = cautionTitle;
 		wrapperClass = cautionWrapper;
 		break;
 	default:
 		iconName = 'material-symbols:error-outline-rounded';
-		titleClass = infoTitle;
 		wrapperClass = infoWrapper;
 		break;
 }
 ---
 <blockquote class={`${wrapper} ${wrapperClass}`}>
-	<div class={`${titleWrapper} ${titleClass}`}>
+	<div class={titleWrapper}>
 		<Icon class={icon} name={iconName} />
 
 		<h3 class={title}>{titleLabel}</h3>
