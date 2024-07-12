@@ -14,6 +14,14 @@ export const wrapper = style({
 	padding: '1rem',
 	borderRadius: cardBorderRadius,
 	gap: '1rem',
+	marginBlock: '1rem',
+	marginInline: '2rem',
+
+	'@media': {
+		'screen and (max-width: 768px)': {
+			marginInline: 0,
+		},
+	},
 });
 
 export const titleWrapper = style({
