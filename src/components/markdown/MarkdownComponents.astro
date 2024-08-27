@@ -6,6 +6,7 @@ import Emphasis from './Emphasis/Emphasis.astro';
 import GithubRepo from './GithubRepo/GithubRepo.astro';
 import Heading from './Heading/Heading.astro';
 import { wrapper } from './MarkdownComponents.css';
+import ProsCons from './ProsCons/ProsCons.astro';
 ---
 <!-- All components that are used in markdown files should be rendered here-->
 <!-- This is necessary for Astro to load their CSS classes into the head tag,-->
@@ -17,4 +18,5 @@ import { wrapper } from './MarkdownComponents.css';
 	<Heading />
 	<Alert type="info" title="" />
 	<GithubRepo repoName=""/>
+	<ProsCons pros={[]} cons={[]}/>
 </div>

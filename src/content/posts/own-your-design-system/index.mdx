@@ -1,0 +1,111 @@
+---
+title: Own your design system
+subtitle: Picking the right approach to building your design system with no regrets (or with a lot)
+publishDate: 2024-08-13
+image: './cover.jpg'
+tags: ['Development', 'Design System', 'Technical']
+---
+import CodeSnippet from "../../../components/markdown/CodeSnippet/CodeSnippet.astro";
+import CodeBlock from "../../../components/markdown/CodeBlock/CodeBlock.astro";
+import Heading from "../../../components/markdown/Heading/Heading.astro";
+import ProsCons from "../../../components/markdown/ProsCons/ProsCons.astro";
+
+Design systems are like the company coffee machine, almost every company has one, and no one seems to want to be the one maintaining it.
+
+I've written 3 design systems for 3 different companies, and I've noticed the changes in how we approach their development over the years.\
+So, in this piece, I'll share some insights and experiences that may or may not help you navigate the tumultuous waters of design system creation.
+
+<Heading>The Traditional Approach: Component Kits</Heading>
+Component kits like <CodeSnippet>MUI</CodeSnippet>, <CodeSnippet>Chakra</CodeSnippet>, <CodeSnippet>Ant Design</CodeSnippet>, <CodeSnippet>Mantine</CodeSnippet>, and others have been around for years, some more than others, and they've, for the most part, stood the test of time.\
+They're pretty well maintained, and offer a ready-to-go design system out of the box, without breaking a sweat.\
+You can simply pick your favorite kit, possibly override some theme values, and voila! You got yourself a design system (just hope that no one is bothered by the fact that it looks pretty identical to a billion other websites that use the same kit).
+
+The first 2 design systems I built were based on <CodeSnippet>MUI</CodeSnippet>, and while for smaller projects it was perfectly fine when it came to bigger projects, it didn't take long for the disadvantages to show.
+
+Let's start with a big one.\
+The code is not yours.\
+That means that you better pray that any bugs that pop up, or lack of functionality you run into get neatly addressed by the package maintainers.\
+That's like praying your boss won't notice you're “working from home” from the beach—hopeful, but delusional.
+
+Furthermore, unless you're OK with further inflating your tech debt by not upgrading to new major versions, you better be ready to handle a slew of breaking changes now and then.
+
+But these are manageable problems.\
+Annoying, yet manageable problems.\
+The ones that are less so, surface when you're faced with questions such as:\
+What happens when the component kit's design doesn't quite fit your intended look and feel?\
+What happens when you're aiming for a different user experience?\
+Enter the wonderful world of wrapping components and overriding default styles to find the answers!
+
+Given, many design systems are nothing more than a Frankenstein collection of wrappers and overridden CSS, and it works for the most part, but at some point that Jenga tower of messiness and clumsiness ends up making the devs curse their dependency on the kit package.
+
+Here's a rough example of this approach:
+<CodeBlock code={`import Button from '@mui/material/Button';
+
+export const MyButton = ({ onClick, label, disabled = false }) => (
+  <Button
+    variant="contained"
+    color="primary"
+    onClick={onClick}
+    disabled={disabled}
+  >
+    {label}
+  </Button>
+);`}/>
+
+<ProsCons pros={[
+	'Quick & working design system with little to no effort.',
+	'Components are maintained and battle-tested.',
+	'Low entry barrier—perfect if your team is just starting or if you’re in a hurry to ship something that looks professional enough.'
+]} cons={[
+	'Hard coupling to the overall UI/UX, might not suit some cases.',
+	'Fixing issues or adding/adjusting functionality ends up with not-so-elegant wrappers and overrides.',
+	'Breaking changes come in bulk.'
+]}/>
+
+<Heading>The All-In Approach: Building It From Scratch</Heading>
+The 3rd and current design system I've helped build was one that we built ourselves, with as minimal dependencies as possible.\
+This is obviously much more tedious and requires the devs working on it to be proficient in knowing how to best write these components.
+
+This approach works great if you don't want to tie yourself to any specific kit, and it allows maximum flexibility, but it's at the price of having to maintain it.\
+Over time, maintenance becomes your new best friend—because you’ll be spending more time with it than anyone else.\
+It might not work for everyone.\
+There's a certain level of effort that needs to be accepted here, but at the end of the day, it makes some things easier to handle.
+
+Any annoying bugs or new features needed can be addressed right away, without having to spam a GitHub issue or beg for help in some npm package's discord channel.\
+Plus, you can fine-tune the look and feel to your liking, without having to convince yourself that material design is still in fashion.
+
+Here's a rough example of this approach:
+<CodeBlock code={`import './Button.css'; // Or whatever CSS solution you have...
+
+export const MyButton = ({ onClick, label, disabled = false }) => (
+  <button
+    onClick={disabled ? undefined : onClick}
+    disabled={disabled}
+  >
+    {label}
+  </button>
+);`}/>
+
+<ProsCons pros={[
+	'Allows for maximum flexibility and fine-tuning when it comes to the design and functionality.',
+	'Smaller bundle size due to fewer dependencies.',
+	'You have full ownership—no more relying on some anonymous developer in another time zone to fix your problems.'
+]} cons={[
+	'Requires tedious effort to implement and maintain.',
+	'Steep learning curve.',
+]}/>
+
+<Heading>The Modern Approach: Headless UI</Heading>
+Recently, some new developments have opened the door to a best-of-both-worlds approach.\
+Packages like <CodeSnippet>Radix UI</CodeSnippet>, give us hooks and tools that provide a component's internal logic and state management, sparing you a lot of trouble and headaches.\
+By extension, packages like <CodeSnippet>shadcn/ui</CodeSnippet> take it even further and provide you with the code for the rest of the component's implementation and design.\
+This gives you a ready-to-go component with no effort while leaving you the owner of the code, allowing you to customize and tweak it however you need.
+
+I find this approach to be more ideal nowadays.\
+It gives you the battle-tested design system you need with little effort, but more importantly, it allows you to own the code and make any needed changes and adjustments.
+
+<Heading>Conclusion</Heading>
+Once you put yourself on a certain path to achieve a design system, it's hard to stray from it, so it's important to take the right approach.
+
+In the end, choosing the right approach for your design system is like choosing between fast food, home cooking, or a meal kit. One’s quick and dirty, one’s labor-intensive but rewarding, and the other’s a bit of both. Just remember, no matter what you pick, you’re the one who has to clean up afterward.
+

@@ -1,0 +1,47 @@
+---
+
+import { Icon } from 'astro-icon/components';
+import {
+	consWrapper,
+	content,
+	divider,
+	icon,
+	prosWrapper,
+	title,
+	titleWrapper,
+	wrapper,
+} from './ProsCons.css';
+import { sectionWrapper } from './ProsCons.css';
+
+interface Props {
+	pros: string[];
+	cons: string[];
+}
+
+const { pros, cons } = Astro.props;
+---
+<blockquote class={wrapper}>
+	<div class={prosWrapper}>
+		<div class={titleWrapper}>
+			<Icon class={icon} name={'material-symbols:thumb-up'} />
+
+			<h3 class={title}>Pros</h3>
+		</div>
+
+		{pros.map((pro)=>(
+			<p class={content}>{pro}</p>
+		))}
+	</div>
+
+	<div class={consWrapper}>
+		<div class={titleWrapper}>
+			<Icon class={icon} name={'material-symbols:thumb-down'} />
+
+			<h3 class={title}>Cons</h3>
+		</div>
+
+		{cons.map((con)=>(
+			<p class={content}>{con}</p>
+		))}
+	</div>
+</blockquote>

@@ -32,7 +32,7 @@ export const contentWrapper = style({
 			paddingRight: '0.5rem',
 			paddingTop: '1.75rem',
 			paddingBottom: '1.75rem',
-			width: `calc(100% - ${coverWidth} - 12px)`,
+			width: `calc(100% - ${coverWidth} - 80px)`,
 		},
 	},
 });
