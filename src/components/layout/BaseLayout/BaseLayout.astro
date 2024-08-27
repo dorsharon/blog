@@ -1,5 +1,5 @@
 ---
-import { lightThemeClass } from '../../../styles/themes.css';
+import { darkThemeClass, lightThemeClass } from '../../../styles/themes.css';
 import Head from '../Head/Head.astro';
 import InitScripts from '../InitScripts/InitScripts.astro';
 import MainGrid from '../MainGrid/MainGrid.astro';
@@ -22,7 +22,7 @@ if (title) {
 <!doctype html>
 <html
 	lang={"en"}
-	class={`${html} ${lightThemeClass}`}
+	class={`${html} ${darkThemeClass}`}
 	data-overlayscrollbars-initialize
 >
 	<Head title={pageTitle} />
