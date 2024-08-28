@@ -19,6 +19,8 @@ export const card = style({
 	paddingTop: '1.5rem',
 	paddingBottom: '1rem',
 	width: '100%',
+	overflow: 'auto',
+
 	'@media': {
 		'(min-width: 768px)': {
 			paddingLeft: '2.25rem',

@@ -13,12 +13,12 @@ import {
 	endElementsWrapper,
 	homeIcon,
 	homeLink,
-	linksWrapper,
+	linksWrapper, logoFirstName, logoLastName,
 	menuIcon,
 	navLink,
 	searchButtonIcon,
 	searchIcon,
-	themeIcon,
+	themeIcon
 } from './Navbar.css';
 import SearchBar from './SearchBar/SearchBar';
 import ThemeSwitch from './ThemeSwitch/ThemeSwitch';
@@ -33,8 +33,8 @@ const allBlogPosts = await getCollection('posts');
 <div class={card}>
 	<a href={getUrl("/")} class={button}>
 		<div class={homeLink}>
-			<Icon name="material-symbols:home-outline-rounded" class={homeIcon} />
-			Dor Sharon
+			<h3 class={logoFirstName}>{'{dor}'}</h3>
+			<h3 class={logoLastName}>{'sharon'}</h3>
 		</div>
 	</a>
 

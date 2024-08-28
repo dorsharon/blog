@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import { theme } from '../../styles/themes.css.ts';
-import { navbarHeight, pageWidth } from '../../styles/variables.css.ts';
+import { codeFont, navbarHeight, pageWidth } from '../../styles/variables.css.ts';
 
 export const card = style({
 	backgroundColor: theme.background.card,
@@ -35,12 +35,24 @@ export const button = style({
 	},
 });
 
+export const logoFirstName = style({
+	color: theme.text.primary,
+	fontSize: '1.5rem',
+	fontFamily: codeFont,
+	fontWeight: 400,
+});
+
+export const logoLastName = style({
+	color: theme.text.secondary,
+	fontSize: '1.5rem',
+	fontFamily: codeFont,
+	fontWeight: 400,
+});
+
 export const homeLink = style({
 	display: 'flex',
 	flexDirection: 'row',
-	color: theme.color.primary,
 	alignItems: 'center',
-	fontSize: '1rem',
 });
 
 export const homeIcon = style({
