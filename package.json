@@ -11,7 +11,7 @@
     "lint": "biome check --write ./src"
   },
   "dependencies": {
-    "@astrojs/check": "^0.7.0",
+    "@astrojs/check": "^0.9.0",
     "@astrojs/mdx": "^3.1.2",
     "@astrojs/partytown": "^2.1.1",
     "@astrojs/react": "^3.6.0",
