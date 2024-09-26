@@ -11,16 +11,16 @@
     "lint": "biome check --write ./src"
   },
   "dependencies": {
-    "@astrojs/check": "^0.7.0",
-    "@astrojs/mdx": "^3.1.2",
-    "@astrojs/partytown": "^2.1.1",
-    "@astrojs/react": "^3.6.0",
+    "@astrojs/check": "^0.9.3",
+    "@astrojs/mdx": "^3.1.7",
+    "@astrojs/partytown": "^2.1.2",
+    "@astrojs/react": "^3.6.2",
     "@astrojs/rss": "^4.0.7",
     "@astrojs/sitemap": "^3.1.6",
     "@floating-ui/react": "^0.26.16",
     "@swup/astro": "^1.4.1",
     "@vanilla-extract/css": "^1.15.2",
-    "astro": "^4.11.3",
+    "astro": "^4.15.9",
     "astro-compress": "^2.2.15",
     "framer-motion": "^11.2.10",
     "fuse.js": "^7.0.0",
@@ -38,7 +38,7 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
-    "@astrojs/ts-plugin": "^1.8.0",
+    "@astrojs/ts-plugin": "^1.10.2",
     "@biomejs/biome": "1.8.3",
     "@iconify-json/fa6-brands": "^1.1.19",
     "@iconify-json/fa6-regular": "^1.1.19",
@@ -54,7 +54,6 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@types/sanitize-html": "^2.11.0",
-    "@typescript-eslint/parser": "^7.12.0",
     "@vanilla-extract/vite-plugin": "^4.0.10",
     "astro-icon": "^1.1.0",
     "debug": "^4.3.5",
