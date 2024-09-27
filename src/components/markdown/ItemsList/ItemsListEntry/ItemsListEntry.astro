@@ -1,0 +1,14 @@
+---
+
+import { Icon } from 'astro-icon/components';
+import { divider, listItem } from './ItemsListEntry.css';
+
+interface Props {
+	index: number;
+}
+
+const { index } = Astro.props;
+---
+{index !== 0 && <hr class={divider}/>}
+
+<li class={listItem}><slot/></li>

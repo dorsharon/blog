@@ -3,10 +3,11 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../components/layout/BaseLayout/BaseLayout.astro';
 import PostContent from '../../components/posts/PostContent/PostContent.astro';
+import { getSortedPosts } from '../../utils/content-utils';
 import { formatDate } from '../../utils/date-utils';
 
 export const getStaticPaths = (async () => {
-	const posts = await getCollection('posts');
+	const posts = await getSortedPosts();
 
 	return posts.map((post) => ({
 		params: { slug: post.slug },

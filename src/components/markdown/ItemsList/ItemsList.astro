@@ -1,0 +1,23 @@
+---
+
+import { Icon } from 'astro-icon/components';
+import { list, title, titleWrapper, wrapper } from './ItemsList.css';
+
+interface Props {
+	title: string;
+	items: string[];
+}
+
+const { title: titleLabel, items } = Astro.props;
+
+let wrapperClass: string;
+---
+<blockquote class={`${wrapper} ${wrapperClass}`}>
+	<div class={titleWrapper}>
+		<h3 class={title}>{titleLabel}</h3>
+	</div>
+
+	<ul class={list}>
+		<slot />
+	</ul>
+</blockquote>

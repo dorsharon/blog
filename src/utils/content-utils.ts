@@ -1,13 +1,17 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 
+const isDevelopmentMode = import.meta.env.DEV;
+
 export const getSortedPosts = async (): Promise<CollectionEntry<'posts'>[]> => {
 	const allBlogPosts = await getCollection('posts');
 
-	return allBlogPosts.sort((a, b) => {
-		const dateA = new Date(a.data.publishDate);
-		const dateB = new Date(b.data.publishDate);
-		return dateA > dateB ? -1 : 1;
-	});
+	return allBlogPosts
+		.filter(({ data }) => isDevelopmentMode || !data.isDraft)
+		.sort((a, b) => {
+			const dateA = new Date(a.data.publishDate);
+			const dateB = new Date(b.data.publishDate);
+			return dateA > dateB ? -1 : 1;
+		});
 };
 
 export type Tag = {

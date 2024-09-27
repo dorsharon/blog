@@ -1,0 +1,225 @@
+---
+title: 'Styled Components: How the Mighty Have Fallen'
+subtitle: (Under the Weight of Their Own Runtime)
+publishDate: 2024-09-26
+image: './cover.jpg'
+tags: ['CSS', 'Design System', 'Technical']
+isDraft: true
+---
+import CodeSnippet from "../../../components/markdown/CodeSnippet/CodeSnippet.astro";
+import CodeBlock from "../../../components/markdown/CodeBlock/CodeBlock.astro";
+import Heading from "../../../components/markdown/Heading/Heading.astro";
+import ItemsList from "../../../components/markdown/ItemsList/ItemsList.astro";
+import ItemsListEntry from "../../../components/markdown/ItemsList/ItemsListEntry/ItemsListEntry.astro";
+import Alert from "../../../components/markdown/Alert/Alert.astro";
+
+Ah, <CodeSnippet>styled-components</CodeSnippet>, what a journey it has been.\
+This little package took the npm downloads by storm, releasing back in 2017, promising to be the messiah that will relinquish us from monsters such as class name collisions and globally-scoped styles.\
+It ushered in the age of CSS-in-JS packages, and before long, writing CSS in your JavaScript was all the rage and <CodeSnippet>styled.div</CodeSnippet> was the new black.
+
+However, fast-forward to 2024, and people seem to be hating and moving away from <CodeSnippet>styled-components</CodeSnippet>, in favor of competitor packages that are more performant and type-safe.\
+Packages like <CodeSnippet>TailwindCSS</CodeSnippet>, <CodeSnippet>Linaria</CodeSnippet>, <CodeSnippet>Vanilla Extract</CodeSnippet>, <CodeSnippet>PandaCSS</CodeSnippet>, and more are getting ever so popular, while <CodeSnippet>styled-components</CodeSnippet> is slowly becoming the Facebook of styling libraries — still there, but everyone’s quietly leaving.
+
+I still love <CodeSnippet>styled-components</CodeSnippet>.\
+It's been my go-to CSS solution for years.\
+Their React-friendly approach of using components for styling has felt very fitting in a framework that relies on JSX, and I liked how, for the most part, you were still writing actual CSS syntax, instead of an object containing a camel-cased representation of the same CSS attributes.\
+On top of that, its ability to dynamically inject styles based on props was extraordinarily comfortable in many situations.
+
+However, it might be time for a change.\
+Even I can't ignore some glaring issues this package has.\
+So, in this piece, I thought I would dive into how other modern packages compare to good old <CodeSnippet>styled-components</CodeSnippet>.
+
+<Heading>With Great Power Comes a Great Performance Hit</Heading>
+One of the key selling points of <CodeSnippet>styled-components</CodeSnippet> is its dynamic nature, but this has always been both its superpower and its biggest drawback.\
+The JS runtime that dynamically generates styles and injects them into the DOM every time a component renders can become a performance bottleneck as your app scales.\
+It was revolutionary once, but now, it’s like asking a carpenter to build your furniture from scratch every time you walk into your living room instead of just using what’s already there.
+
+Let's take an example:
+<CodeBlock code={`const Button = styled.button\`
+    background: green;
+    color: white;
+\`;`} />
+
+Every time this button is rendered, <CodeSnippet>styled-components</CodeSnippet> injects the CSS into the <CodeSnippet>`<head>`</CodeSnippet> of your document, potentially bloating your JavaScript bundle and slowing down load times as your app grows.
+
+<ItemsList title="In comparison:">
+	<ItemsListEntry index={0}><CodeSnippet>TailwindCSS</CodeSnippet> generates all CSS classes ahead of time. You simply reference these pre-generated classes in your HTML, leading to much faster rendering with no runtime CSS injection.</ItemsListEntry>
+	<ItemsListEntry index={1}><CodeSnippet>Linaria</CodeSnippet> is another CSS-in-JS solution, but it’s zero-runtime, meaning it extracts the CSS at build time. This approach is similar to how <CodeSnippet>Vanilla Extract</CodeSnippet> works, providing a better performance profile.</ItemsListEntry>
+	<ItemsListEntry index={2}><CodeSnippet>CSS Modules</CodeSnippet> also pre-compiles CSS. The class names are scoped locally, but all styles are generated and ready at build time.</ItemsListEntry>
+</ItemsList>
+
+<Heading>Nesting ThemeProviders Like There’s No Tomorrow</Heading>
+<CodeSnippet>styled-components</CodeSnippet> allows you to define themes and pass them down through a <CodeSnippet>`<ThemeProvider>`</CodeSnippet>.\
+This might seem convenient at first, but it can get cumbersome quickly.\
+You’re nesting your entire application inside a provider just to get consistent theming.\
+While this is something that I usually wouldn't consider a big issue, we've has some bad experience with this as the app we were working on grew larger and more complex.
+
+<CodeBlock code={`import { ThemeProvider } from 'styled-components';
+
+const theme = {
+    colors: {
+      primary: '#0070f3',
+      secondary: '#ff4081'
+    },
+};
+
+  <ThemeProvider theme={theme}>
+      <App />
+</ThemeProvider>`}/>
+
+
+What's happening behind the scenes: <CodeSnippet>styled-components</CodeSnippet> uses React's context API to inject the theme into every styled component.\
+At runtime, it calculates the styles based on the theme and injects them into the page. This adds overhead, especially in larger apps.
+
+<ItemsList title="In comparison:">
+	<ItemsListEntry index={0}><CodeSnippet>TailwindCSS</CodeSnippet> doesn’t require any providers or runtime calculations. You define your design system in a configuration file (tailwind.config.js), and Tailwind generates all the necessary CSS at build time. This results in a much smaller runtime overhead.</ItemsListEntry>
+	<ItemsListEntry index={1}><CodeSnippet>Vanilla Extract</CodeSnippet> also generates CSS at build time, ensuring no runtime overhead. You define themes using TypeScript, and the styles are statically extracted.</ItemsListEntry>
+	<ItemsListEntry index={2}><CodeSnippet>PandaCSS</CodeSnippet>, Similar to Vanilla Extract, focuses on design tokens and generates CSS at build time, avoiding runtime performance hits.</ItemsListEntry>
+</ItemsList>
+
+<Heading>Typo-Safe, Not Type-Safe</Heading>
+<CodeSnippet>styled-components</CodeSnippet> is dynamic, and with dynamism comes a lack of type safety.\
+Sure, you can integrate TypeScript, but it's not inherently type-safe like <CodeSnippet>Vanilla Extract</CodeSnippet> or <CodeSnippet>CSS Modules</CodeSnippet>.\
+This can lead to bugs and styling issues that only surface at runtime.
+
+For example:
+<CodeBlock code={`const Title = styled.h1\`
+    font-size: ${props => props.size};
+\`;`}/>
+
+
+If <CodeSnippet>props.size</CodeSnippet> is undefined, you'll only find out that something is wrong when the component is rendered, leading your users to question if your site’s text styling is a postmodern fashion statement.
+
+<ItemsList title="In comparison:">
+	<ItemsListEntry index={0}><CodeSnippet>Linaria</CodeSnippet> lets you define styles statically, which means TypeScript checks your code before it runs. By using design tokens or variables, Linaria enforces more predictable, type-safe styling.</ItemsListEntry>
+	<ItemsListEntry index={1}><CodeSnippet>PandaCSS</CodeSnippet> takes a similar token-based approach to styling, focusing on type safety and design tokens.</ItemsListEntry>
+	<ItemsListEntry index={2}><CodeSnippet>TailwindCSS</CodeSnippet> itself doesn't rely on TypeScript directly, but its static configuration file and predefined classes guarantee consistent and reliable styles.</ItemsListEntry>
+</ItemsList>
+
+<Heading>Bundle Bloat: Because More is Clearly More</Heading>
+One of the biggest complaints about <CodeSnippet>styled-components</CodeSnippet> is that it can bloat your JavaScript bundles.\
+Every styled component adds to the overall weight of your bundle, making it harder to achieve fast-loading apps.\
+The tighter coupling of JavaScript and CSS means your bundle gets bigger with every new styled component.\
+If you have 100 different styled components, that’s a lot of JavaScript being generated just to manage styles.
+
+<ItemsList title="In comparison:">
+	<ItemsListEntry index={0}><CodeSnippet>TailwindCSS</CodeSnippet> generates all styles ahead of time, so the only thing you’re loading in your bundle are the necessary utility classes. You don’t have to worry about CSS being tightly coupled with your JS, resulting in much leaner bundles.</ItemsListEntry>
+	<ItemsListEntry index={1}><CodeSnippet>Linaria</CodeSnippet> & <CodeSnippet>PandaCSS</CodeSnippet> generate CSS at build time, meaning there’s no runtime overhead. The styles are completely separated from your JavaScript, keeping bundle sizes down.</ItemsListEntry>
+	<ItemsListEntry index={2}><CodeSnippet>CSS Modules</CodeSnippet> are also precompiled at build time, and since styles are scoped locally to each component, you’re not dealing with large, global stylesheets or unnecessary CSS being bundled with your JS.</ItemsListEntry>
+</ItemsList>
+
+<hr/>
+
+While competitor packages may address many of the drawbacks of <CodeSnippet>styled-components</CodeSnippet>, none of them are flawless, and each has its own challenges.\
+Let’s take a closer look at where they fall short, along with examples to show what you’re dealing with.
+
+<Heading>TailwindCSS: Utility-First Overload</Heading>
+<CodeSnippet>TailwindCSS</CodeSnippet> is beloved for its utility-first approach and the way it keeps styles out of your JavaScript logic, but it introduces a whole different beast: verbose and cluttered markup.\
+Instead of writing a single <CodeSnippet>className</CodeSnippet>, you might end up with long chains of utility classes, which can quickly become unmanageable and difficult to read.
+
+For example:
+<CodeBlock code={`<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    Click me
+</button>`}/>
+
+This might seem fine for a single button, but as your components grow in complexity, your HTML will be littered with long strings of utility classes.\
+It also makes refactoring harder, since style definitions are scattered across different elements rather than centralized.
+
+This can make debugging a pain, and for teams that value semantic, clean, and readable code, <CodeSnippet>TailwindCSS</CodeSnippet> can feel chaotic.\
+If someone unfamiliar with <CodeSnippet>TailwindCSS</CodeSnippet> needs to jump into your project, they'll have to understand the utility classes before they can make sense of your markup.
+
+<Heading>Linaria & Vanilla Extract: The Build-Time Trade-Off</Heading>
+<CodeSnippet>Linaria</CodeSnippet> & <CodeSnippet>Vanilla Extract</CodeSnippet> take a different approach from <CodeSnippet>styled-components</CodeSnippet> by statically extracting CSS at build time.\
+While this is great for performance, it also means that if you need dynamic styling (e.g., based on props or theme), they can't offer the same level of flexibility as <CodeSnippet>styled-components</CodeSnippet>.\
+Since the CSS is extracted statically, dynamic styles that rely on JavaScript variables or props aren’t supported out of the box, meaning you’ll have to resort to inline styles or more complex workarounds.
+
+<CodeBlock code={`import { css } from 'linaria';
+
+const title = css\`
+    font-size: 24px;
+    color: blue;
+	\`;
+
+const Title = () => <h1 className={title}>Hello Linaria!</h1>;`}/>
+
+<CodeBlock code={`import { style } from '@vanilla-extract/css';
+
+const button = style({
+    backgroundColor: 'blue',
+    color: 'white',
+    padding: '10px 20px',
+    borderRadius: '4px',
+});
+
+const Button = () => <button className={button}>Click Me</button>;`}/>
+
+The same is true for <CodeSnippet>PandaCSS</CodeSnippet>.\
+Its focus on a design token system works well for large-scale, design-system-driven projects, but if you’re working on a smaller project or want more on-the-fly flexibility like <CodeSnippet>styled-components</CodeSnippet>’ dynamic styles, <CodeSnippet>PandaCSS</CodeSnippet> can feel overly rigid.\
+Additionally, setting up and maintaining a token-based system adds another layer of complexity for teams just trying to get things done.
+
+<CodeBlock code={`import { css } from '@pandacss/dev';
+
+const button = css({
+    backgroundColor: 'blue.500',
+    color: 'white',
+    padding: '2',
+    borderRadius: 'md',
+});
+
+const Button = () => <button className={button}>Click Me</button>;`}/>
+
+<Heading>CSS Modules: Simple, But Limited</Heading>
+<CodeSnippet>CSS Modules</CodeSnippet> work great for small, component-specific styles, but if you’re building a larger design system or need theming functionality, you’ll have to implement it manually or with additional libraries.\
+This lack of built-in theming and dynamic styling can make CSS Modules feel limited compared to more powerful alternatives like <CodeSnippet>styled-components</CodeSnippet> or <CodeSnippet>TailwindCSS</CodeSnippet>.
+
+<CodeBlock code={`/* button.module.css */
+.button {
+    background-color: blue;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+}
+
+/* Button.tsx */
+import styles from './button.module.css';
+
+const Button = () => <button className={styles.button}>Click Me</button>;`}/>
+
+<Alert type="tip" title={'Honorable Mention'}>
+I want to also mention <CodeSnippet>Pigment CSS</CodeSnippet>, which was developed by the maintainers of <CodeSnippet>Material UI</CodeSnippet>, and will their main CSS solution in v6 of <CodeSnippet>MUI</CodeSnippet>.\
+It's very similar to the other zero runtime packages listed here, and has a similar API to <CodeSnippet>styled-components</CodeSnippet>, but at the moment it's still in v0 and might not be production-ready just yet.\
+It's worth keeping an eye on though.
+
+<CodeBlock code={`import { styled } from '@pigment-css/react';
+
+const Button = styled.button\`
+    font-size: 2rem;
+    color: red;
+\`;
+
+<Button>
+      Click me!
+</Button>`}/></Alert>
+
+<Heading>Conclusion</Heading>
+I'll always have a soft spot for <CodeSnippet>styled-components</CodeSnippet>, and I truly think its maintainers did a fantastic job with it.\
+These days, the maintainers are struggling to figure if and how <CodeSnippet>styled-components</CodeSnippet> can even work with the new React Server Components, seeing as they're heavily reliant on React's Context API, which simply is not available in Server Components.\
+This alone threatens to make <CodeSnippet>styled-components</CodeSnippet> a non-viable option for many future projects that will likely be built with RSC.
+
+However, while the alternatives to <CodeSnippet>styled-components</CodeSnippet> each bring significant advantages, they aren’t without their own shortcomings.\
+Whether it’s <CodeSnippet>TailwindCSS</CodeSnippet>’s verbose markup, <CodeSnippet>Linaria</CodeSnippet> and <CodeSnippet>Vanilla Extract</CodeSnippet>’s tooling complexity, <CodeSnippet>PandaCSS</CodeSnippet>’s rigid token-based system, or <CodeSnippet>CSS Modules</CodeSnippet>’ simplicity, every tool has trade-offs.\
+The key is to assess what fits your project best: do you need flexibility, performance, or ease of use? No solution is perfect, but each has its place in modern CSS architecture.
+
+Personally, I never liked <CodeSnippet>TailwindCSS</CodeSnippet>.\
+I realize that it's very popular right now, and that the simplicity of utility classes allow it to easily integrate into many frameworks.\
+But every time I see those long lines of utility class names, I feel like I have to pick up a dictionary just to translate what's going on.\
+And once I reach those complex components that have dozens of those classes all over the markup, I get the urge to delete the entire Git repo, just so have that abomination cease to exist.
+
+This blog is written using <CodeSnippet>Vanilla Extract</CodeSnippet>, and for the most part, I've enjoyed working with it.\
+The inability to do things dynamically is a bit annoying, but I believe most of the cases that demand it can be resolved with some predefined style options.
+Also, I'm not a fan of the object syntax for CSS.
+
+If I had to pick a package for the modern project, I would either try <CodeSnippet>PandaCSS</CodeSnippet> or maybe give <CodeSnippet>Pigment CSS</CodeSnippet> a go once it's more mature.
+
+Then again, maybe this is all just over-engineering, and it's all just leading us back to using plain old CSS files.\
+Whoever is brave enough to go back to that, let me know how that went, preferably before you've killed yourself.

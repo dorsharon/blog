@@ -5,6 +5,8 @@ import CodeSnippet from './CodeSnippet/CodeSnippet.astro';
 import Emphasis from './Emphasis/Emphasis.astro';
 import GithubRepo from './GithubRepo/GithubRepo.astro';
 import Heading from './Heading/Heading.astro';
+import ItemsList from './ItemsList/ItemsList.astro';
+import ItemsListEntry from './ItemsList/ItemsListEntry/ItemsListEntry.astro';
 import { wrapper } from './MarkdownComponents.css';
 import ProsCons from './ProsCons/ProsCons.astro';
 ---
@@ -19,4 +21,7 @@ import ProsCons from './ProsCons/ProsCons.astro';
 	<Alert type="info" title="" />
 	<GithubRepo repoName=""/>
 	<ProsCons pros={[]} cons={[]}/>
+	<ItemsList title="" >
+		<ItemsListEntry index={0}/>
+	</ItemsList>
 </div>

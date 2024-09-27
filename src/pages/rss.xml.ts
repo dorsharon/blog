@@ -1,5 +1,6 @@
 import { getCollection } from 'astro:content';
 import rss from '@astrojs/rss';
+import { getSortedPosts } from '@utils/content-utils.ts';
 import type { APIContext } from 'astro';
 import MarkdownIt from 'markdown-it';
 import sanitizeHtml from 'sanitize-html';
@@ -7,7 +8,7 @@ import sanitizeHtml from 'sanitize-html';
 const parser = new MarkdownIt();
 
 export async function GET(context: APIContext) {
-	const blog = await getCollection('posts');
+	const blog = await getSortedPosts();
 
 	return rss({
 		title: 'Dor Sharon',

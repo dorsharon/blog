@@ -1,4 +1,5 @@
-import { style } from '@vanilla-extract/css';
+import { codeBlock } from '@components/markdown/CodeBlock/CodeBlock.css.ts';
+import { globalStyle, style } from '@vanilla-extract/css';
 import { theme } from '../../../styles/themes.css';
 import { cardBorderRadius } from '../../../styles/variables.css';
 
@@ -34,22 +35,6 @@ export const title = style({
 export const icon = style({
 	width: '1.5rem',
 	height: '1.5rem',
-});
-
-export const infoTitle = style({
-	color: theme.alert.info,
-});
-
-export const tipTitle = style({
-	color: theme.alert.tip,
-});
-
-export const warningTitle = style({
-	color: theme.alert.warning,
-});
-
-export const cautionTitle = style({
-	color: theme.alert.caution,
 });
 
 export const infoWrapper = style({

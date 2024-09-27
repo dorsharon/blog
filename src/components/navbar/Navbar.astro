@@ -4,6 +4,7 @@ import { Icon } from 'astro-icon/components';
 import { DARK_THEME, LIGHT_THEME, THEME_STORAGE_KEY } from '../../constants/constants';
 import { darkThemeClass, lightThemeClass } from '../../styles/themes.css';
 import type { NavBarLink } from '../../types/config';
+import { getSortedPosts } from '../../utils/content-utils';
 import { getUrl } from '../../utils/url-utils';
 import NavMenu from './NavMenu/NavMenu';
 import {
@@ -30,7 +31,7 @@ const links: NavBarLink[] = [
 	{ name: 'About', url: '/about' },
 ];
 
-const allBlogPosts = await getCollection('posts');
+const allBlogPosts = await getSortedPosts();
 ---
 <div class={card}>
 	<a href={getUrl("/")} class={button}>
