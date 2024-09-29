@@ -12,6 +12,7 @@ import Heading from "../../../components/markdown/Heading/Heading.astro";
 import ItemsList from "../../../components/markdown/ItemsList/ItemsList.astro";
 import ItemsListEntry from "../../../components/markdown/ItemsList/ItemsListEntry/ItemsListEntry.astro";
 import Alert from "../../../components/markdown/Alert/Alert.astro";
+import Divider from "../../../components/markdown/Divider/Divider.astro";
 
 Ah, <CodeSnippet>styled-components</CodeSnippet>, what a journey it has been.\
 This little package took the npm downloads by storm, releasing back in 2017, promising to be the messiah that will relinquish us from monsters such as class name collisions and globally-scoped styles.\
@@ -108,10 +109,10 @@ If you have 100 different styled components, that’s a lot of JavaScript being 
 	<ItemsListEntry index={2}><CodeSnippet>CSS Modules</CodeSnippet> are also precompiled at build time, and since styles are scoped locally to each component, you’re not dealing with large, global stylesheets or unnecessary CSS being bundled with your JS.</ItemsListEntry>
 </ItemsList>
 
-<hr/>
+<Divider/>
 
 While competitor packages may address many of the drawbacks of <CodeSnippet>styled-components</CodeSnippet>, none of them are flawless, and each has its own challenges.\
-Let’s take a closer look at where they fall short, along with examples to show what you’re dealing with.
+Let’s take a closer look at where they fall short:
 
 <Heading>TailwindCSS: Utility-First Overload</Heading>
 <CodeSnippet>TailwindCSS</CodeSnippet> is beloved for its utility-first approach and the way it keeps styles out of your JavaScript logic, but it introduces a whole different beast: verbose and cluttered markup.\
