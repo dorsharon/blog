@@ -108,6 +108,21 @@ If you have 100 different styled components, that’s a lot of JavaScript being 
 	<ItemsListEntry index={2}><CodeSnippet>CSS Modules</CodeSnippet> are also precompiled at build time, and since styles are scoped locally to each component, you’re not dealing with large, global stylesheets or unnecessary CSS being bundled with your JS.</ItemsListEntry>
 </ItemsList>
 
+<Heading>Server Components: It All Depends On the Context</Heading>
+Due to <CodeSnippet>styled-components</CodeSnippet>'s heavy dependency on React's Context API, it's impossible to use it with React Server Components, as that API simply doesn't exist in a server-rendered component.\
+In general, the React team hasn't yet offered an RSC-compatible alternative to Context, leaving <CodeSnippet>styled-components</CodeSnippet> with no way to share data like the theme values between components to ensure styles are applied correctly.\
+The same applies to <CodeSnippet>Emotion</CodeSnippet>, which is very similar to <CodeSnippet>styled-components</CodeSnippet>.
+
+A quick look at the source code will show you that <CodeSnippet>styled-components</CodeSnippet> clings to the Context API like it's on life support—take it away, and the whole thing flatlines.\
+It's therefore very baffling to understand how the maintainers will work their way out of this issue, as RSC could likely become a much more popular pardigm in the coming years.\
+It almost seems like they either need to wait for the React team to bail them out by releasing some magical new API, or simply rewrite the entire package and release a new version with so many breaking changes, you'd have to hold a support group just to cope with the migration.
+
+<ItemsList title="In comparison:">
+	<ItemsListEntry index={0}><CodeSnippet>Linaria</CodeSnippet> is great for RSC since it doesn’t rely on client-side JavaScript for styles, ensuring fast server-side rendering.</ItemsListEntry>
+	<ItemsListEntry index={1}><CodeSnippet>CSS Modules</CodeSnippet> & <CodeSnippet>TailwindCSS</CodeSnippet> generates static styles that are resolved at build time, making it suitable for server-side rendering.</ItemsListEntry>
+	<ItemsListEntry index={2}><CodeSnippet>PandaCSS</CodeSnippet> was designed to be RSC-friendly, generating static styles without a runtime.</ItemsListEntry>
+</ItemsList>
+
 <Divider/>
 
 While competitor packages may address many of the drawbacks of <CodeSnippet>styled-components</CodeSnippet>, none of them are flawless, and each has its own challenges.\
