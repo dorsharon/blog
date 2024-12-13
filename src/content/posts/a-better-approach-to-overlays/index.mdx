@@ -1,0 +1,244 @@
+---
+title: 'A better approach to modals, drawers, and other overlay creatures'
+subtitle: Conquering overlay chaos one modal at a time
+publishDate: 2024-09-29
+image: './cover.jpg'
+tags: ['React', 'Development', 'Design System', 'Technical']
+isDraft: true
+---
+import CodeSnippet from "../../../components/markdown/CodeSnippet/CodeSnippet.astro";
+import CodeBlock from "../../../components/markdown/CodeBlock/CodeBlock.astro";
+import Heading from "../../../components/markdown/Heading/Heading.astro";
+import Alert from "../../../components/markdown/Alert/Alert.astro";
+
+Over the past couple of years, my company's design system has seen three iterations regarding how we mount overlay components like modals and drawers to be shown on the UI.\
+That last iteration involved implementing our own in-house mechanism for controlling when and how to show/hide overlay elements, and like a proud baker that just took a bite of their homemade cookies, I'd like to share the recipe to that approach, in the hopes that it might help you as well.
+
+<Alert type={'warning'} title={'Note'}>This approach should apply even if you're using overlay components from packages like <CodeSnippet>MUI</CodeSnippet>, <CodeSnippet>Chakra UI</CodeSnippet>, <CodeSnippet>Mantine</CodeSnippet>, etc.</Alert>
+
+<Heading>The problem</Heading>
+Let's start by explaining why we even need a management mechanism for showing and hiding overlay components.\
+Spoiler alert: it's not just because we enjoy complex solutions.
+
+Our first iteration for handling overlays was the straightforward declarative approach: return them as part of the JSX of the component that triggers their appearance, and manage their "open" state using the local state at that component's level.\
+That's what most people do, regardless of whether they're using a components kit like <CodeSnippet>MUI</CodeSnippet> or their own home-brewed components.
+
+<CodeBlock code={`const ExampleComponent: FC = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+
+    return (
+        <div>
+            <button onClick={openModal}>
+                Open Modal
+            </button>
+
+            <Modal isOpen={isModalOpen} onClose={closeModal}>
+                <h2>Modal Content</h2>
+                <p>This is the content inside the modal.</p>
+            </Modal>
+        </div>
+    );
+};`}
+/>
+
+
+However, this approach has limitations.\
+What happens when a certain modal should be triggered from several components spread in the component tree?\
+What happens when the trigger for opening a certain drawer should be in one place but the trigger for closing it is in another?
+
+When going the declarative way, it becomes clear that overlay elements are a bit different from other elements.\
+Declaring them in a certain container component means that any state management regarding that overlay is bound to the scope of that container, which many times results in either an inability to perform certain workflows or an ugly solution like prop drilling.\
+It'll be much easier to manage all that on a higher level, unbound by any container.
+
+With that understanding, we eventually migrated to using a cool little package called <CodeSnippet>@ebay/nice-modal-react</CodeSnippet>, which gave us an easy way to mount overlays programmatically using hooks without having to include anything in the JSX.
+
+However, due to a technical limitation with that package, we eventually ended up cooking our in-house mechanism.
+
+<Heading>Implementing the Solution</Heading>
+Let's start with the store, where all the state rests.\
+We'll use a lesser-known hook called <CodeSnippet>useSyncExternalStore</CodeSnippet>.\
+This nifty little hook allows you to take any JS object and turn it into a piece of React state, allowing components to re-render whenever that object updates.
+
+<CodeBlock code={`export type OverlayState<T extends FunctionComponent<unknown> = FunctionComponent<unknown>> = {
+    id: string;
+    component: T;
+    props: ComponentProps<T>;
+    isShown: boolean;
+};
+
+export type OverlaysState = {
+    [id: string]: OverlayState;
+};`}
+/>
+
+<CodeBlock code={`let overlays: OverlaysState = {};
+let listeners: (() => void)[] = [];
+
+const emitChange = (): void => {
+    listeners.forEach((listener) => {
+        listener();
+    });
+};
+
+export const overlaysStore = {
+    subscribe(listener: () => void) {
+        listeners.push(listener);
+
+        return (): void => {
+            listeners = listeners.filter((l) => l !== listener);
+        };
+    },
+    getSnapshot(): OverlaysState {
+        return overlays;
+    },
+};
+
+export const showOverlay = <T extends FunctionComponent<unknown>>(component: T, props?: ComponentProps<T>): void => {
+    const id = component?.name;
+
+    overlays = { ...overlays, [id]: { id, component, props, isShown: true } };
+    emitChange();
+};
+
+export const hideOverlay = (id: string): void => {
+    if (overlays?.[id]?.isShown) {
+        overlays = { ...overlays, [id]: { ...overlays[id], isShown: false } };
+        emitChange();
+    }
+};`}
+/>
+
+To make things a bit simpler, we'll expose this state through a hook called <CodeSnippet>useOverlaysStore</CodeSnippet>:
+
+<CodeBlock code={`export const useOverlaysStore = (): OverlaysState => {
+    return useSyncExternalStore<OverlaysState>(overlaysStore.subscribe, overlaysStore.getSnapshot);
+};`}/>
+
+Now, we'll create a context that'll inject anything useful you want to be accessible in the overlay component.\
+For simplicity sake, we'll only inject the overlay ID for now, as that's needed for this mechanism to work, but you can add anything you want:
+
+<CodeBlock code={`export type OverlayContextValue = {
+    id: string;
+    // You put any other values you want to be accessible through the context
+};
+
+export const OverlayContext = createContext<OverlayContextValue>({ id: null });`}/>
+
+Next, we'll create a container to render all overlay elements in.\
+This container will use a portal to render those elements at the end of the body tag, as well as make sure the <CodeSnippet>OverlaysContext</CodeSnippet> is injected for each overlay component:
+
+<CodeBlock code={`export const OverlaysContainer = (): JSX.Element => {
+    const overlays = useOverlaysStore();
+
+    const contextValues = useMemo(() => Object.values(overlays).reduce(
+        (result, { id }) => ({
+            ...result,
+            [id]: { id },
+        }),
+    {}), [overlays]);
+
+    return createPortal(
+        <>
+            {Object.values(overlays).map(({ id, component: Component, props }) => (
+                <OverlayContext.Provider key={id} value={contextValues[id]}>
+                    <Component {...(props as Record<string, unknown>)} />
+                </OverlayContext.Provider>
+            ))}
+        </>,
+        document.body)
+    );
+};`}/>
+
+In addition, we'll make a high-level provider to mount that container:
+
+<CodeBlock code={`export const OverlaysProvider = ({ children }: PropsWithChildren) => (
+    <>
+        {children}
+        <OverlaysContainer />
+    </>
+);`}/>
+
+Now, let's implement the magic that controls everything: the <CodeSnippet>useOverlay</CodeSnippet> hook.\
+This hook will receive an overlay component and expose methods to show and hide it.\
+To work, this hook need an overlay ID. To make things simple, I've used the component's name as the ID, but feel free to implement your own strategy.
+
+This hook has two use cases:
+ 1. When provided an overlay component (<CodeSnippet>useOverlay(MyModal)</CodeSnippet>) it allows you to programmatically show/hide that modal.\
+ In this case, it'll get the overlay ID from the component that was passed to it.
+ 2. When no overlay component is provided to the hook (<CodeSnippet>useOverlay()</CodeSnippet>), it can be used inside an overlay component to track its "open" state and to programmatically close it.\
+ In this case, it'll get the ID of the component it's being used it from the <CodeSnippet>OverlayContext</CodeSnippet>.
+
+<CodeBlock code={`export type UseOverlayReturnType<T extends FunctionComponent<unknown>> = {
+    show: (props?: ComponentProps<T>) => void;
+    hide: () => void;
+    isShown: boolean;
+    props?: ComponentProps<T>;
+};
+
+export const useOverlay = <T extends FunctionComponent<unknown>>(component?: T): UseOverlayReturnType<T> => {
+    const { id: idFromContext } = useContext(OverlayContext);
+    const overlays = useOverlaysStore();
+
+    const id = component?.name ?? idFromContext;
+
+    if (!id) {
+        throw new Error('Overlay ID is not defined');
+    }
+
+    const overlayState = overlays?.[id] as OverlayState<T>;
+
+    const show = useCallback((props?: ComponentProps<T>) => {
+        showOverlay(component, props);
+    }, [component]);
+
+    const hide = useCallback(() => {
+        hideOverlay(id);
+    }, [id]);
+
+    return { show, hide, isShown: !!overlayState?.isShown, props: overlayState?.props };
+};`}/>
+
+<Alert type={'warning'} title={'Note'}>This double-purpose implementation of the <CodeSnippet>useOverlay</CodeSnippet> hook might not appeal to everyone. If you want, you can always split it to two hooks, one for controlling an overlay and another for tracking its state.</Alert>
+
+<Heading>Usage</Heading>
+To define an overlay component:
+
+<CodeBlock code={`export const MyModal: FC = ({someProp}: { someProp: string }) => {
+    const { isShown, hide } = useOverlay();
+
+    return (
+        <Modal onClose={hide} isOpen={isShown}>
+            {/* Modal Content */}
+        </Modal>
+    );
+};
+`}/>
+
+Once you've got the overlay component, you can use the <CodeSnippet>useOverlay</CodeSnippet> hook to control it from any other component:
+
+<CodeBlock code={`export const MyModal: FC = () => {
+    const { show: showMyModal, hide: hideMyModal } = useOverlay(MyModal);
+
+    return (
+        <>
+            <button onClick={() => showMyModal({ someProp: 'test' })}>
+                Click here to open
+            </button>
+
+            <button onClick={() => hideMyModal()}>
+                Click here to close
+            </button>
+        </>
+    );
+};
+`}/>
+
+<Alert type={'info'} title={'Note'}>The <CodeSnippet>show</CodeSnippet> method is type-safe based on the overlay component's props, so you don't have to worry about passing the wrong props</Alert>
+
+
+<Heading>Conclusion</Heading>
+After navigating through multiple iterations and countless lines of code, we've finally landed on a robust overlay system that’s both flexible and efficient.\
+By implementing our own mechanism, we've gained control over our overlays, unbound them from restrictive component hierarchies, and—most importantly—added yet another layer of complexity to keep us on our toes.
