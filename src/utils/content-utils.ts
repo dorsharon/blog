@@ -2,7 +2,9 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 
 const isDevelopmentMode = import.meta.env.DEV;
 
-export const getSortedPosts = async (options?: { isDraft: boolean }): Promise<CollectionEntry<'posts'>[]> => {
+export const getSortedPosts = async (options?: { isDraft: boolean }): Promise<
+	CollectionEntry<'posts'>[]
+> => {
 	const { isDraft = false } = options ?? {};
 	const allBlogPosts = await getCollection('posts');
 
