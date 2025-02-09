@@ -7,7 +7,7 @@ export const getSortedPosts = async (options?: { isDraft: boolean }): Promise<Co
 	const allBlogPosts = await getCollection('posts');
 
 	return allBlogPosts
-		.filter(({ data }) => (data.isDraft ?? false) === isDraft)
+		.filter(({ data }) => isDevelopmentMode || (data.isDraft ?? false) === isDraft)
 		.sort((a, b) => {
 			const dateA = new Date(a.data.publishDate);
 			const dateB = new Date(b.data.publishDate);
