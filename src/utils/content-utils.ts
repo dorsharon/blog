@@ -2,11 +2,12 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 
 const isDevelopmentMode = import.meta.env.DEV;
 
-export const getSortedPosts = async (): Promise<CollectionEntry<'posts'>[]> => {
+export const getSortedPosts = async (options: { isDraft: boolean }): Promise<CollectionEntry<'posts'>[]> => {
+	const { isDraft = false } = options ?? {};
 	const allBlogPosts = await getCollection('posts');
 
 	return allBlogPosts
-		.filter(({ data }) => isDevelopmentMode || !data.isDraft)
+		.filter(({ data }) => (data.isDraft ?? false) === isDraft)
 		.sort((a, b) => {
 			const dateA = new Date(a.data.publishDate);
 			const dateB = new Date(b.data.publishDate);
