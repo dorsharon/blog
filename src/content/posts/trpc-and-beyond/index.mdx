@@ -1,0 +1,290 @@
+---
+title: 'tRPC and Beyond: Break Things Without Crying'
+subtitle: Type Safety Isn't Just a Buzzword, It's a Lifestyle
+publishDate: 2025-06-02
+image: './cover.jpg'
+tags: ['Development', 'Technical', 'API', 'tRPC', 'TypeScript']
+---
+import CodeSnippet from "../../../components/markdown/CodeSnippet/CodeSnippet.astro";
+import CodeBlock from "../../../components/markdown/CodeBlock/CodeBlock.astro";
+import Heading from "../../../components/markdown/Heading/Heading.astro";
+import ProsCons from "../../../components/markdown/ProsCons/ProsCons.astro";
+import Alert from "../../../components/markdown/Alert/Alert.astro";
+import Emphasis from "../../../components/markdown/Emphasis/Emphasis.astro";
+
+Even though it feels like a shiny new frontend framework crashes onto the scene every other week (each one being boldly paraded as the new king of the web), backend development moves at a pace that actually lets you blink without missing an entire revolution.
+
+Framework wars aside, when it comes to modern APIs, most fall into one of four camps.\
+First, there's <CodeSnippet>REST</CodeSnippet>, the grizzled, battle-hardened veteran of the web, so old and wise it's basically Yoda with an HTTP spec.\
+Then there's <CodeSnippet>GraphQL</CodeSnippet>, Meta's golden child, rolling in like a rockstar promising to fix all of <CodeSnippet>REST</CodeSnippet>'s so-called problems, only to leave developers wondering if they just swapped one set of headaches for another.
+
+And then we have Google's <CodeSnippet>gRPC</CodeSnippet> and its scrappy step-cousin, <CodeSnippet>tRPC</CodeSnippet>, both determined to make HTTP requests feel like good old-fashioned function calls, so that you can pretend the internet is one giant local codebase. 
+
+Each of these paradigms have a time and a place, but one thing I've been noticing is how little attention <CodeSnippet>tRPC</CodeSnippet> has been getting compared to the others, especially when it's a perfect fit for many modern projects.
+
+Like with any modern tool, <CodeSnippet>tRPC</CodeSnippet> brings a whole batch of promises with it.\
+It eliminates a lot of API boilerplate while keeping everything type-safe.\
+That means no more endless Swagger docs, no more manually writing TypeScript interfaces for your backend requests and responses, and best of all, no more <CodeSnippet>axios.get('/some-endpoint') as unknown as SomeType</CodeSnippet>.
+
+So, in this piece, let's take a deep dive into <CodeSnippet>tRPC</CodeSnippet>, and hopefully by the end of it, you'll have a cool new migration effort to pitch to your manager (I can see him sweating already).
+
+<Heading>What is <CodeSnippet>tRPC</CodeSnippet>?</Heading>
+At its core, <CodeSnippet>tRPC</CodeSnippet> (TypeScript Remote Procedure Call) is a framework for building fully type-safe APIs without writing a single line of OpenAPI/GraphQL schema.\
+Instead of manually defining request and response types, <CodeSnippet>tRPC</CodeSnippet> leverages TypeScript inference to keep your frontend and backend in sync automatically.
+
+How does it work?\
+Let's say we have a <CodeSnippet>User Service</CodeSnippet> that exposes a <CodeSnippet>getUser</CodeSnippet> endpoint, and now we need an <CodeSnippet>Order Service</CodeSnippet> that fetches user order history, but it needs to first retrieve user details from the <CodeSnippet>User Service</CodeSnippet>.
+
+Here's what the <CodeSnippet>User Service</CodeSnippet> would look like:
+
+<CodeBlock code={`import { initTRPC } from "@trpc/server";
+import { z } from "zod";
+
+const t = initTRPC.create();
+
+const userRouter = t.router({
+    getUser: t.procedure
+      .input(z.object({ id: z.string() }))
+      .query(({ input }) => {
+        return { id: input.id, name: "John Doe" }; // Fake user data
+      }),
+});
+
+export type UserRouter = typeof userRouter;
+export { userRouter };
+`}/>
+
+And the <CodeSnippet>Order Service</CodeSnippet> can easily call the <CodeSnippet>User Service</CodeSnippet>:
+
+<CodeBlock code={`import { initTRPC } from "@trpc/server";
+import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
+import { z } from "zod";
+import type { UserRouter } from "../user-service";
+
+const t = initTRPC.create();
+
+// Create a tRPC client to call the User Service
+const userService = createTRPCProxyClient<UserRouter>({
+  links: [httpBatchLink({ url: "http://localhost:4000/trpc" })],
+});
+
+const orderRouter = t.router({
+    getUserOrders: t.procedure
+      .input(z.object({ userId: z.string() }))
+      .query(async ({ input }) => {
+        // Call the User Service first
+        const user = await userService.getUser.query({ id: input.userId });
+        
+        return {
+          user,
+          orders: [
+            { id: "order1", item: "Laptop", price: 1200 },
+            { id: "order2", item: "Headphones", price: 200 },
+          ], // Fake orders
+        };
+      }),
+});
+`}/>
+
+And your frontend can use your services like so:
+<CodeBlock code={`// src/utils/trpc.ts
+import { createTRPCReact } from "@trpc/react-query";
+import { httpBatchLink } from "@trpc/client";
+import type { OrderRouter } from "../../order-service";
+
+export const trpc = createTRPCReact<OrderRouter>();
+
+export const trpcClient = trpc.createClient({
+    links: [httpBatchLink({ url: "http://localhost:5000/trpc" })],
+});
+`}/>
+
+<CodeBlock code={`// src/index.tsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { trpc, trpcClient } from "./utils/trpc";
+
+const queryClient = new QueryClient();
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+    <trpc.Provider client={trpcClient} queryClient={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </trpc.Provider>
+);
+`}/>
+
+<CodeBlock code={`// src/App.tsx
+import { trpc } from "./utils/trpc";
+
+export default function App() {
+    const { data, isLoading, error } = trpc.getUserOrders.useQuery({ userId: "1234" });
+
+    return (
+      // ...
+    )
+}
+`}/>
+
+<Alert type='tip' title='Note'>
+This example uses <CodeSnippet>TanStack Query</CodeSnippet>, but you can use it in a variety of other methods in the frontend. 
+</Alert>
+
+That's it. No endpoint juggling. No schema stitching. No tears.
+
+As you can see, the magic comes out of the exported type of the router in each service.\
+All you need to do is setup a <CodeSnippet>tRPC</CodeSnippet> client with a base url and that router interface and you're good to go!\
+No need to manually duplicate and re-write all the endpoints, the requests and responses! 
+
+With <CodeSnippet>tRPC</CodeSnippet>, your backend procedures and frontend calls live in perfect harmony (like a dev team that actually agrees on tabs vs spaces).\
+You write your router once, export its type, and boom: the client knows exactly how to talk to the server.
+
+No "oh, the docs are out of date again."\
+No "wait, what does this endpoint return these days?"\
+Just TypeScript doing what it does best: being type-safe. 
+
+But besides the easiness of use, there are a bunch of hidden benefits that might alude you, that are worth noticing:
+
+<Heading>Break stuff without breaking a sweat</Heading>
+Making breaking changes in an API's request/response can be a pretty dangerous thing in some systems.\
+Whether if you have several microservices that consume each other's	API, or have a client or two being fed data through some backend service, any kind of breaking change can cause all sorts of headaches, ranging from "this feature doesn't work anymore" to "half the app silently fails in production and no one notices until someone tweets about it." 
+
+However, <CodeSnippet>tRPC</CodeSnippet> makes this issue significantly more manageable.\
+If you want to break <CodeSnippet>getUsersRequest</CodeSnippet> or <CodeSnippet>getUsersResponse</CodeSnippet>, you'll be generating a new <CodeSnippet>UserRouter</CodeSnippet>, and so every consumer of that interface will shout build errors at you until you accommodate the new changes.
+
+In other words, <CodeSnippet>tRPC</CodeSnippet> removes the fear of change.\
+Instead of praying everything still works, TypeScript becomes your relentless QA tester.
+
+<Heading>Who's using this API?</Heading>
+Another overlooked feature: introspectability.
+
+Since every consumer of your API is statically typed and uses a shared interface, you can trace exactly who's using what endpoint just by letting your IDE do the legwork.
+
+Need to refactor <CodeSnippet>getUserOrders</CodeSnippet>? Just "Find References" and boom—every place in your codebase (frontend, backend, other services, grandma's Raspberry Pi) that depends on that route is now highlighted in bright, anxiety-inducing yellow.
+
+Compare that to <CodeSnippet>REST</CodeSnippet>, where a random string like <CodeSnippet>/api/v3/user-orders</CodeSnippet> could be buried in 10 different codebases, Slack messages, and Postman collections last updated in 2018.
+
+<Heading>Caveats</Heading>
+Alright, time for a reality check.\
+<CodeSnippet>tRPC</CodeSnippet> is amazing, but it's not magical fairy dust, and there are some downsides. 
+
+<Emphasis>It's TypeScript or bust.</Emphasis>\
+If your team is still rocking JavaScript (God have mercy on your soul) or mixing in other languages, <CodeSnippet>tRPC</CodeSnippet> will just stare at you with disappointment.\
+It's unapologetically TypeScript-native and doesn't offer much if you're not in TypeScript land.
+
+<Emphasis>It assumes you have a monorepo or shared types.</Emphasis>\
+If your frontend and backend live in different galaxies (or GitHub orgs), sharing types becomes an awkward dance involving npm packages, private npm registries, and a lot of crying.
+
+<Emphasis>No protocol flexibility.</Emphasis>\
+<CodeSnippet>tRPC</CodeSnippet> is HTTP-first and doesn't support things like <CodeSnippet>gRPC</CodeSnippet> or <CodeSnippet>GraphQL</CodeSnippet>, so if you want to impress anyone by opting out of the good old HTTP protocol, you're out of luck. 
+
+<Emphasis>It's not great for public APIs.</Emphasis>\
+Want to expose an external API to third-party developers?
+<CodeSnippet>tRPC</CodeSnippet>'s lack of schema generation and standard documentation (like OpenAPI) makes it less than ideal.
+Unless your external partners are cool with <CodeSnippet>npm install your-entire-monorepo</CodeSnippet>, maybe stick with <CodeSnippet>REST</CodeSnippet> or <CodeSnippet>GraphQL</CodeSnippet> here.
+
+<Heading>Wait, what about <CodeSnippet>ts-rest</CodeSnippet>?</Heading>
+<CodeSnippet>ts-rest</CodeSnippet> is the rising TypeScript darling that also promises to end the age-old ritual of duplicating request and response types between backend and frontend.\
+Like <CodeSnippet>tRPC</CodeSnippet>, it wants to give you type safety and a solid DX, but despite both of them chasing the same goal, they're taking very different roads to get there.
+
+While <CodeSnippet>tRPC</CodeSnippet> thrives in monorepos where everyone shares types, ts-rest is more about explicit API contracts.
+You write a single source-of-truth API definition (basically a fancy TypeScript object that can feel like an OpenAPI spec), and both server and client import that to stay in sync.
+
+This makes ts-rest a better fit for teams with separate repos or an existing REST API that cannot be migrated to <CodeSnippet>tRPC</CodeSnippet>.
+It works great even if your frontend team has never made eye contact with the backend team, and wants to keep it that way.
+
+Unlike <CodeSnippet>tRPC</CodeSnippet>, which politely asks you to forget that HTTP exists and just “call procedures,” <CodeSnippet>ts-rest</CodeSnippet> is proudly, unapologetically RESTful. You define routes, methods (GET, POST, etc.), and return status codes like it's 2015—but with type inference and zero boilerplate. 
+
+<CodeBlock code={`// contract.ts
+import { initContract } from '@ts-rest/core';
+
+const c = initContract();
+
+export const userContract = c.router({
+    getUser: {
+      method: 'GET',
+      path: '/user/:id',
+      responses: {
+        200: c.type<{ id: string; name: string }>(),
+      },
+    },
+});`}/>
+
+<CodeBlock code={`// server.ts
+import express from 'express';
+import { createExpressEndpoints } from '@ts-rest/express';
+import { userContract } from './contract';
+
+const app = express();
+
+const router = {
+    getUser: async ({ params }) => ({
+      status: 200,
+      body: { id: params.id, name: 'John Doe' },
+    }),
+};
+
+createExpressEndpoints(userContract, router, app);
+
+app.listen(3000, () => console.log('Server running on port 3000'));
+`}/>
+
+<Heading>Honorable Mentions</Heading>
+Besides <CodeSnippet>ts-rest</CodeSnippet>, there are a lot of other tools out there that might be a better fit for your needs.
+
+<CodeSnippet>OpenAPI</CodeSnippet>'s codegen is a decent option if you already have an OpenAPI spec and want to use it to generate types for your frontend and backend.\
+While this could be an easy win, as pretty much every TypeScript backend project out there is most likely based on an OpenAPI spec.
+
+<CodeBlock language="bash" code={`npx openapi-typescript https://api.example.com/openapi.json --output types.ts`}/> 
+
+<CodeBlock code={`import { paths } from './types';
+type GetUserResponse = paths['/users/{id}']['get']['responses']['200']['content']['application/json'];
+`}/>
+
+Yeah, that's not the sexiest way of accessing those types, but that's the price of an easy win.
+
+In addition to that, <CodeSnippet>zodios</CodeSnippet> is great for all those fans of <CodeSnippet>zod</CodeSnippet>.\
+It's similar to <CodeSnippet>ts-rest</CodeSnippet>'s approach, creating API contracts from <CodeSnippet>zod</CodeSnippet> schemas.
+
+<CodeBlock code={`import { makeApi } from '@zodios/core';
+import { z } from 'zod';
+
+const api = makeApi([
+    {
+      method: 'get',
+      path: '/users/:id',
+      alias: 'getUser',
+      parameters: [ /*...*/ ],
+      response: z.object({ id: z.string(), name: z.string() }),
+    },
+]);
+
+const client = new Zodios('https://myapi.com', api);
+
+const user = await client.getUser({ params: { id: '123' } });
+`}/>
+
+<Heading>Conclusion</Heading>
+So, should you drop everything and rebuild your API with <CodeSnippet>tRPC</CodeSnippet>?\
+Well, maybe.
+
+If you're living in a TypeScript monorepo and tired of chasing your own tail with duplicate types, mismatched schemas, and half-baked docs, <CodeSnippet>tRPC</CodeSnippet> is like a cheat code.\
+It gives you type safety, tight integration, and a developer experience so smooth you'll be turning other developers' heads from the building across the street.
+
+But remember: it's not perfect.\
+If you're working with other languages, exposing public APIs, or need protocol flexibility, <CodeSnippet>tRPC</CodeSnippet> might not be the right tool for the job.
+
+There's are a lot of other tools out there, like <CodeSnippet>ts-rest</CodeSnippet> and others, that might be a better fit for your needs.
+
+But I think the principle behind all of these tools is the important part.\
+Modern APIs should be easy to use, easy to understand, and easy to change.\
+Regardless of the tool you choose, the fear of change is a velocity killer, and it eventually leads to bad practices and tech debts.
+
+Due to the flexible and historical nature of how REST APIs have been built over the years, we tend to forget that there are better ways to build them.\
+Type-safety is not just a convenience, it's a necessity.\
+It gives us a better, faster way to develop things, even at the cost of breaking changes.
+
+After all, if you're going to cry over breaking changes, you might as well do it with compiler errors and a glass of whiskey.

@@ -1,5 +1,4 @@
-import { codeBlock } from '@components/markdown/CodeBlock/CodeBlock.css.ts';
-import { globalStyle, style } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 import { theme } from '../../../styles/themes.css';
 import { cardBorderRadius } from '../../../styles/variables.css';
 

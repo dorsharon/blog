@@ -1,11 +1,13 @@
 ---
 import { Code } from 'astro:components';
+import type { BuiltinLanguage } from 'shiki';
 import { codeBlock } from './CodeBlock.css';
 
 interface Props {
 	code: string;
+	language?: 'ts' | 'bash'
 }
 
-const { code } = Astro.props;
+const { code, language = 'ts' } = Astro.props;
 ---
-<Code class={codeBlock} code={code} lang="ts" theme="one-dark-pro" />
+<Code class={codeBlock} code={code} lang={language} theme="one-dark-pro" />
