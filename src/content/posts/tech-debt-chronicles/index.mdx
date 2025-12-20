@@ -1,0 +1,81 @@
+---
+title: 'The Tech Debt Chronicles'
+subtitle: Type Safety Isn't Just a Buzzword, It's a Lifestyle
+publishDate: 2025-12-20
+image: './cover.jpg'
+tags: ['Development', 'Non-Technical', 'Tech Debt']
+isDraft: true
+---
+import CodeSnippet from "../../../components/markdown/CodeSnippet/CodeSnippet.astro";
+import CodeBlock from "../../../components/markdown/CodeBlock/CodeBlock.astro";
+import Heading from "../../../components/markdown/Heading/Heading.astro";
+import ProsCons from "../../../components/markdown/ProsCons/ProsCons.astro";
+import Alert from "../../../components/markdown/Alert/Alert.astro";
+import Emphasis from "../../../components/markdown/Emphasis/Emphasis.astro";
+
+Let's talk about tech debt.
+
+That magical phrase that makes your engineers become prophets that warn about an impending doom that nobody believes until it's too late, all while your Team Lead develops a sudden fascination with the ceiling tiles and your CEO gets a mysterious urgent call from "a very important investor."
+
+Here's what actually matters: Tech debt is real, it has consequences, and it's also wildly over-dramatized about 60% of the time. In the other 40% it's probably under-dramatized until a customer gets a bug or production crashes.
+
+So welcome to the wonderful world of technical debt, where everyone is wrong, everyone is right, and the only consensus is that this conversation should have happened three sprints ago.
+
+<Heading>What Even IS Tech Debt? (Besides a Convenient Excuse)</Heading>
+Tech debt is basically what happens when you make a decision today that makes your tomorrow-self want to travel back in time and slap you.\
+It's the software equivalent of eating a entire pizza at midnight because "future-me can deal with this."
+
+More formally, it's the implied cost of rework caused by choosing an easy, limited, or quick solution now instead of a better approach that would take longer.\
+The thing is that not all tech debt is created equal, and this is where things get tricky.
+
+You've got a bunch of debt types:
+
+<Emphasis>Quick-and-Dirty Debt:</Emphasis> You knowingly took a shortcut because the trade-off made sense. You needed to get this out to production ASAP. You wrote <CodeSnippet>// TODO: refactor this abomination</CodeSnippet> and moved on. Nice job.
+
+<Emphasis>Ignorance Debt:</Emphasis> You didn't know better at the time. Junior dev, new tech stack, it was 2015 and you thought Angular 1 would last forever. We've all been there. No judgment. (except a little judgment.)
+
+<Emphasis>Code Rot:</Emphasis> The code was fine when you wrote it. Then the world changed. New versions, new patterns, new security vulnerabilities. Your perfectly reasonable 2019 React components now look like hieroglyphics to the new junior devs.
+
+<Emphasis>Actual Garbage:</Emphasis> Someone just... didn't care. Copy-pasted from ChatGPT without reading. Nested ternaries seven levels deep. Variable names like <CodeSnippet>obj</CodeSnippet>. This is the tech debt equivalent of leaving dirty dishes in the sink for three weeks.
+
+<Heading>The Great Tech Debt Misconception: Everything is NOT on Fire</Heading>
+Here's where I'm going to lose half of the engineers reading this: <Emphasis>Most of your tech debt is not an emergency.</Emphasis>
+
+I know, I know. That React component with 47 <CodeSnippet>useEffect</CodeSnippet> hooks and 3,000 lines of code is a "critical issue that's blocking the team's velocity," and that core service with only 50% test coverage is "a ticking time bomb."\
+But is it though?\
+The startup reality check: If it's working and customers are paying, it's probably fine for now.
+
+Yes, your code makes you cry when you look at it.\
+Yes, onboarding new developers takes three extra days because they keep asking "but WHY did you do it this way?", only to be answered with a long sigh.\
+Yes, there's this one file that's so messy and complex, every dev is scared to death to touch it.
+
+But you know what's worse than tech debt?\
+Running out of runway because you spent six months "doing it right" instead of closing deals
+
+In reality, your beautifully architected, perfectly tested and documented codebase means absolutely nothing if you're shutting down because you missed product-market fit while refactoring.
+
+<Heading>When Tech Debt Actually Matters</Heading>
+Okay, so when SHOULD you panic about tech debt?\
+Let's look at the levels of severity:
+
+<Emphasis>Level 1 - Annoying but Harmless:</Emphasis> Inconsistent code style, missing comments, that one file everyone reformats differently. Does it spark joy? No. Is it killing your business? Also no. Fix it when you're bored, or don't.
+
+<Emphasis>Level 2 - Slowing You Down:</Emphasis> Deployment takes 45 minutes. The build fails randomly. Local development requires a PhD in Docker networking. You're losing hours per week. This is costing you actual money in developer productivity. Worth addressing in dedicated time or between features.
+
+<Emphasis>Level 3 - Actively Hurting:</Emphasis> New features take 3x longer than they should because the architecture is fighting you. Bugs keep reappearing. That "quick change" turned into a three-day adventure. You're now paying the interest on your debt, and it's starting to hurt. Time to schedule some serious refactoring.
+
+<Emphasis>Level 4 - Business Risk:</Emphasis> Security vulnerabilities. Can't scale to meet demand. Outages becoming frequent. Customer churn attributable to technical issues. Inability to ship critical features. This is actually critical. Drop everything and prioritize this seriously.
+
+<Heading>The Startup Paradox: You Can't Afford It, But You Can't NOT Afford It</Heading>
+Let's address the elephant in the room: startups don't have time for tech debt.\
+Except they do.\
+Except they don't.\
+Except they absolutely must.
+
+Confused? Welcome to startup life. Wait until you try to explain this to your board.
+
+There's this common trap where you say "We'll clean it up after we raise our Series A / hit 10K users / launch the next feature / achieve world peace."\
+If you've ever said this kind of sentence, don't feel bad, just know that you're a very delusional person.
+
+The only practical way to consistently reduce your debts, is to weave it debt management into your regular workflow.\
+Because that "tech debt sprint" that will happen when you have "time" will never happen.\
