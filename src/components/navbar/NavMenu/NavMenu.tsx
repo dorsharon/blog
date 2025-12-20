@@ -6,7 +6,10 @@ import { card, link, menuButton } from './NavMenu.css.ts';
 export default function NavMenu({
 	links,
 	menuIcon,
-}: { links: NavBarLink[]; menuIcon?: JSX.Element }) {
+}: {
+	links: NavBarLink[];
+	menuIcon?: JSX.Element;
+}) {
 	const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
 
 	const togglePopover = () => {

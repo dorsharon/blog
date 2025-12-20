@@ -1,4 +1,5 @@
 ---
+
 interface Props {
 	title?: string;
 }
@@ -9,14 +10,14 @@ const { title } = Astro.props;
 <head>
 	<!-- Google Tag Manager -->
 	<script is:inline>
-		(function (w, d, s, l, i) {
+		((w, d, s, l, i) => {
 			w[l] = w[l] || [];
-			w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-			var f = d.getElementsByTagName(s)[0],
+			w[l].push({ "gtm.start": Date.now(), event: "gtm.js" });
+			const f = d.getElementsByTagName(s)[0],
 				j = d.createElement(s),
-				dl = l !== "dataLayer" ? "&l=" + l : "";
+				dl = l !== "dataLayer" ? `&l=${l}` : "";
 			j.async = true;
-			j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+			j.src = `https://www.googletagmanager.com/gtm.js?id=${i}${dl}`;
 			f.parentNode.insertBefore(j, f);
 		})(window, document, "script", "dataLayer", "GTM-M93KV29W");
 	</script>

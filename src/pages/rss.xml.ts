@@ -1,4 +1,3 @@
-import { getCollection } from 'astro:content';
 import rss from '@astrojs/rss';
 import { getSortedPosts } from '@utils/content-utils.ts';
 import type { APIContext } from 'astro';

@@ -1,9 +1,9 @@
 import { tooltip } from '@components/common/Tooltip/Tooltip.css.ts';
 import {
-	FloatingArrow,
-	FloatingPortal,
 	arrow,
 	autoUpdate,
+	FloatingArrow,
+	FloatingPortal,
 	flip,
 	offset,
 	shift,

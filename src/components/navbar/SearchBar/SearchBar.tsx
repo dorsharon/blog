@@ -7,8 +7,8 @@ import {
 	resultItem,
 	resultItemDivider,
 	resultItemSubtitle,
-	resultItemTitle,
 	resultItemsList,
+	resultItemTitle,
 	searchBar,
 	searchBarInside,
 	searchButton,
@@ -98,18 +98,16 @@ export default function SearchBar({
 				</div>
 			}
 		>
-			<>
-				<div className={searchBar}>{renderSearchBar()}</div>
+			<div className={searchBar}>{renderSearchBar()}</div>
 
-				<button
-					onClick={togglePopover}
-					aria-label='Search Panel'
-					className={searchButton}
-					type={'button'}
-				>
-					{searchButtonIcon}
-				</button>
-			</>
+			<button
+				onClick={togglePopover}
+				aria-label='Search Panel'
+				className={searchButton}
+				type={'button'}
+			>
+				{searchButtonIcon}
+			</button>
 		</Popover>
 	);
 }

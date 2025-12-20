@@ -1,18 +1,16 @@
 ---
-import { getCollection } from 'astro:content';
+
 import { Icon } from 'astro-icon/components';
 import { DARK_THEME, LIGHT_THEME, THEME_STORAGE_KEY } from '../../constants/constants';
 import { darkThemeClass, lightThemeClass } from '../../styles/themes.css';
 import type { NavBarLink } from '../../types/config';
 import { getSortedPosts } from '../../utils/content-utils';
 import { getUrl } from '../../utils/url-utils';
-import NavMenu from './NavMenu/NavMenu';
 import {
 	arrowIcon,
 	button,
 	card,
 	endElementsWrapper,
-	homeIcon,
 	homeLink,
 	linksWrapper,
 	logoFirstName,
@@ -23,6 +21,7 @@ import {
 	searchIcon,
 	themeIcon,
 } from './Navbar.css';
+import NavMenu from './NavMenu/NavMenu';
 import SearchBar from './SearchBar/SearchBar';
 import ThemeSwitch from './ThemeSwitch/ThemeSwitch';
 

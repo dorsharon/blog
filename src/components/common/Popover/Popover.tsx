@@ -5,7 +5,6 @@ import {
 	shift,
 	useDismiss,
 	useFloating,
-	useId,
 	useInteractions,
 	useRole,
 } from '@floating-ui/react';
@@ -38,8 +37,6 @@ export default function Popover({
 
 	const { getReferenceProps, getFloatingProps } = useInteractions([dismiss, role]);
 
-	const headingId = useId();
-
 	return (
 		<>
 			<div ref={setReference} {...getReferenceProps()}>
@@ -47,12 +44,7 @@ export default function Popover({
 			</div>
 
 			{isOpen && (
-				<div
-					ref={setFloating}
-					style={floatingStyles}
-					aria-labelledby={headingId}
-					{...getFloatingProps()}
-				>
+				<div ref={setFloating} style={floatingStyles} {...getFloatingProps()}>
 					{content}
 				</div>
 			)}

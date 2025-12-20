@@ -1,17 +1,14 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.8.0/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.3.10/schema.json",
 	"files": {
-		"include": [
-			"src/**/*.ts",
-			"src/**/*.tsx",
-			"src/**/*.js",
-			"src/**/*.mjs",
-			"src/**/*.astro",
-			"src/**/*.mdx"
-		]
+		"includes": ["src/**/*"]
 	},
-	"organizeImports": {
-		"enabled": true
+	"assist": { "actions": { "source": { "organizeImports": "on" } } },
+	"html": {
+		"experimentalFullSupportEnabled": true,
+		"formatter": {
+			"indentScriptAndStyle": true
+		}
 	},
 	"formatter": {
 		"enabled": true,
@@ -33,5 +30,26 @@
 			"quoteStyle": "single",
 			"bracketSpacing": true
 		}
-	}
+	},
+	"overrides": [
+		{
+			"includes": ["**/*.astro"],
+			"linter": {
+				"rules": {
+					"style": {
+						"useConst": "off",
+						"useImportType": "off"
+					},
+					"correctness": {
+						"noUnusedVariables": "off",
+						"noUnusedImports": "off"
+					},
+					"suspicious": {
+						"noUnknownAtRules": "warn",
+						"noImplicitAnyLet": "warn"
+					}
+				}
+			}
+		}
+	]
 }

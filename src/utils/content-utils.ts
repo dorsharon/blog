@@ -2,9 +2,9 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 
 const isDevelopmentMode = import.meta.env.DEV;
 
-export const getSortedPosts = async (options?: { isDraft: boolean }): Promise<
-	CollectionEntry<'posts'>[]
-> => {
+export const getSortedPosts = async (options?: {
+	isDraft: boolean;
+}): Promise<CollectionEntry<'posts'>[]> => {
 	const { isDraft = false } = options ?? {};
 	const allBlogPosts = await getCollection('posts');
 
@@ -26,8 +26,8 @@ export const getTagsList = async (): Promise<Tag[]> => {
 	const allBlogPosts = await getCollection('posts');
 
 	const countMap: { [key: string]: number } = {};
-	allBlogPosts.map((post) => {
-		post.data?.tags?.map((tag: string) => {
+	allBlogPosts.forEach((post) => {
+		post.data?.tags?.forEach((tag: string) => {
 			if (!countMap[tag]) countMap[tag] = 0;
 			countMap[tag]++;
 		});
@@ -59,8 +59,8 @@ export const groupPostsByYear = (
 
 	// convert the object to an array
 	const groupedPostsArray = Object.keys(groupedPosts).map((key) => ({
-		year: Number.parseInt(key),
-		posts: groupedPosts[Number.parseInt(key)],
+		year: Number.parseInt(key, 10),
+		posts: groupedPosts[Number.parseInt(key, 10)],
 	}));
 
 	// sort years by latest first
