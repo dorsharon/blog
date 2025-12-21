@@ -34,7 +34,7 @@ jobs:
       - name: Install, build, and upload your site
         uses: withastro/action@v5
         env:
-          NPM_CONFIG_REGISTRY: 'https://registry.npmjs.org'
+          NODE_AUTH_TOKEN: ""
 
   deploy:
     needs: build
