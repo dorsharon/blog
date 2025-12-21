@@ -34,7 +34,7 @@ jobs:
       - name: Install, build, and upload your site
         uses: withastro/action@v5
         env:
-          NODE_AUTH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
     needs: build
