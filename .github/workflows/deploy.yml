@@ -31,8 +31,12 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v6
+      - name: Configure npm
+        run: |
+          npm config delete //registry.npmjs.org/:_authToken
+          npm config set registry https://registry.npmjs.org/
       - name: Install, build, and upload your site
-        uses: withastro/action@v3
+        uses: withastro/action@v5
 
   deploy:
     needs: build
