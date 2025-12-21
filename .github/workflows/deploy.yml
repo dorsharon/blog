@@ -33,8 +33,6 @@ jobs:
         uses: actions/checkout@v6
       - name: Install, build, and upload your site
         uses: withastro/action@v5
-        with:
-          node-version: 22
 
   deploy:
     needs: build
