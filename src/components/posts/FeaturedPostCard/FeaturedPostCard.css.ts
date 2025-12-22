@@ -90,7 +90,6 @@ export const badgeIcon = style({
 export const contentWrapper = style({
 	padding: '2rem',
 	position: 'relative',
-	width: '100%',
 	display: 'flex',
 	flexDirection: 'column',
 	justifyContent: 'center',
@@ -138,8 +137,12 @@ export const titleLink = style({
 	},
 
 	'@media': {
-		'screen and (min-width: 768px)': {
+		'screen and (max-width: 768px)': {
 			fontSize: '2.5rem',
+
+			'::before': {
+				left: '-16px',
+			},
 		},
 	},
 
