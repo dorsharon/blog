@@ -8,9 +8,10 @@ import { getSortedPosts } from '../../utils/content-utils';
 import { formatDate } from '../../utils/date-utils';
 
 export const getStaticPaths = (async () => {
-	const posts = await getSortedPosts();
+	// Get ALL posts including drafts to make them accessible by direct URL
+	const allPosts = await getCollection('posts');
 
-	return posts.map((post) => ({
+	return allPosts.map((post) => ({
 		params: { slug: post.slug },
 		props: { post },
 	}));
