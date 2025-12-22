@@ -2,24 +2,24 @@
 
 import type { CollectionEntry } from 'astro:content';
 import PostCard from '../PostCard/PostCard.astro';
+import FeaturedPostCard from '../FeaturedPostCard/FeaturedPostCard.astro';
 import { wrapper } from './PostsList.css';
 
 interface Props {
 	posts: CollectionEntry<'posts'>[];
+	showFeatured?: boolean;
 }
 
-const { posts } = Astro.props;
+const { posts, showFeatured = false } = Astro.props;
 ---
 
 <div class={wrapper}>
 	{
-		posts.map(
-			(post, index) => (
-				<PostCard
-					post={post}
-					index={index}
-				/>
-			)
-		)
+		posts.map((post, index) => {
+			if (showFeatured && index === 0) {
+				return <FeaturedPostCard post={post} />;
+			}
+			return <PostCard post={post} index={index} />;
+		})
 	}
 </div>

@@ -1,0 +1,74 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import { getPostUrlBySlug } from '../../../utils/url-utils';
+import PostMetadata from '../PostMetadata/PostMetadata.astro';
+import {
+	badge,
+	badgeIcon,
+	contentWrapper,
+	coverImage,
+	coverImageIcon,
+	coverImageIconWrapper,
+	coverImageOverlay,
+	coverImageWrapper,
+	readingTime,
+	subtitleWrapper,
+	titleLink,
+	wrapper,
+} from './FeaturedPostCard.css';
+
+interface Props {
+	post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+
+const { title, subtitle, publishDate, image, tags } = post.data;
+
+const url = getPostUrlBySlug(post.slug);
+
+const { remarkPluginFrontmatter } = await post.render();
+---
+
+<div
+	class={wrapper}
+	style={{ animationDelay: 'var(--content-delay)' }}
+>
+	<div class={badge}>
+		<Icon name="material-symbols:star-rounded" class={badgeIcon} />
+		Latest Post
+	</div>
+
+	<a href={url} aria-label={title} class={coverImageWrapper}>
+		<div class={coverImageOverlay}>
+			<div class={coverImageIconWrapper}>
+				<Icon
+					name="material-symbols:arrow-forward-rounded"
+					class={coverImageIcon}
+				/>
+			</div>
+		</div>
+
+		<Image src={image} alt="Cover Image of the Post" class={coverImage} />
+	</a>
+
+	<div class={contentWrapper}>
+		<a href={url} class={titleLink}>
+			{title}
+		</a>
+
+		<PostMetadata publishDate={publishDate} tags={tags} />
+
+		<div class={subtitleWrapper}>
+			{subtitle}
+		</div>
+
+		<div class={readingTime}>
+			<div>
+				{remarkPluginFrontmatter.minutes} minutes read
+			</div>
+		</div>
+	</div>
+</div>

@@ -21,7 +21,7 @@ const { page } = Astro.props;
 ---
 
 <BaseLayout>
-	<PostsList posts={page.data} />
+	<PostsList posts={page.data} showFeatured={page.currentPage === 1} />
 
 	<Pagination page={page} />
 </BaseLayout>
